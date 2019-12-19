@@ -3,3 +3,5 @@ $(document).ready(function() {
 
 	$('p#test').text("client is up!")
 });
+
+// TODO: first understand localstorage stuff. play with it.
