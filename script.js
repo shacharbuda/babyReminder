@@ -1,7 +1,18 @@
 $(document).ready(function() {
 	console.log( "ready!" );
 
-	$('p#test').text("client is up!")
-});
+	const babies = localStorage.getObj('babies').map((b) => ({...b, birthdate: new Date(b.birthdate)}));
 
-// TODO: first understand localstorage stuff. play with it.
+	const tblRows = [];
+
+	babies.forEach((baby, i) => {
+		const tblRow = $(`<tr id="row_${i}">
+			<td class="name_td">${baby.name}</td>
+			<td class="birth_td">${baby.birthdate.toDateString()}</td>
+			<td class="reminder_td">###TODO###</td>
+		</tr>`);
+		tblRows.push(tblRow);
+	});
+
+	$('table tbody').append(tblRows)
+});
