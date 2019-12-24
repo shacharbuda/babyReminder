@@ -19,8 +19,6 @@ Storage.prototype.getObj = function(key) {
 		}
 	];
 
-	idIndex = 0;
-
 	const babies = [
 		{
 			name: 'מוטי',
@@ -44,6 +42,7 @@ Storage.prototype.getObj = function(key) {
 			seenRemindersId: []
 	}));
 
+	if (localStorage.getObj('reminders')) console.log('localStorage is already there. won\'t set new');
 	localStorage.setObj('reminders', reminders);
 	localStorage.setObj('babies', babies);
 	localStorage.setObj('babyReminders', babyReminders)
