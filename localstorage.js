@@ -6,7 +6,7 @@ Storage.prototype.getObj = function(key) {
 	return JSON.parse(this.getItem(key))
 }
 
-// (function() {
+	{
 	// MOCK data
 	const reminders = [
 		{
@@ -19,26 +19,32 @@ Storage.prototype.getObj = function(key) {
 		}
 	];
 
+	idIndex = 0;
+
 	const babies = [
 		{
 			name: 'מוטי',
 			// 1 jan 2019
-			birthdate: new Date(2019, 0, 1)
+			birthdate: new Date(2019, 0, 1),
 		},
 		{
 			name: 'יוסי',
-			// 1 oct 2019
-			birthdate: new Date(2019, 9, 1)
+			// 1 sep 2019
+			birthdate: new Date(2019, 8, 1),
 		},
 		{
 			name: 'שמוליק',
 			// 1 dec 2019
-			birthdate: new Date(2019, 11, 1)
-		},
-		
+			birthdate: new Date(2019, 11, 1),
+		}		
 	];
 
-	localStorage.setObj('reminders', reminders);
+	const babyReminders = babies.map((b, i) => ({
+			babyId: i,
+			seenRemindersId: []
+	}));
 
-	localStorage.setObj('babies', babies)
-// })()
+	localStorage.setObj('reminders', reminders);
+	localStorage.setObj('babies', babies);
+	localStorage.setObj('babyReminders', babyReminders)
+}

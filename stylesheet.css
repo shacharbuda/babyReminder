@@ -25,3 +25,7 @@ header >h1 {
 footer {
 	height: 50px;
 }
+
+td.reminder_td.seen {
+	color: red;
+}
