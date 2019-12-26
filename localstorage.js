@@ -1,3 +1,8 @@
+const LOCAL_STORAGE_CODES = {
+	BABIES: 'BABIES',
+	REMINDERS: 'REMINDERS'
+}
+
 Storage.prototype.setObj = function(key, obj) {
 	return this.setItem(key, JSON.stringify(obj))
 }
@@ -6,7 +11,7 @@ Storage.prototype.getObj = function(key) {
 	return JSON.parse(this.getItem(key))
 }
 
-	{
+function initData() {
 	// MOCK data
 	const reminders = [
 		{
@@ -23,7 +28,7 @@ Storage.prototype.getObj = function(key) {
 		{
 			name: 'מוטי',
 			// 1 jan 2019
-			birthdate: new Date(2019, 0, 1),
+			birthdate: new Date(2019, 0, 1)
 		},
 		{
 			name: 'יוסי',
@@ -37,13 +42,18 @@ Storage.prototype.getObj = function(key) {
 		}		
 	];
 
-	const babyReminders = babies.map((b, i) => ({
-			babyId: i,
-			seenRemindersId: []
-	}));
+	const babiesWithReminders = babies.map(b => ({...b, seenRemindersId: []}));
 
-	if (localStorage.getObj('reminders')) console.log('localStorage is already there. won\'t set new');
-	localStorage.setObj('reminders', reminders);
-	localStorage.setObj('babies', babies);
-	localStorage.setObj('babyReminders', babyReminders)
+	localStorage.setObj(LOCAL_STORAGE_CODES.REMINDERS, reminders);
+	localStorage.setObj(LOCAL_STORAGE_CODES.BABIES, babiesWithReminders);
+}
+
+{
+	const isDataExists = !!localStorage.getObj(LOCAL_STORAGE_CODES.REMINDERS);
+
+	if (!isDataExists) {
+		initData();
+	} else {
+		console.log('localStorage is already there. won\'t set new');
+	}
 }

@@ -1,7 +1,6 @@
-const babies = localStorage.getObj('babies').map((b) => ({...b, birthdate
+const babies = localStorage.getObj(LOCAL_STORAGE_CODES.BABIES).map((b) => ({...b, birthdate
 	: new Date(b.birthdate)}));
-const reminders = localStorage.getObj('reminders');
-const babyReminders = localStorage.getObj('babyReminders');
+const reminders = localStorage.getObj(LOCAL_STORAGE_CODES.REMINDERS);
 
 $(document).ready(function() {
 	const tblRows = [];
