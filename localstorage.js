@@ -42,7 +42,7 @@ function initData() {
 		}		
 	];
 
-	const babiesWithReminders = babies.map(b => ({...b, seenRemindersId: []}));
+	const babiesWithReminders = babies.map(b => ({...b, seenReminders: []}));
 
 	localStorage.setObj(LOCAL_STORAGE_CODES.REMINDERS, reminders);
 	localStorage.setObj(LOCAL_STORAGE_CODES.BABIES, babiesWithReminders);

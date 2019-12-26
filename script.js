@@ -10,9 +10,7 @@ $(document).ready(function() {
 		const reminder = getReminderForAge(ageInMonths);
 		const reminderId = reminder ? reminders.findIndex((r) => r === reminder) : '';
 
-		const babyReminderId = babyReminders.findIndex((br) => br.babyId === babyId);
-		const babyReminder = babyReminders[babyReminderId];
-		const isReminderSeen = babyReminder.seenRemindersId.includes(reminderId);
+		const isReminderSeen = baby.seenReminders.includes(reminderId);
 
 		const tblRow = $(`<tr id="baby_${babyId}" data-id="${baby.id}">
 			<td class="name_td">${baby.name}</td>
@@ -27,8 +25,7 @@ $(document).ready(function() {
 			const formUrl = 'editBabyReminder.html';
 			const params = {
 				reminderId,
-				babyId,
-				babyReminderId
+				babyId
 			};
 
 			const paramsStr = paramsObjToUrl(params);
