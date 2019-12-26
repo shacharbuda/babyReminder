@@ -51,19 +51,17 @@ $(document).ready(() => {
 		const currBabyData = localStorage.getObj(LOCAL_STORAGE_CODES.BABIES);
 		const isSeenChecked = $('form .form-group > input#reminder-seen').prop('checked');
 		const currSeenReminders = currBabyData[babyId].seenReminders;
+		const indexInSeenReminders = currSeenReminders.findIndex((r) => r === reminderId);
+		const isReminderExistInCurrData =  indexInSeenReminders > -1;
 
 		// Update by isSeenChecked
-		if (isSeenChecked) {
-			// Add to seenReminders
+		if (isSeenChecked && !isReminderExistInCurrData) {
+			// Add to seenReminders (only if not exists already).
 			currSeenReminders.push(reminderId);
-		} else {
-			// Remove from seenReminders
-			const indexInSeenReminders = currSeenReminders.findIndex((r) => r === reminderId);
-			// Only remove if found..
-			if (indexInSeenReminders > -1) {
-				// Remove only this one element
-				seenReminders.splice(indexInSeenReminders, 1);
-			}
+		} else if (!isSeenChecked && isReminderExistInCurrData) {
+			debugger
+			// Remove from seenReminders (only if found). Remove only this one element
+			currSeenReminders.splice(indexInSeenReminders, 1);
 		}
 
 		// Note: even though arr updated on data, we still have to call setObj as
