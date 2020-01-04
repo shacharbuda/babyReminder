@@ -1,17 +1,17 @@
 export interface Reminder {
-	name: String;
+	name: string;
 	months: number;
 	id: number;
 };
 
 export interface Baby {
-	name: String;
+	name: string;
 	birthdate: Date;
 	seenReminders: number[];
 };
 
 export interface BabyWithRemindersObj {
-	name: String;
+	name: string;
 	birthdate: Date;
 	seenReminders: Reminder[];
 }

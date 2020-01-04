@@ -2,18 +2,18 @@ import React from 'react';
 import './App.css';
 import { BabiesDataPage } from './pages/BabiesDataPage';
 import { EditBabyPage } from './pages/EditBabyPage';
-import {getBabiesWithRemindersObj} from './utils/util'
-import { BabyWithRemindersObj } from './interfaces';
+import { Baby } from './interfaces';
 import { EDIT_FORM_URL } from './utils/constants';
+import { getBabies } from './utils/persistence';
 
 class App extends React.Component<{}, {isEditForm: boolean}> {
 	// No need of state as static.
-	mappedBabbies: BabyWithRemindersObj[] = []
+	babies: Baby[] = []
 	isEditForm: boolean;
 
 	constructor(props: {}) {
 		super(props);
-		this.mappedBabbies = getBabiesWithRemindersObj();
+		this.babies = getBabies();
 		this.isEditForm = window.location.pathname.includes(EDIT_FORM_URL);
 	}
 
@@ -27,7 +27,7 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 				{
 					this.isEditForm ?
 					<EditBabyPage /> :
-					<BabiesDataPage babies={this.mappedBabbies}/>
+					<BabiesDataPage babies={this.babies}/>
 				}
 			</div>
 			<footer className="text-center blockquote-footer" dir="ltr">

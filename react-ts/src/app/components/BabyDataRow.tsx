@@ -1,10 +1,10 @@
 import React from 'react';
-import { BabyWithRemindersObj, Reminder } from '../interfaces';
+import { Reminder, Baby } from '../interfaces';
 import { getReminderForAge, getAgeInMonths } from '../utils/util';
 import { ReminderCol } from '../components/Reminder';
 
 interface Props {
-	baby: BabyWithRemindersObj;
+	baby: Baby;
 	id: number;
 };
 
@@ -15,7 +15,7 @@ export class BabyDataRow extends React.Component<Props, {}> {
 		const { baby, id: babyId } = this.props;
 		const ageInMonths = getAgeInMonths(baby.birthdate);
 		const nextReminder = getReminderForAge(ageInMonths) as Reminder;
-		const isReminderSeen = nextReminder ? baby.seenReminders.includes(nextReminder) : false;
+		const isReminderSeen = nextReminder ? baby.seenReminders.includes(nextReminder.id) : false;
 
 		return (
 			<tr id={`baby_${babyId}`} data-id={babyId}>

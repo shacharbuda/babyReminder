@@ -63,12 +63,20 @@ function initData() {
 	}
 }
 
-export function getReminders() {
+export function getReminders(): Reminder[] {
 	const reminders: any[] = localStorage.getObj(PERSISTENCE_CODES.REMINDERS);
 
 	if (!reminders || !reminders.length) return [];
 
 	return reminders.map((r, id) => ({...r, id}))
+}
+
+export function getBabies(): Baby[] {
+	const babies: any[] = localStorage.getObj(PERSISTENCE_CODES.BABIES);
+	
+	if (!babies || !babies.length) return [];
+	
+	return babies.map((b) => ({...b, birthdate: new Date(b.birthdate)}));
 }
 
 export default localStorage;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { BabyWithRemindersObj } from '../interfaces';
+import { Baby } from '../interfaces';
 import { BabyDataRow } from '../components/BabyDataRow';
 
 interface Props {
-	babies: BabyWithRemindersObj[];
+	babies: Baby[];
 };
 
 export class BabiesDataPage extends React.Component<Props, {}> {
