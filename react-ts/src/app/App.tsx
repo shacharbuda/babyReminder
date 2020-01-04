@@ -1,7 +1,12 @@
 import React from 'react';
 import './App.css';
+import persistence from './utils/persistence';
 
 class App extends React.Component<{}, {}> {
+	constructor(props: {}) {
+		super(props);
+		persistence();
+	}
 
   render() {
 		return (
