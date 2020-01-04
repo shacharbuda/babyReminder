@@ -6,7 +6,7 @@ interface Props {
 	babies: BabyWithRemindersObj[];
 };
 
-export class BabiesData extends React.Component<Props, {}> {
+export class BabiesDataPage extends React.Component<Props, {}> {
 	
 	render() {
 		return (

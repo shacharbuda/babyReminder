@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import { BabiesData } from './pages/BabiesData';
+import { BabiesDataPage } from './pages/BabiesDataPage';
+import { EditBabyPage } from './pages/EditBabyPage';
 import {getBabiesWithRemindersObj} from './utils/util'
 import { BabyWithRemindersObj } from './interfaces';
 import { EDIT_FORM_URL } from './utils/constants';
@@ -17,7 +18,6 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 	}
 
   render() {
-		console.log('window.location.pathname.includes(EDIT_FORM_URL) :', window.location.pathname.includes(EDIT_FORM_URL));
 		return (
     <div className="App">
 			<header>
@@ -26,8 +26,8 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 			<div className="container d-flex align-items-center">
 				{
 					this.isEditForm ?
-					<p>Thats edit form here</p> :
-				<BabiesData babies={this.mappedBabbies}/>
+					<EditBabyPage /> :
+					<BabiesDataPage babies={this.mappedBabbies}/>
 				}
 			</div>
 			<footer className="text-center blockquote-footer" dir="ltr">
