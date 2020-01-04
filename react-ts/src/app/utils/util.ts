@@ -1,7 +1,9 @@
-import { Reminder } from "../interfaces";
+import { Reminder, Baby, BabyWithRemindersObj } from "../interfaces";
+import { PERSISTENCE_CODES, getReminders } from "./persistence";
+import persistence from './persistence'
 
 export function getJsonFromUrl(url: string) {
-  if(!url) url = location.search;
+  if(!url) url = window.location.search;
   var query = url.substr(1);
   var result: any = {};
   query.split("&").forEach(function(part: string) {
@@ -33,7 +35,8 @@ export const getAgeInMonths = (birthday: Date) => {
 	return (ageInMonths);
 }
 
-export const getReminderForAge = (reminders: Reminder[], ageInMonths: number) => {
+export const getReminderForAge = (ageInMonths: number) => {
+	const reminders: Reminder[] = getReminders();
 	let indexOfSmallestRangeReminder = -1;
 
 	reminders.reduce((accum, currReminder: Reminder, i) => {
@@ -55,4 +58,20 @@ export const getReminderForAge = (reminders: Reminder[], ageInMonths: number) =>
 	}
 
 	return reminders[indexOfSmallestRangeReminder];
+}
+
+
+export function getBabiesWithRemindersObj(): BabyWithRemindersObj[] {
+	const babies: Baby[] = persistence.getObj(PERSISTENCE_CODES.BABIES).map((b: Baby) => ({...b, birthdate
+		: new Date(b.birthdate)}));
+	const reminders: Reminder[] = getReminders();
+
+	if (!babies || !babies.length) {
+		return [];
+	}
+
+	return babies.map(baby => ({
+		...baby,
+		seenReminders: baby.seenReminders.map(reminderId => reminders[reminderId])
+	}));
 }

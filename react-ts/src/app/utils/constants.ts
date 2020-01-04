@@ -1,0 +1,1 @@
+export const EDIT_FORM_URL = 'editBabyReminder.html';
