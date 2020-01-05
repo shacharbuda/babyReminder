@@ -26,6 +26,15 @@ function initData() {
 
 	if (isDataExists) return;
 
+	// Password protection (only if data doesn't exsists)
+	var person = prompt("שם משתמש:", "");
+	if (person !== "אורי") {
+		alert('אין לך גישה לאפליקציה. \nרענן לניסיון נוסף');
+		return;
+	} else {
+		alert('ברוכה הבאה! להבא לא תצטרכי להקיש הסיסמה :)')
+	}
+
 	const babiesWithReminders = babiesJSON.map(b => ({
 		name: b.name,
 		birthdate: util.stringToDate(b.birthdate),
