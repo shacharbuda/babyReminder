@@ -1,5 +1,5 @@
 import { Reminder, Baby, BabyWithRemindersObj } from "../interfaces";
-import { getReminders, getBabies } from "./persistence";
+import persistence from "./persistence";
 
 export function getJsonFromUrl(url?: string) {
   if(!url) url = window.location.search;
@@ -35,7 +35,7 @@ export const getAgeInMonths = (birthday: Date) => {
 }
 
 export const getReminderForAge = (ageInMonths: number) => {
-	const reminders: Reminder[] = getReminders();
+	const reminders: Reminder[] = persistence.getReminders();
 	let indexOfSmallestRangeReminder = -1;
 
 	reminders.reduce((accum, currReminder: Reminder, i) => {
@@ -60,8 +60,8 @@ export const getReminderForAge = (ageInMonths: number) => {
 }
 
 export function getBabiesWithRemindersObj(): BabyWithRemindersObj[] {
-	const babies: Baby[] = getBabies();
-	const reminders: Reminder[] = getReminders();
+	const babies: Baby[] = persistence.getBabies();
+	const reminders: Reminder[] = persistence.getReminders();
 
 	if (!babies || !babies.length) {
 		return [];
@@ -73,11 +73,21 @@ export function getBabiesWithRemindersObj(): BabyWithRemindersObj[] {
 	}));
 }
 
+const stringToDate = (str: string, sep: string = '.'): Date => {
+	const parts = str.split(sep);
+	const day = parseInt(parts[1]).toFixed(2);
+	const month = parseInt(parts[1]).toFixed(2);
+	const year = '20' + parts[2];
+
+	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+}
+
 
 export default {
 	getJsonFromUrl,
 	paramsObjToUrl,
 	getAgeInMonths,
 	getReminderForAge,
-	getBabiesWithRemindersObj
+	getBabiesWithRemindersObj,
+	stringToDate
 }

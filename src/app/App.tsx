@@ -4,7 +4,7 @@ import { BabiesDataPage } from './pages/BabiesDataPage';
 import { EditBabyPage } from './pages/EditBabyPage';
 import { Baby } from './interfaces';
 import { EDIT_FORM_URL } from './utils/constants';
-import { getBabies } from './utils/persistence';
+import persistence from './utils/persistence';
 
 class App extends React.Component<{}, {isEditForm: boolean}> {
 	// No need of state as static.
@@ -13,7 +13,8 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 
 	constructor(props: {}) {
 		super(props);
-		this.babies = getBabies();
+		persistence.initData();
+		this.babies = persistence.getBabies();
 		this.isEditForm = window.location.pathname.includes(EDIT_FORM_URL);
 	}
 

@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import util from '../utils/util';
-import persistence, { PERSISTENCE_CODES, getReminders, getBabies } from '../utils/persistence';
+import persistence, { PERSISTENCE_CODES } from '../utils/persistence';
 import { Baby, Reminder } from '../interfaces';
 import { HOME_URL } from '../utils/constants';
 
@@ -37,8 +37,8 @@ export class EditBabyPage extends React.Component<Props, State> {
 
 		const { reminderId , babyId } = params;
 		
-		this.reminder = getReminders()[reminderId];
-		this.baby = getBabies()[babyId];
+		this.reminder = persistence.getReminders()[reminderId];
+		this.baby = persistence.getBabies()[babyId];
 		this.babyId = babyId;
 		const { seenReminders } = this.baby;
 
@@ -50,7 +50,7 @@ export class EditBabyPage extends React.Component<Props, State> {
 	handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
 
-		const currBabiesData: Baby[] = persistence.getObj(PERSISTENCE_CODES.BABIES) || [];
+		const currBabiesData: Baby[] = persistence.persistence.getObj(PERSISTENCE_CODES.BABIES) || [];
 		const isSeenChecked = this.state.isSeen;
 		const currSeenReminders = currBabiesData[this.babyId].seenReminders;
 		const reminderId = this.reminder.id;
