@@ -24,7 +24,7 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 			<header>
 				<h1 className="h1 text-center pt-5">תינוק תזכורת</h1>
 			</header>
-			<div className="container d-flex align-items-center">
+			<div className="container d-flex align-items-center body-content">
 				{
 					this.isEditForm ?
 					<EditBabyPage /> :

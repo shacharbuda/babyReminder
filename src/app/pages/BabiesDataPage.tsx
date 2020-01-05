@@ -10,7 +10,8 @@ export class BabiesDataPage extends React.Component<Props, {}> {
 	
 	render() {
 		return (
-		<table className="table-bordered table-hover col-12 text-right" style={{fontSize: "50px"}}>
+			<div id="babies-table-wrapper" className="h-100 overflow-auto col-12">
+				<table className="table-bordered h-100 w-100 table-hover text-right" style={{fontSize: "30px"}}>
 						<thead>
 							<tr>
 								<th>שם</th>
@@ -22,6 +23,7 @@ export class BabiesDataPage extends React.Component<Props, {}> {
 							{this.props.babies.map((baby, babyId) => <BabyDataRow key={`BabyRow_${babyId}`} baby={baby} id={babyId} />)}
 						</tbody>
 					</table>
+			</div>
 		);
 	}
 }

@@ -103,7 +103,7 @@ export class EditBabyPage extends React.Component<Props, State> {
 					</div>
 					<div className="form-check text-right text-info form-check">
 						<input checked={this.state.isSeen} onChange={({target}) => this.setState({isSeen: target.checked})} type="checkbox" className="form-check-input" id="reminder-seen"/>
-						<label className="form-check-label" htmlFor="reminder-seen">סיימתי עם התזכורת</label>
+						<label className="form-check-label mr-3" htmlFor="reminder-seen">סיימתי עם התזכורת</label>
 					</div>
 					<button id="submit-btm" type="submit" className="btn btn-primary">עדכן</button>
 				</form>
