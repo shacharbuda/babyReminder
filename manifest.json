@@ -1,6 +1,6 @@
 {
-  "short_name": "AdiBaby",
-  "name": "Adi's Babies Development App",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
