@@ -1,21 +1,17 @@
 import React from 'react';
 import './App.css';
 import { BabiesDataPage } from './pages/BabiesDataPage';
-import { EditBabyPage } from './pages/EditBabyPage';
 import { Baby } from './interfaces';
-import { EDIT_FORM_URL } from './utils/constants';
 import persistence from './utils/persistence';
 
 class App extends React.Component<{}, {isEditForm: boolean}> {
 	// No need of state as static.
 	babies: Baby[] = []
-	isEditForm: boolean;
 
 	constructor(props: {}) {
 		super(props);
 		persistence.initData();
 		this.babies = persistence.getBabies();
-		this.isEditForm = window.location.pathname.includes(EDIT_FORM_URL);
 	}
 
   render() {
@@ -26,8 +22,7 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 			</header>
 			<div className="container d-flex align-items-center body-content">
 				{
-					this.isEditForm ?
-					<EditBabyPage /> :
+					// Placeholder for router...
 					<BabiesDataPage babies={this.babies}/>
 				}
 			</div>
