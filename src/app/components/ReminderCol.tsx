@@ -7,27 +7,18 @@ interface Props {
 	reminder: Reminder;
 	isSeen: boolean;
 	babyId: number;
+	onClick: (ev: any) => void
 };
 
 export class ReminderCol extends React.Component<Props, {}> {
-	onReminderClick = () => {
-		const params = {
-			reminderId: this.props.reminder.id,
-			babyId: this.props.babyId
-		};
-	
-		const paramsStr = paramsObjToUrl(params);
-	
-		window.location.href = `${EDIT_FORM_URL}?${paramsStr}`;
-	}
 
 	render() {
-		const {reminder, isSeen} = this.props;
+		const {reminder, isSeen, onClick} = this.props;
 		const isReminder = !!reminder;
 
 		return (
 			isReminder ? 
-			<td onClick={this.onReminderClick} className={`reminder_td ${isSeen ? 'seen' : ''}`} data-id={reminder.id}>
+			<td onClick={onClick} className={`reminder_td ${isSeen ? 'seen' : ''}`} data-id={reminder.id}>
 				{reminder.name}
 			</td> :
 			<td onClick={() => alert('אין כאן תזכורת הניתנת לעריכה :)')}>

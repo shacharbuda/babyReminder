@@ -1,59 +1,45 @@
-import React, { FormEvent } from 'react';
-import util from '../utils/util';
+import React from 'react';
 import persistence, { PERSISTENCE_CODES } from '../utils/persistence';
 import { Baby, Reminder } from '../interfaces';
-import { HOME_URL } from '../utils/constants';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from '@material-ui/core'
 
 interface Props {
+	pickedBabyReminder: {
+		babyId: number,
+		reminderId: number
+	},
+	isOpen: boolean;
+	onClose: () => void;
 };
 
 interface State {
 	isSeen: boolean;
+	reminder: Reminder;
+	baby: Baby;
 }
 
-export class EditBabyPage extends React.Component<Props, State> {
-	baby!: Baby;
-	babyId!: number;
-	reminder!: Reminder;
-
+export class EditBabyPage extends React.Component<Props, State> {	
 	constructor(props: Props) {
 		super(props);
-
-		let params: {
-			reminderId: number;
-			babyId: number;
-		};
-
-		try {	
-			params = util.getJsonFromUrl();
-			if (Object.keys(params).length < Object.keys(PERSISTENCE_CODES).length) {
-				throw new Error('not enough params');
-			}
-		} catch (e) {
-			alert('יש כאן באג\nאתה מוחזר לעמוד הקודם\n\n' + e);
-			window.history.back();
-			return;
-		}
-
-		const { reminderId , babyId } = params;
+		const { reminderId , babyId } = props.pickedBabyReminder;
 		
-		this.reminder = persistence.getReminders()[reminderId];
-		this.baby = persistence.getBabies()[babyId];
-		this.babyId = babyId;
-		const { seenReminders } = this.baby;
+		const reminder = persistence.getReminders()[reminderId];
+		const baby = persistence.getBabies()[babyId];
+		const { seenReminders } = baby;
 
 		this.state = {
-			isSeen: seenReminders.includes(this.reminder.id)
+			reminder,
+			baby,
+			isSeen: seenReminders.includes(reminder.id)
 		}
 	}
 
-	handleSubmit = (event: FormEvent) => {
-		event.preventDefault();
+	handleSubmit = () => {
+		const { babyId, reminderId } = this.props.pickedBabyReminder;
 
 		const currBabiesData: Baby[] = persistence.persistence.getObj(PERSISTENCE_CODES.BABIES) || [];
 		const isSeenChecked = this.state.isSeen;
-		const currSeenReminders = currBabiesData[this.babyId].seenReminders;
-		const reminderId = this.reminder.id;
+		const currSeenReminders = currBabiesData[babyId].seenReminders;
 	
 		const indexInSeenReminders = currSeenReminders.findIndex((r) => r === reminderId);
 		const isReminderExistInCurrData =  indexInSeenReminders > -1;
@@ -71,19 +57,37 @@ export class EditBabyPage extends React.Component<Props, State> {
 		// localStorage is basically string-based!!
 		localStorage.setObj(PERSISTENCE_CODES.BABIES, currBabiesData);
 		// Return to home.
-		this.goHome();
+		this.closeModal();
 	}
 
-	goHome() {
-		window.location.href = HOME_URL;		
+	closeModal = () => {
+		this.props.onClose();
 	}
 
 	render() {
-		const {baby, reminder } = this;
+		const { isOpen } = this.props;
+		const {baby, reminder } = this.state;
 
 		return (
-			<div className="mx-auto text-right">
-				<form className="text-right mb-2" onSubmit={this.handleSubmit}>
+			<Dialog
+				aria-labelledby="form-dialog-title"
+				open={isOpen}
+				onClose={this.closeModal}
+				onSubmit={this.handleSubmit}
+				 >
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates
+            occasionally.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+          />
 					<div className="form-group text-right text-info">
 						<label htmlFor="baby-name">שם תינוק</label>
 						<input type="text" value={baby.name} readOnly className="form-control" id="baby-name"/>
@@ -105,10 +109,16 @@ export class EditBabyPage extends React.Component<Props, State> {
 						<input checked={this.state.isSeen} onChange={({target}) => this.setState({isSeen: target.checked})} type="checkbox" className="form-check-input" id="reminder-seen"/>
 						<label className="form-check-label mr-3" htmlFor="reminder-seen">סיימתי עם התזכורת</label>
 					</div>
-					<button id="submit-btm" type="submit" className="btn btn-primary">עדכן</button>
-				</form>
-				<button className="btn btn-warning" onClick={this.goHome}>חזור לטבלה</button>
-			</div>
-		);
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.closeModal} color="primary">
+            בטל
+          </Button>
+          <Button onClick={this.handleSubmit} color="primary">
+            עדכן
+          </Button>
+        </DialogActions>
+      </Dialog>
+			);
 	}
 }
