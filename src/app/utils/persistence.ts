@@ -61,9 +61,14 @@ function getBabies(): Baby[] {
 	return babies.map((b) => ({...b, birthdate: new Date(b.birthdate)}));
 }
 
+function saveBabies(babies: Baby[]) {
+	localStorage.setObj(PERSISTENCE_CODES.BABIES, babies);
+}
+
 export default {
 	initData,
 	getBabies,
+	saveBabies,
 	getReminders,
 	persistence: localStorage
 };
