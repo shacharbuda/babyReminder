@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BabiesDataPage } from './components/BabiesDataPage';
+import BabiesDataTableContainer from './components/BabiesDataTable';
 import { Baby } from './interfaces';
 import persistence from './utils/persistence';
 
@@ -23,7 +23,7 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 			<div className="container d-flex align-items-center body-content">
 				{
 					// Placeholder for router...
-					<BabiesDataPage babies={this.babies}/>
+					<BabiesDataTableContainer />
 				}
 			</div>
 			<footer className="text-center blockquote-footer" dir="ltr">

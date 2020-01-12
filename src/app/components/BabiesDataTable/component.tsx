@@ -1,7 +1,7 @@
 import React from 'react';
-import { Baby, Reminder } from '../interfaces';
-import { BabyDataRow } from './BabyDataRow';
-import EditBabyContainer from './EditBaby';
+import { Baby } from '../../interfaces';
+import { BabyDataRow } from '../BabyDataRow';
+import EditBabyContainer from '../EditBaby';
 
 interface Props {
 	babies: Baby[];
@@ -14,7 +14,7 @@ interface State {
 	} | null
 }
 
-export class BabiesDataPage extends React.Component<Props, State> {
+export class BabiesDataTableComponent extends React.Component<Props, State> {
 	constructor(props) {
 		super(props);
 		this.state = {
