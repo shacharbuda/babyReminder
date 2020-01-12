@@ -31,7 +31,7 @@ export class BabiesDataTableComponent extends React.Component<Props, State> {
 	
 	render() {
 		return (
-			<div className="h-100 w-100">>
+			<div className="h-100 w-100">
 				<div id="babies-table-wrapper" className="h-100 overflow-auto col-12">
 					<table className="table-bordered h-100 w-100 table-hover text-right" style={{fontSize: "30px"}}>
 							<thead>
