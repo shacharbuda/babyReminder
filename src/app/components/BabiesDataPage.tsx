@@ -1,7 +1,7 @@
 import React from 'react';
 import { Baby, Reminder } from '../interfaces';
-import { BabyDataRow } from '../components/BabyDataRow';
-import { EditBabyPage } from './EditBabyPage';
+import { BabyDataRow } from './BabyDataRow';
+import EditBabyContainer from './EditBaby';
 
 interface Props {
 	babies: Baby[];
@@ -47,7 +47,7 @@ export class BabiesDataPage extends React.Component<Props, State> {
 						</table>
 				</div>
 				{this.state.pickedBabyReminder &&
-				<EditBabyPage isOpen={!!this.state.pickedBabyReminder} onClose={() => this.setState({pickedBabyReminder: null})} pickedBabyReminder={this.state.pickedBabyReminder} />}
+				<EditBabyContainer isOpen={!!this.state.pickedBabyReminder} onClose={() => this.setState({pickedBabyReminder: null})} pickedBabyReminder={this.state.pickedBabyReminder} />}
 			</div>
 		);
 	}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BabiesDataPage } from './pages/BabiesDataPage';
+import { BabiesDataPage } from './components/BabiesDataPage';
 import { Baby } from './interfaces';
 import persistence from './utils/persistence';
 

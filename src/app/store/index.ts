@@ -4,14 +4,15 @@ import babyReducer from "./reducer";
 import persistence from "../utils/persistence";
 
 const reducer = combineReducers({
-	baby: babyReducer
+	baby: babyReducer,
+	// boilerplate for real reminder reducer
+	reminder: (state = []) => state 
 })
 
 const persistedState = {
-	baby: persistence.getBabies()
+	baby: persistence.getBabies(),
+	reminder: persistence.getReminders()
 };
-
-console.log('persistedState :', persistedState);
 
 const store = createStore(reducer, persistedState, applyMiddleware(logger));
 

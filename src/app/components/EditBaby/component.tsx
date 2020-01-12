@@ -1,61 +1,34 @@
 import React from 'react';
-import persistence, { PERSISTENCE_CODES } from '../utils/persistence';
-import { Baby, Reminder } from '../interfaces';
+import { Baby, Reminder } from '../../interfaces';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from '@material-ui/core'
 
 interface Props {
-	pickedBabyReminder: {
-		babyId: number,
-		reminderId: number
-	},
-	isOpen: boolean;
+	// From container
+	reminder: Reminder;
+	baby: Baby;
+	// ownProps
 	onClose: () => void;
+	isOpen: boolean;
 };
 
 interface State {
 	isSeen: boolean;
-	reminder: Reminder;
-	baby: Baby;
 }
 
-export class EditBabyPage extends React.Component<Props, State> {	
+export class EditBabyComponent extends React.Component<Props, State> {	
 	constructor(props: Props) {
 		super(props);
-		const { reminderId , babyId } = props.pickedBabyReminder;
-		
-		const reminder = persistence.getReminders()[reminderId];
-		const baby = persistence.getBabies()[babyId];
-		const { seenReminders } = baby;
+		const { baby: {seenReminders}, reminder } = props;
 
 		this.state = {
-			reminder,
-			baby,
 			isSeen: seenReminders.includes(reminder.id)
 		}
 	}
 
 	handleSubmit = () => {
-		const { babyId, reminderId } = this.props.pickedBabyReminder;
-
-		const currBabiesData: Baby[] = persistence.persistence.getObj(PERSISTENCE_CODES.BABIES) || [];
 		const isSeenChecked = this.state.isSeen;
-		const currSeenReminders = currBabiesData[babyId].seenReminders;
-	
-		const indexInSeenReminders = currSeenReminders.findIndex((r) => r === reminderId);
-		const isReminderExistInCurrData =  indexInSeenReminders > -1;
+		(this.props as any).updateReminder(isSeenChecked);
 
-		// Update by isSeenChecked
-		if (isSeenChecked && !isReminderExistInCurrData) {
-			// Add to seenReminders (only if not exists already).
-			currSeenReminders.push(reminderId);
-		} else if (!isSeenChecked && isReminderExistInCurrData) {
-			// Remove from seenReminders (only if found). Remove only this one element
-			currSeenReminders.splice(indexInSeenReminders, 1);
-		}
-
-		// Note: even though arr updated on data, we still have to call setObj as
-		// localStorage is basically string-based!!
-		localStorage.setObj(PERSISTENCE_CODES.BABIES, currBabiesData);
 		// Return to home.
 		this.closeModal();
 	}
@@ -65,8 +38,7 @@ export class EditBabyPage extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { isOpen } = this.props;
-		const {baby, reminder } = this.state;
+		const { isOpen, baby, reminder } = this.props;
 
 		return (
 			<Dialog
