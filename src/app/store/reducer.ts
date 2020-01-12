@@ -11,6 +11,8 @@ export default function babyReducer(state = DEFAULT_STATE, action: Action<string
 		// 	return persistence.getBabies();
 		// }
 		case (ACTION_TYPES.ADD_REMINDER): {
+			// Only add if not exist yet
+			if (state[payload.babyId].seenReminders.includes(payload.reminderId)) return state;
 			return state.map((elm, i) => {
 				if (i !== payload.babyId) return elm;
 

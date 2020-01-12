@@ -26,6 +26,15 @@ describe('reducer.ts', () => {
 		expect(actual[babyId].seenReminders).toEqual([PRE_SEEN_REMIDNER, reminderId]);
 	});
 
+	it('should just one babyReminder', () => {
+		const babyId = 0;
+		const reminderId = PRE_SEEN_REMIDNER;
+
+		const actual = babyReducer(babiesWithReminders, addReminder({babyId, reminderId}))
+
+		expect(actual[babyId].seenReminders).toEqual([PRE_SEEN_REMIDNER]);
+	});
+
 	it('should remove babyReminder', () => {
 		const babyId = 0;
 		const reminderId = PRE_SEEN_REMIDNER;
