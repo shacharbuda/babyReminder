@@ -69,6 +69,7 @@ export class EditBabyComponent extends React.Component<Props, State> {
 					{
 						this.fields.map(f => (
 							<TextField
+								key={`field_${f.label}`}
 								margin="normal"
 								label={f.label}
 								type="text"
