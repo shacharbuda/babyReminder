@@ -1,6 +1,6 @@
 import React from 'react';
 import { Reminder, Baby } from '../interfaces';
-import { getReminderForAge, getAgeInMonths } from '../utils/util';
+import util, { getReminderForAge, getAgeInMonths } from '../utils/util';
 import { ReminderCol } from './ReminderCol';
 import { TableRow, TableCell, withStyles, Theme, WithStyles } from '@material-ui/core';
 
@@ -23,7 +23,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 		return (
 			<TableRow className={classes.tableRow} hover key={babyId}>
 				<TableCell align="center" component="th" scope="row">{baby.name}</TableCell>
-				<TableCell align="center">{baby.birthdate.toDateString()}</TableCell>
+				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} babyId={babyId} onClick={() => onReminderClick(nextReminder.id, babyId)} />
 			</TableRow>
 		);

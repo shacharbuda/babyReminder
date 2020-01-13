@@ -82,6 +82,8 @@ const stringToDate = (str: string, sep: string = '.'): Date => {
 	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 }
 
+const dateToStr = (date: Date): string => `${date.getMonth()}/${date.getFullYear().toString().slice(-2)}`;
+
 
 export default {
 	getJsonFromUrl,
@@ -89,5 +91,6 @@ export default {
 	getAgeInMonths,
 	getReminderForAge,
 	getBabiesWithRemindersObj,
-	stringToDate
+	stringToDate,
+	dateToStr
 }
