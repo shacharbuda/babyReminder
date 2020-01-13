@@ -2,7 +2,7 @@ import React from 'react';
 import { Baby } from '../../interfaces';
 import { BabyDataRow } from '../BabyDataRow';
 import EditBabyContainer from '../EditBaby';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Theme, withStyles, StyledComponentProps, WithStyles } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Theme, withStyles, WithStyles } from '@material-ui/core';
 
 interface Props extends WithStyles<typeof styles> {
 	babies: Baby[];
