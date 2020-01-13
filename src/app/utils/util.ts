@@ -82,7 +82,7 @@ const stringToDate = (str: string, sep: string = '.'): Date => {
 	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 }
 
-const dateToStr = (date: Date): string => `${date.getMonth()}/${date.getFullYear().toString().slice(-2)}`;
+const dateToStr = (date: Date): string => `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
 
 
 export default {
