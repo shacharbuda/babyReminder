@@ -11,6 +11,11 @@ body {
 	margin: 0
 }
 
+body * {
+	direction: rtl;
+	text-align: right;
+}
+
 header {
 	height: 100px;
 }
