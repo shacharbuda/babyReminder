@@ -26,7 +26,7 @@ function validateVersion() {
 	// New version alert
 	const serverVersion = process.env.REACT_APP_VERSION; 
 	const userVersion = localStorage.getItem(PERSISTENCE_CODES.VERSION);
-	if (serverVersion && !userVersion || userVersion !== serverVersion) {
+	if (!userVersion || userVersion !== serverVersion) {
 		localStorage.setItem(PERSISTENCE_CODES.VERSION, serverVersion as string);
 
 		alert('שימי לב! עודכנה גרסה חדשה. כדי לוודא שכל הנתונים עודכנו, בדקי עם המפתח');
@@ -88,6 +88,6 @@ export default {
 	getBabies,
 	saveBabies,
 	getReminders,
-	validateVersion
+	validateVersion,
 	persistence: localStorage
 };
