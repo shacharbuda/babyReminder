@@ -27,7 +27,7 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 							<BabiesDataTableContainer />
 						}
 					</div>
-					<footer className="text-center blockquote-footer" dir="ltr">
+					<footer className="ltr text-center blockquote-footer">
 						Made by Waffle
 					</footer>
 				</div>

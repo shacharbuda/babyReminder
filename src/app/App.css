@@ -29,6 +29,10 @@ footer {
 	height: 50px;
 }
 
+.ltr {
+	direction: ltr;
+}
+
 
 .body-content {
 	/* Full height - header - footer */
