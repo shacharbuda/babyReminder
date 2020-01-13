@@ -1,7 +1,5 @@
 import React from 'react';
 import { Reminder } from '../interfaces';
-import { paramsObjToUrl } from '../utils/util';
-import { EDIT_FORM_URL } from '../utils/constants';
 
 interface Props {
 	reminder: Reminder;

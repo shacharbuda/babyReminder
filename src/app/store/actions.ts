@@ -1,5 +1,4 @@
-import { ActionCreator, Action, AnyAction } from 'redux';
-import { Baby } from '../interfaces';
+import { ActionCreator, Action } from 'redux';
 
 export const ACTION_TYPES = {
 	INIT_BABIES: 'INIT_BABIES',
