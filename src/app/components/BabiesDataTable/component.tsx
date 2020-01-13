@@ -37,9 +37,9 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 				<Table aria-label="simple table">
 					<TableHead >
 						<TableRow>
-							<TableCell className={this.props.classes.head}>שם</TableCell>
-							<TableCell className={this.props.classes.head}>תאריך לידה</TableCell>
-							<TableCell className={this.props.classes.head}>תזכורת הבאה</TableCell>
+							<TableCell align="center" className={this.props.classes.head}>שם</TableCell>
+							<TableCell align="center" className={this.props.classes.head}>תאריך לידה</TableCell>
+							<TableCell align="center" className={this.props.classes.head}>תזכורת הבאה</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
