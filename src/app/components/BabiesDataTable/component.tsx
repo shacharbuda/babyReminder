@@ -2,7 +2,7 @@ import React from 'react';
 import { Baby } from '../../interfaces';
 import { BabyDataRow } from '../BabyDataRow';
 import EditBabyContainer from '../EditBaby';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Theme, withStyles, WithStyles } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles, WithStyles } from '@material-ui/core';
 
 interface Props extends WithStyles<typeof styles> {
 	babies: Baby[];
@@ -33,7 +33,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 	render() {
 		return (
 			<div className="h-100 w-100">
-			<TableContainer className="h-100 w-100" component={Paper}>
+			<TableContainer className="h-100 w-100">
 				<Table aria-label="simple table">
 					<TableHead >
 						<TableRow>
