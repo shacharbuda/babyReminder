@@ -7,7 +7,9 @@ export interface Reminder {
 export interface Baby {
 	name: string;
 	birthdate: Date;
+	garden: string;
 	seenReminders: number[];
+	comments: string;
 };
 
 export interface BabyWithRemindersObj {

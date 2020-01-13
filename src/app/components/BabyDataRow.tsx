@@ -24,6 +24,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 			<TableRow className={classes.tableRow} hover key={babyId}>
 				<TableCell align="center" component="th" scope="row">{baby.name}</TableCell>
 				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
+				<TableCell align="center">{baby.garden}</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} babyId={babyId} onClick={() => onReminderClick(nextReminder.id, babyId)} />
 			</TableRow>
 		);

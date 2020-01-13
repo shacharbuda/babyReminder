@@ -36,8 +36,10 @@ function initData() {
 	}
 
 	const babiesWithReminders = babiesJSON.map(b => ({
-		name: b.name,
-		birthdate: util.stringToDate(b.birthdate),
+		name: b.name + ' ' + b.lastName,
+		birthdate: b.birthdate ? util.stringToDate(b.birthdate) : null,
+		garden: b.garden,
+		comments: b.comments,
 		seenReminders: []
 	}));
 
