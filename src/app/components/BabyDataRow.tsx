@@ -2,6 +2,7 @@ import React from 'react';
 import { Reminder, Baby } from '../interfaces';
 import { getReminderForAge, getAgeInMonths } from '../utils/util';
 import { ReminderCol } from './ReminderCol';
+import { TableRow, TableCell } from '@material-ui/core';
 
 interface Props {
 	baby: Baby;
@@ -20,11 +21,11 @@ export class BabyDataRow extends React.Component<Props, {}> {
 		const isReminderUrgent = nextReminder && !isReminderSeen && nextReminder.months === ageInMonths;
 
 		return (
-			<tr id={`baby_${babyId}`} data-id={babyId}>
-				<td className="name_td">{baby.name}</td>
-				<td className="birth_td">{baby.birthdate.toDateString()}</td>
+			<TableRow key={babyId}>
+				<TableCell component="th" scope="row">{baby.name}</TableCell>
+				<TableCell>{baby.birthdate.toDateString()}</TableCell>
 				<ReminderCol reminder={nextReminder} isUrgent={isReminderUrgent} babyId={babyId} onClick={() => onReminderClick(nextReminder.id, babyId)} />
-			</tr>
+			</TableRow>
 		);
 	}
 }

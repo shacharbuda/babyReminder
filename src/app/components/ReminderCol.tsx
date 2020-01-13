@@ -1,6 +1,6 @@
 import React from 'react';
 import { Reminder } from '../interfaces';
-import { withStyles, WithStyles } from '@material-ui/core';
+import { withStyles, WithStyles, TableCell, Link } from '@material-ui/core';
 
 interface Props extends WithStyles<typeof styles> {
 	reminder: Reminder;
@@ -17,17 +17,23 @@ class ReminderColComponent extends React.Component<Props, {}> {
 
 		return (
 			isReminder ? 
-			<td onClick={onClick} className={isUrgent ? classes.urgent : ''} data-id={reminder.id}>
+			<TableCell onClick={onClick} className={`${classes.clickable} ${isUrgent ? classes.urgent : ''}`} data-id={reminder.id}>
 				{reminder.name}
-			</td> :
-			<td onClick={() => alert('אין כאן תזכורת הניתנת לעריכה :)')}>
+			</TableCell> :
+			<TableCell onClick={() => alert('אין כאן תזכורת הניתנת לעריכה :)')}>
 				-
-			</td>
+			</TableCell>
 		);
 	}
 }
 
 const styles = {
+	clickable: {
+		color: '#007bff',
+		textDecoration: 'underline',
+		cursor: 'pointer',
+		fontWeight: 600
+	},
   urgent: {
 		color: 'red'
   },
