@@ -85,6 +85,23 @@ export class EditBabyComponent extends React.Component<Props, State> {
 						))
 					}
 
+				{
+					baby.comments &&
+				<TextField
+					margin="normal"
+					label="מידע נוסף"
+					inputProps={{
+						readOnly: true,
+						disabled: true,
+						color: 'rgba(0, 0, 0, 0.87)'
+					}}
+					value={baby.comments}
+					fullWidth
+          multiline
+					variant="outlined"
+					rows={4}
+        />}
+
 				<FormControlLabel
 					control={
 						<Checkbox
