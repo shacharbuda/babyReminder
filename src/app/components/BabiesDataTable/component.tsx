@@ -61,10 +61,9 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 
 const styles = (theme: Theme) => createStyles({
 	head: {
-		backgroundColor: theme.palette.common.black,
-		color: theme.palette.common.white,
 		fontWeight: 1000,
-		fontSize: '1.2rem'
+		fontSize: '1.2rem',
+		borderBottom: '1px solid rgba(0, 0, 0, 0.4)'
 	},
 	tblContainer: {
 		width: '100%',
