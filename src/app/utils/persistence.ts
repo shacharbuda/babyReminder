@@ -5,7 +5,8 @@ import remindersJSON from '../resources/reminders.json'
 
 export const PERSISTENCE_CODES = {
 	BABIES: 'BABIES',
-	REMINDERS: 'REMINDERS'
+	REMINDERS: 'REMINDERS',
+	VERSION: 'VERSION'
 }
 
 Storage.prototype.setObj = function(key: string, obj: Reminder | Baby) {
@@ -21,11 +22,18 @@ Storage.prototype.getObj = function(key: string) {
 	}
 }
 
-function initData() {
-	const isDataExists = !!localStorage.getObj(PERSISTENCE_CODES.REMINDERS);
+function validateVersion() {
+	// New version alert
+	const serverVersion = process.env.REACT_APP_VERSION; 
+	const userVersion = localStorage.getItem(PERSISTENCE_CODES.VERSION);
+	if (serverVersion && !userVersion || userVersion !== serverVersion) {
+		localStorage.setItem(PERSISTENCE_CODES.VERSION, serverVersion as string);
 
-	if (isDataExists) return;
+		alert('שימי לב! עודכנה גרסה חדשה. כדי לוודא שכל הנתונים עודכנו, בדקי עם המפתח');
+	}
+}
 
+function validateUser() {
 	// Password protection (only if data doesn't exsists)
 	var person = prompt("שם משתמש:", "");
 	if (person !== "אורי") {
@@ -34,6 +42,14 @@ function initData() {
 	} else {
 		alert('ברוכה הבאה! להבא לא תצטרכי להקיש הסיסמה :)')
 	}
+}
+
+function initData() {
+	const isDataExists = !!localStorage.getObj(PERSISTENCE_CODES.REMINDERS);
+
+	if (isDataExists) return;
+
+	validateUser();
 
 	const babiesWithReminders = babiesJSON.map(b => ({
 		name: b.name + ' ' + b.lastName,
@@ -72,5 +88,6 @@ export default {
 	getBabies,
 	saveBabies,
 	getReminders,
+	validateVersion
 	persistence: localStorage
 };
