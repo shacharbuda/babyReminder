@@ -20,7 +20,7 @@ class ReminderColComponent extends React.Component<Props & TableCellProps, {}> {
 			<TableCell align="center" onClick={onClick} className={`${className} ${classes.clickable} ${isUrgent ? classes.urgent : ''}`} data-id={reminder.id}>
 				{reminder.name}
 			</TableCell> :
-			<TableCell align="center" className={className} onClick={() => alert('אין כאן תזכורת הניתנת לעריכה :)')}>
+			<TableCell align="center" className={`${className} ${classes.unclickable}`} onClick={() => alert('אין כאן תזכורת הניתנת לעריכה :)')}>
 				-
 			</TableCell>
 		);
@@ -33,6 +33,9 @@ const styles = {
 		textDecoration: 'underline',
 		cursor: 'pointer',
 		fontWeight: 600
+	},
+	unclickable: {
+		cursor: 'not-allowed'
 	},
   urgent: {
 		color: 'red'
