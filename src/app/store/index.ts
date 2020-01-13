@@ -9,6 +9,9 @@ const reducer = combineReducers({
 	reminder: (state = []) => state 
 })
 
+// Init data from temp mock files to persistance which will be stored in store later just below.
+persistence.initData();
+
 const persistedState = {
 	baby: persistence.getBabies(),
 	reminder: persistence.getReminders()

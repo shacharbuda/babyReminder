@@ -10,7 +10,6 @@ class App extends React.Component<{}, {isEditForm: boolean}> {
 
 	constructor(props: {}) {
 		super(props);
-		persistence.initData();
 		this.babies = persistence.getBabies();
 	}
 
