@@ -38,7 +38,7 @@ function validateUser() {
 	var person = prompt("שם משתמש:", "");
 	if (person !== "אורי") {
 		alert('אין לך גישה לאפליקציה. \nרענן לניסיון נוסף');
-		return;
+		throw new Error('User unrecognized. Validation failed.');
 	} else {
 		alert('ברוכה הבאה! להבא לא תצטרכי להקיש הסיסמה :)')
 	}
@@ -49,18 +49,22 @@ function initData() {
 
 	if (isDataExists) return;
 
-	validateUser();
+	try {
+		validateUser();
 
-	const babiesWithReminders = babiesJSON.map(b => ({
-		name: b.name + ' ' + b.lastName,
-		birthdate: b.birthdate ? util.stringToDate(b.birthdate) : null,
-		garden: b.garden,
-		comments: b.comments,
-		seenReminders: []
-	}));
+		const babiesWithReminders = babiesJSON.map(b => ({
+			name: b.name + ' ' + b.lastName,
+			birthdate: b.birthdate ? util.stringToDate(b.birthdate) : null,
+			garden: b.garden,
+			comments: b.comments,
+			seenReminders: []
+		}));
 
-	localStorage.setObj(PERSISTENCE_CODES.REMINDERS, remindersJSON);
-	localStorage.setObj(PERSISTENCE_CODES.BABIES, babiesWithReminders);
+		localStorage.setObj(PERSISTENCE_CODES.REMINDERS, remindersJSON);
+		localStorage.setObj(PERSISTENCE_CODES.BABIES, babiesWithReminders);
+	} catch(e) {
+		console.error('Error in init Data: ', e);
+	}
 }
 
 function getReminders(): Reminder[] {
