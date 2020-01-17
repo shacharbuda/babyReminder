@@ -63,7 +63,7 @@ function initData() {
 		localStorage.setObj(PERSISTENCE_CODES.REMINDERS, remindersJSON);
 		localStorage.setObj(PERSISTENCE_CODES.BABIES, babiesWithReminders);
 	} catch(e) {
-		console.error('Error in init Data: ', e);
+		console.error('Error in initData(): ', e);
 	}
 }
 
