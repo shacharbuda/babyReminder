@@ -15,7 +15,7 @@ interface State extends Baby {
 }
 
 export class AddBabyModal extends React.Component<Props, State> {	
-	fields: {label: string, handler: string, rows: number}[];
+	fields: {label: string, handler: string, rows: number, required: boolean}[];
 	
 	constructor(props: Props) {
 		super(props);
@@ -28,7 +28,7 @@ export class AddBabyModal extends React.Component<Props, State> {
 		const handlers = ['name', 'garden', 'comments'];
 		const rows = [0, 0, 4]
 
-		this.fields = handlers.map((handler, i) => ({label: labels[i], handler, rows: rows[i]}))
+		this.fields = handlers.map((handler, i) => ({label: labels[i], handler, rows: rows[i], required: handler !== 'comments'}))
 
 		this.state = {
 			birthdate: new Date(),
@@ -50,6 +50,10 @@ export class AddBabyModal extends React.Component<Props, State> {
 	handleSubmit = () => {
 		const newBaby = {
 			...this.state
+		}
+
+		if (!newBaby.name) {
+			return alert('חובה להזין שם תינוק!');
 		}
 
 		this.props.addNewBaby(newBaby);
@@ -78,6 +82,7 @@ export class AddBabyModal extends React.Component<Props, State> {
 								margin="normal"
 								label={f.label}
 								type="text"
+								required={f.required}
 								multiline={!!f.rows}
 								rows={f.rows}
 								value={this.state[f.handler]}
@@ -89,7 +94,7 @@ export class AddBabyModal extends React.Component<Props, State> {
 					}
 
   		<DatePicker
-        autoOk
+				required
 				label="תאריך לידה"
 				inputVariant="outlined"
 				margin="normal"
@@ -106,7 +111,7 @@ export class AddBabyModal extends React.Component<Props, State> {
             בטל
           </Button>
           <Button onClick={this.handleSubmit} color="primary">
-            עדכן
+            הוסף
           </Button>
         </DialogActions>
       </Dialog>
