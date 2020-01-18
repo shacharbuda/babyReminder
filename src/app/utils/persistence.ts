@@ -22,20 +22,29 @@ Storage.prototype.getObj = function(key: string) {
 	}
 }
 
-function validateVersion() {
+function handleVersion() {
+	if (isNewVersion()) {
+		alert('גרסה חדשה!');
+
+		updateVersion();
+	}
+}
+
+function isNewVersion() {
 	// New version alert
 	const serverVersion = process.env.REACT_APP_VERSION; 
 	const userVersion = localStorage.getItem(PERSISTENCE_CODES.VERSION);
-	if (!userVersion || userVersion !== serverVersion) {
-		localStorage.setItem(PERSISTENCE_CODES.VERSION, serverVersion as string);
+	return (!userVersion || userVersion !== serverVersion);
+}
 
-		alert('שימי לב! עודכנה גרסה חדשה. כדי לוודא שכל הנתונים עודכנו, בדקי עם המפתח');
-	}
+function updateVersion() {
+	const serverVersion = process.env.REACT_APP_VERSION;
+	localStorage.setItem(PERSISTENCE_CODES.VERSION, serverVersion as string);
 }
 
 function validateUser() {
 	// Password protection (only if data doesn't exsists)
-	var person = prompt("שם משתמש:", "");
+	const person = prompt("שם משתמש:", "");
 	if (person !== "אורי") {
 		alert('אין לך גישה לאפליקציה. \nרענן לניסיון נוסף');
 		throw new Error('User unrecognized. Validation failed.');
@@ -92,6 +101,8 @@ export default {
 	getBabies,
 	saveBabies,
 	getReminders,
-	validateVersion,
+	isNewVersion,
+	updateVersion,
+	handleVersion,
 	persistence: localStorage
 };

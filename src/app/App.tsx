@@ -5,7 +5,7 @@ import { Baby } from './interfaces';
 import persistence from './utils/persistence';
 import RTL from './RTL';
 
-class App extends React.Component<{}, {isEditForm: boolean}> {
+class App extends React.Component<{}, {}> {
 	// No need of state as static.
 	babies: Baby[] = []
 
