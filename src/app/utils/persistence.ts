@@ -3,7 +3,6 @@ import util from './util';
 import babiesJSON from '../resources/babies.json'
 import remindersJSON from '../resources/reminders.json'
 import consts from './constants';
-import constants from "./constants";
 
 export const PERSISTENCE_CODES = {
 	BABIES: 'BABIES',
@@ -54,7 +53,7 @@ function validateUser() {
 
 	// Password protection (only if user doesn't exsists)
 	const userInput = prompt("שם משתמש:", "");
-	if (userInput !== constants.VALID_USERNAME) {
+	if (userInput !== consts.VALID_USERNAME) {
 		alert('אין לך גישה לאפליקציה. \nרענן לניסיון נוסף');
 		throw new Error('User unrecognized. Validation failed.');
 	} else {
