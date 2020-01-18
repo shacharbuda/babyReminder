@@ -4,6 +4,7 @@ import BabiesDataTableContainer from './components/BabiesDataTable';
 import { Baby } from './interfaces';
 import persistence from './utils/persistence';
 import RTL from './RTL';
+import consts from './utils/constants';
 
 class App extends React.Component<{}, {}> {
 	// No need of state as static.
@@ -28,7 +29,7 @@ class App extends React.Component<{}, {}> {
 						}
 					</div>
 					<footer className="ltr text-center blockquote-footer">
-						Made by Waffle
+						Made by Waffle (v{consts.APP_VERSION})
 					</footer>
 				</div>
 			</RTL>

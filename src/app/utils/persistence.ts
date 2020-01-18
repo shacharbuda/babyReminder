@@ -2,6 +2,7 @@ import { Baby, Reminder } from "../interfaces"
 import util from './util';
 import babiesJSON from '../resources/babies.json'
 import remindersJSON from '../resources/reminders.json'
+import consts from './constants';
 
 export const PERSISTENCE_CODES = {
 	BABIES: 'BABIES',
@@ -32,13 +33,13 @@ function handleVersion() {
 
 function isNewVersion() {
 	// New version alert
-	const serverVersion = process.env.REACT_APP_VERSION; 
+	const serverVersion = consts.APP_VERSION; 
 	const userVersion = localStorage.getItem(PERSISTENCE_CODES.VERSION);
 	return (!userVersion || userVersion !== serverVersion);
 }
 
 function updateVersion() {
-	const serverVersion = process.env.REACT_APP_VERSION;
+	const serverVersion = consts.APP_VERSION;
 	localStorage.setItem(PERSISTENCE_CODES.VERSION, serverVersion as string);
 }
 
