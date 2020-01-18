@@ -3,11 +3,13 @@ import util from './util';
 import babiesJSON from '../resources/babies.json'
 import remindersJSON from '../resources/reminders.json'
 import consts from './constants';
+import constants from "./constants";
 
 export const PERSISTENCE_CODES = {
 	BABIES: 'BABIES',
 	REMINDERS: 'REMINDERS',
-	VERSION: 'VERSION'
+	VERSION: 'VERSION',
+	USER_NAME: 'USER_NAME'
 }
 
 Storage.prototype.setObj = function(key: string, obj: Reminder | Baby) {
@@ -43,14 +45,21 @@ function updateVersion() {
 	localStorage.setItem(PERSISTENCE_CODES.VERSION, serverVersion as string);
 }
 
+function isUserLoggedIn() {
+	return !!localStorage.getItem(PERSISTENCE_CODES.USER_NAME);
+}
+
 function validateUser() {
-	// Password protection (only if data doesn't exsists)
-	const person = prompt("שם משתמש:", "");
-	if (person !== "אורי") {
+	if (isUserLoggedIn()) return;
+
+	// Password protection (only if user doesn't exsists)
+	const userInput = prompt("שם משתמש:", "");
+	if (userInput !== constants.VALID_USERNAME) {
 		alert('אין לך גישה לאפליקציה. \nרענן לניסיון נוסף');
 		throw new Error('User unrecognized. Validation failed.');
 	} else {
-		alert('ברוכה הבאה! להבא לא תצטרכי להקיש הסיסמה :)')
+		alert('ברוכה הבאה! להבא לא תצטרכי להקיש הסיסמה :)');
+		localStorage.setItem(PERSISTENCE_CODES.USER_NAME, userInput)
 	}
 }
 
@@ -105,5 +114,6 @@ export default {
 	isNewVersion,
 	updateVersion,
 	handleVersion,
+	isUserLoggedIn,
 	persistence: localStorage
 };
