@@ -1,7 +1,7 @@
 import React from 'react';
 import { Baby } from '../../interfaces';
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from '@material-ui/core'
-import { KeyboardDatePicker, DatePicker } from '@material-ui/pickers';
+import { DatePicker } from '@material-ui/pickers';
 
 interface Props {
 	// From container
