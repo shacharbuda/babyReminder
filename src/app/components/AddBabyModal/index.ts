@@ -12,6 +12,7 @@ const mapDispatchToProps = (dispatch, ownProps: Props) => ({
 	addNewBaby: (newBaby: Baby) => {
 		console.log('here we need to add new baby');
 		console.log(newBaby);
+		// TODO:
 		// dispatch()
 		if (ownProps.onClose) ownProps.onClose();
 	}
