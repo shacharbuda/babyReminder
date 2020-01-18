@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"test:nowatch": "CI=true react-scripts test --env=jsdom"
   },
   "eslintConfig": {
     "extends": "react-app"
