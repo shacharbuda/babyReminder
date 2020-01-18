@@ -70,7 +70,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 }
 
 
-const CONTROLLERS_HEIGHT = '10%';
+const CONTROLLERS_HEIGHT = '15%';
 
 const styles = (theme: Theme) => createStyles({
 	head: {
@@ -86,9 +86,8 @@ const styles = (theme: Theme) => createStyles({
 	},
 	controllers: {
 		height: CONTROLLERS_HEIGHT,
-		padding: '5px',
-		display: 'flex',
-		justifyContent: 'center'
+		textAlign: 'center',
+		paddingTop: '7%'
 	}
 })
 
