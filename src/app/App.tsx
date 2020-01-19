@@ -32,12 +32,9 @@ class App extends React.Component<{}, {}> {
 							}
 						</div>
 						<footer className="ltr text-center blockquote-footer">
-							Made by Waffle
+							Made by Waffle (v{consts.APP_VERSION})
 						</footer>
 					</div>
-					<footer className="ltr text-center blockquote-footer">
-						Made by Waffle (v{consts.APP_VERSION})
-					</footer>
 				</MuiPickersUtilsProvider>
 			</RTL>
   	);
