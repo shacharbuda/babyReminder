@@ -32,6 +32,14 @@ export default function babyReducer(state = DEFAULT_STATE, action: Action<string
 				};
 			});
 		}
+		case (ACTION_TYPES.ADD_BABY): {
+			// Payload is new baby object
+			return [...state, payload.newBaby];
+		}
+		case (ACTION_TYPES.REMOVE_BABY): {
+			// Payload is baby id
+			return state.filter((babies, id) => id !== payload.babyId);
+		}
 		default:
 			return state;
 	}	
