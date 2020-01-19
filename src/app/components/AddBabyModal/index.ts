@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { AddBabyModal } from './component';
 import { Baby } from '../../interfaces';
+import { addBaby } from '../../store/actions';
 
 interface Props {
 	isOpen: boolean;
@@ -10,10 +11,7 @@ interface Props {
 
 const mapDispatchToProps = (dispatch, ownProps: Props) => ({
 	addNewBaby: (newBaby: Baby) => {
-		console.log('here we need to add new baby');
-		console.log(newBaby);
-		// TODO:
-		// dispatch()
+		dispatch(addBaby(newBaby));
 		if (ownProps.onClose) ownProps.onClose();
 	}
 })
