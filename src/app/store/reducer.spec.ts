@@ -1,6 +1,5 @@
 import babyReducer from './reducer';
 import { Baby } from '../interfaces';
-import persistence from '../utils/persistence';
 import babiesJSON from '../resources/babies.json'
 import util from '../utils/util';
 import { ACTION_TYPES, addReminder, removeReminder, addBaby, removeBaby } from './actions';
