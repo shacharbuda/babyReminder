@@ -1,5 +1,6 @@
 import { Reminder, Baby, BabyWithRemindersObj } from "../interfaces";
 import persistence from "./persistence";
+import store from '../store';
 
 export function getJsonFromUrl(url?: string) {
   if(!url) url = window.location.search;
@@ -34,8 +35,11 @@ export const getAgeInMonths = (birthday: Date) => {
 	return (ageInMonths);
 }
 
-export const getReminderForAge = (ageInMonths: number) => {
-	const reminders: Reminder[] = persistence.getReminders();
+const getAllReminders = (): Reminder[] => {
+	return store.getState().reminder as Reminder[];
+}
+
+const getReminderForAge = (reminders: Reminder[], ageInMonths: number) => {
 	let indexOfSmallestRangeReminder = -1;
 
 	reminders.reduce((accum, currReminder: Reminder, i) => {
@@ -89,6 +93,7 @@ export default {
 	getJsonFromUrl,
 	paramsObjToUrl,
 	getAgeInMonths,
+	getAllReminders,
 	getReminderForAge,
 	getBabiesWithRemindersObj,
 	stringToDate,
