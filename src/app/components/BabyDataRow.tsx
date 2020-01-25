@@ -1,6 +1,6 @@
 import React from 'react';
 import { Reminder, Baby } from '../interfaces';
-import util, { getReminderForAge, getAgeInMonths } from '../utils/util';
+import util from '../utils/util';
 import { ReminderCol } from './ReminderCol';
 import { TableRow, TableCell, withStyles, Theme, WithStyles } from '@material-ui/core';
 
@@ -15,8 +15,8 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 
 	render() {
 		const { baby, id: babyId, onReminderClick, classes } = this.props;
-		const ageInMonths = getAgeInMonths(baby.birthdate);
-		const nextReminder = getReminderForAge(ageInMonths) as Reminder;
+		const ageInMonths = util.getAgeInMonths(baby.birthdate);
+		const nextReminder = util.getReminderForAge(util.getAllReminders(), ageInMonths) as Reminder;
 		const isReminderSeen = nextReminder ? baby.seenReminders.includes(nextReminder.id) : false;
 		const isReminderUrgent = nextReminder && !isReminderSeen && nextReminder.months === ageInMonths;
 
