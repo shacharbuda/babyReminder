@@ -63,6 +63,10 @@ const getReminderForAge = (reminders: Reminder[], ageInMonths: number) => {
 	return reminders[indexOfSmallestRangeReminder];
 }
 
+const getBabyNextReminder = (ageInMonths: number, babySeenReminder: number[], reminders: Reminder[]) : Reminder => {
+	return null;//{"id": 1, "months": 3, "name": "זחילה"};
+}
+
 export function getBabiesWithRemindersObj(): BabyWithRemindersObj[] {
 	const babies: Baby[] = persistence.getBabies();
 	const reminders: Reminder[] = persistence.getReminders();
@@ -97,5 +101,6 @@ export default {
 	getReminderForAge,
 	getBabiesWithRemindersObj,
 	stringToDate,
-	dateToStr
+	dateToStr,
+	getBabyNextReminder
 }
