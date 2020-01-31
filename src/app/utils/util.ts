@@ -41,6 +41,7 @@ const getAllReminders = (): Reminder[] => {
 }
 
 const getBabyNextReminder = (babySeenReminders: number[], reminders: Reminder[]) : Reminder => {
+	// Notice we count of reminders to be sorted from earliest to latest
 	// find returns first object who doesn't includes in babySeenReminders
 	return _.find(reminders, r => !babySeenReminders.includes(r.id));
 }
