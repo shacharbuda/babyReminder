@@ -40,6 +40,11 @@ const getAllReminders = (): Reminder[] => {
 	return store.getState().reminder as Reminder[];
 }
 
+/**
+ * @deprecated use getBabyNextReminder instead
+ * @param reminders 
+ * @param ageInMonths 
+ */
 const getReminderForAge = (reminders: Reminder[], ageInMonths: number) => {
 	let indexOfSmallestRangeReminder = -1;
 
@@ -100,7 +105,6 @@ export default {
 	paramsObjToUrl,
 	getAgeInMonths,
 	getAllReminders,
-	getReminderForAge,
 	getBabiesWithRemindersObj,
 	stringToDate,
 	dateToStr,
