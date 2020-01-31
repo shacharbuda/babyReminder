@@ -16,9 +16,8 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 	render() {
 		const { baby, id: babyId, onReminderClick, classes } = this.props;
 		const ageInMonths = util.getAgeInMonths(baby.birthdate);
-		const nextReminder = util.getReminderForAge(util.getAllReminders(), ageInMonths) as Reminder;
-		const isReminderSeen = nextReminder ? baby.seenReminders.includes(nextReminder.id) : false;
-		const isReminderUrgent = nextReminder && !isReminderSeen && nextReminder.months === ageInMonths;
+		const nextReminder = util.getBabyNextReminder(baby.seenReminders, util.getAllReminders());
+		const isReminderUrgent = nextReminder && nextReminder.months >= ageInMonths;
 
 		return (
 			<TableRow className={classes.tableRow} hover key={babyId}>
