@@ -1,11 +1,9 @@
 import util from './util';
 import { Reminder } from '../interfaces';
+import _ from 'lodash';
 window.alert =  jest.fn();
 
 describe('getBabyNextReminder', () => {
-	// Disable Not implemented: window.alert Error
-	// window.alert = () => {};
-
 	const reminders: Reminder[] = [
 		{
 			id: 1,
@@ -23,13 +21,28 @@ describe('getBabyNextReminder', () => {
 			months: 12
 		}
 	];
-	it('should return first reminder for age 0', () => {
-		const EXPECTED = reminders[0];
 
-		const age = 0;
+	const getReminderById = (id) => _.find(reminders, r => r.id === id);
+
+	it('should return first reminder as no reminders seen', () => {
+		const EXPECTED = getReminderById(1);
+
 		const seenReminders = [];
-		const actual = util.getBabyNextReminder(age, seenReminders, reminders);
+		const actual = util.getBabyNextReminder(seenReminders, reminders);
 		expect(actual).toEqual<Reminder>(EXPECTED);
+	});
 
-	})
+	it('should return second reminder as first reminder seen', () => {
+		const EXPECTED = getReminderById(2);
+
+		const seenReminders = [1];
+		const actual = util.getBabyNextReminder(seenReminders, reminders);
+		expect(actual).toEqual<Reminder>(EXPECTED);
+	});
+
+	it('should return no reminder as all reminders seen', () => {
+		const seenReminders = [1, 2, 3];
+		const actual = util.getBabyNextReminder(seenReminders, reminders);
+		expect(actual).toBeNull();
+	});
 })
