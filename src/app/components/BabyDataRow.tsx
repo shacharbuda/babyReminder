@@ -1,5 +1,5 @@
 import React from 'react';
-import { Reminder, Baby } from '../interfaces';
+import { Baby } from '../interfaces';
 import util from '../utils/util';
 import { ReminderCol } from './ReminderCol';
 import { TableRow, TableCell, withStyles, Theme, WithStyles } from '@material-ui/core';
@@ -17,7 +17,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 		const { baby, id: babyId, onReminderClick, classes } = this.props;
 		const ageInMonths = util.getAgeInMonths(baby.birthdate);
 		const nextReminder = util.getBabyNextReminder(baby.seenReminders, util.getAllReminders());
-		const isReminderUrgent = nextReminder && nextReminder.months >= ageInMonths;
+		const isReminderUrgent = nextReminder && nextReminder.months <= ageInMonths;
 
 		return (
 			<TableRow className={classes.tableRow} hover key={babyId}>
