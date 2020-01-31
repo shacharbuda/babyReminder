@@ -1,4 +1,5 @@
 import { Reminder, Baby, BabyWithRemindersObj } from "../interfaces";
+import _ from 'lodash';
 import persistence from "./persistence";
 import store from '../store';
 
@@ -63,8 +64,9 @@ const getReminderForAge = (reminders: Reminder[], ageInMonths: number) => {
 	return reminders[indexOfSmallestRangeReminder];
 }
 
-const getBabyNextReminder = (ageInMonths: number, babySeenReminder: number[], reminders: Reminder[]) : Reminder => {
-	return null;//{"id": 1, "months": 3, "name": "זחילה"};
+const getBabyNextReminder = (babySeenReminders: number[], reminders: Reminder[]) : Reminder => {
+	// find returns first object who doesn't includes in babySeenReminders
+	return _.find(reminders, r => !babySeenReminders.includes(r.id));
 }
 
 export function getBabiesWithRemindersObj(): BabyWithRemindersObj[] {
