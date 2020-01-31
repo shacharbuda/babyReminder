@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "abb0f4b9f5eca22d738ab33c8713d290",
+    "revision": "8034ceb5a9fff3fb13815a835e21508a",
     "url": "/babyReminder/index.html"
   },
   {
-    "revision": "5508d84be0e53722e36d",
+    "revision": "55be2a17bef7b8a659d4",
     "url": "/babyReminder/static/css/main.9f295ffb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/babyReminder/static/js/2.4f4f6cc2.chunk.js.LICENSE"
   },
   {
-    "revision": "5508d84be0e53722e36d",
-    "url": "/babyReminder/static/js/main.2eded6e8.chunk.js"
+    "revision": "55be2a17bef7b8a659d4",
+    "url": "/babyReminder/static/js/main.428ffed0.chunk.js"
   },
   {
     "revision": "79bf2cdd036be08c79d9",
