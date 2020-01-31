@@ -40,35 +40,6 @@ const getAllReminders = (): Reminder[] => {
 	return store.getState().reminder as Reminder[];
 }
 
-/**
- * @deprecated use getBabyNextReminder instead
- * @param reminders 
- * @param ageInMonths 
- */
-const getReminderForAge = (reminders: Reminder[], ageInMonths: number) => {
-	let indexOfSmallestRangeReminder = -1;
-
-	reminders.reduce((accum, currReminder: Reminder, i) => {
-		// Notice we want to get the min range from future reminders.
-		// At this point, we don't care about past reminders.
-		const smallestRange = Math.min(accum, currReminder.months - ageInMonths);
-		if (smallestRange >= 0 && smallestRange < accum) {
-			indexOfSmallestRangeReminder = i;
-			return (smallestRange);
-		}
-
-		return (accum)
-
-	}, Math.min());
-
-	if (indexOfSmallestRangeReminder < 0) {
-		// Can't found future event
-		return (null)
-	}
-
-	return reminders[indexOfSmallestRangeReminder];
-}
-
 const getBabyNextReminder = (babySeenReminders: number[], reminders: Reminder[]) : Reminder => {
 	// find returns first object who doesn't includes in babySeenReminders
 	return _.find(reminders, r => !babySeenReminders.includes(r.id));
