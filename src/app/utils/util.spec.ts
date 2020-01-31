@@ -43,6 +43,6 @@ describe('getBabyNextReminder', () => {
 	it('should return no reminder as all reminders seen', () => {
 		const seenReminders = [1, 2, 3];
 		const actual = util.getBabyNextReminder(seenReminders, reminders);
-		expect(actual).toBeNull();
+		expect(actual).toBeUndefined();
 	});
 })
