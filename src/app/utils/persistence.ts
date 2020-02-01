@@ -70,7 +70,8 @@ function initData() {
 	validateUser();
 
 	try {
-		const babiesWithReminders = babiesJSON.map(b => ({
+		const babiesWithReminders = babiesJSON.map((b, id) => ({
+			id,
 			name: b.name + ' ' + b.lastName,
 			birthdate: b.birthdate ? util.stringToDate(b.birthdate) : null,
 			garden: b.garden,
@@ -78,7 +79,12 @@ function initData() {
 			seenReminders: []
 		}));
 
-		localStorage.setObj(PERSISTENCE_CODES.REMINDERS, remindersJSON);
+		const remindersWithId = remindersJSON.map((r, id) => ({
+			...r,
+			id
+		}));
+
+		localStorage.setObj(PERSISTENCE_CODES.REMINDERS, remindersWithId);
 		localStorage.setObj(PERSISTENCE_CODES.BABIES, babiesWithReminders);
 	} catch(e) {
 		console.error('Error in initData(): ', e);
@@ -90,7 +96,7 @@ function getReminders(): Reminder[] {
 
 	if (!reminders || !reminders.length) return [];
 
-	return reminders.map((r, id) => ({...r, id}))
+	return reminders;
 }
 
 function getBabies(): Baby[] {

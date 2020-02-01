@@ -26,13 +26,21 @@ const persistedState = {
 };
 
 // TODO: remove this on v0.2 !
-// Patch for v0.1.2 - add id to each baby
+// Patch for v0.1.2 - add id to each baby and reminder
 if (persistedState.baby[0] && !persistedState.baby[0].id) {
 	persistedState.baby = persistedState.baby.map((b, index) => {
 		const newBaby = {...b};
 		newBaby.id = index;
 
 		return newBaby;
+	});
+}
+if (persistedState.reminder[0] && !persistedState.reminder[0].id) {
+	persistedState.reminder = persistedState.reminder.map((b, index) => {
+		const newReminder = {...b};
+		newReminder.id = index;
+
+		return newReminder;
 	});
 }
 
