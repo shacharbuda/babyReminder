@@ -1,20 +1,25 @@
 import babyReducer from './reducer';
-import { Baby } from '../interfaces';
+import { Baby, BabyDB } from '../interfaces';
 import babiesJSON from '../resources/babies.json'
 import util from '../utils/util';
-import { ACTION_TYPES, addReminder, removeReminder, addBaby, removeBaby } from './actions';
+import { addReminder, removeReminder, addBaby, removeBaby } from './actions';
+import _ from 'lodash';
 
 describe('reducer.ts', () => {
-	let babiesWithReminders;
+	let babiesWithReminders: BabyDB[];
 	const PRE_SEEN_REMIDNER = 2;
 	const EXIST_BABY = 0;
+	const getBabyById = (babies: BabyDB[], id: number): BabyDB => _.find(babies, b => b.id === id);
 
-	beforeAll(() => {
-		babiesWithReminders = babiesJSON.map(b => ({
-			name: b.name,
-			birthdate: util.stringToDate(b.birthdate),
-			seenReminders: [PRE_SEEN_REMIDNER]
+	beforeEach(() => {
+		babiesWithReminders = (babiesJSON as Baby[]).map((b, index) => ({
+			...b,
+			name: b.name + ' ' + (b as any).lastName,
+			id: index,
+			birthdate: util.stringToDate(b.birthdate as any),
+			seenReminders: [PRE_SEEN_REMIDNER],
 		}));
+
 	})
 
 	it('should add babyReminder', () => {
@@ -22,17 +27,19 @@ describe('reducer.ts', () => {
 		const reminderId = 1;
 
 		const actual = babyReducer(babiesWithReminders, addReminder({babyId, reminderId}))
+		const actualBaby = getBabyById(actual, babyId);
 
-		expect(actual[babyId].seenReminders).toEqual([PRE_SEEN_REMIDNER, reminderId]);
+		expect(actualBaby.seenReminders).toEqual([PRE_SEEN_REMIDNER, reminderId]);
 	});
 
-	it('should just one babyReminder', () => {
+	it('should change nothing on adding same reminder', () => {
 		const babyId = 0;
 		const reminderId = PRE_SEEN_REMIDNER;
 
 		const actual = babyReducer(babiesWithReminders, addReminder({babyId, reminderId}))
+		const actualBaby = getBabyById(actual, babyId);
 
-		expect(actual[babyId].seenReminders).toEqual([PRE_SEEN_REMIDNER]);
+		expect(actualBaby.seenReminders).toEqual([PRE_SEEN_REMIDNER]);
 	});
 
 	it('should remove babyReminder', () => {
@@ -40,11 +47,14 @@ describe('reducer.ts', () => {
 		const reminderId = PRE_SEEN_REMIDNER;
 
 		const actual = babyReducer(babiesWithReminders, removeReminder({babyId, reminderId}))
+		const actualBaby = getBabyById(actual, babyId);
 
-		expect(actual[babyId].seenReminders).toEqual([]);
+		expect(actualBaby.seenReminders).toEqual([]);
 	});
 
 	it('should add new baby', () => {
+		const newId = babiesWithReminders.length;
+
 		const newBaby: Baby = {
 			name: 'new-baby-name',
 			birthdate: new Date(),
@@ -53,16 +63,21 @@ describe('reducer.ts', () => {
 			seenReminders: []
 		};
 
-		const actual = babyReducer(babiesWithReminders, addBaby(newBaby))
+		const EXPECTED_NEW_BABY: BabyDB = {
+			...newBaby,
+			id: newId
+		};
 
-		expect(actual).toEqual([...babiesWithReminders, newBaby]);
+		const actual = babyReducer(babiesWithReminders, addBaby(newBaby));
+
+		expect(actual).toEqual([...babiesWithReminders, EXPECTED_NEW_BABY]);
 	});
 
 	it('should remove baby', () => {
 		const babyIdToRemove = 0;
 
 		const actual = babyReducer(babiesWithReminders, removeBaby(babyIdToRemove));
-		const EXPECTED = babiesWithReminders.filter((elm, babyId) => babyId !== babyIdToRemove);
+		const EXPECTED = babiesWithReminders.filter((baby) => baby.id !== babyIdToRemove);
 
 		expect(actual).toEqual(EXPECTED);
 	});
