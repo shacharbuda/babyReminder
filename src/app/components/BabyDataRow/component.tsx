@@ -1,12 +1,14 @@
 import React from 'react';
-import { Baby } from '../interfaces';
-import util from '../utils/util';
-import { ReminderCol } from './ReminderCol';
+import { Baby } from '../../interfaces';
+import util from '../../utils/util';
+import { ReminderCol } from '../ReminderCol';
 import { TableRow, TableCell, withStyles, Theme, WithStyles } from '@material-ui/core';
+import { Reminder } from '../../interfaces';
 
 interface Props extends WithStyles<typeof styles> {
 	baby: Baby;
 	id: number;
+	reminders: Reminder[];
 	onReminderClick: (reminderId: number, babyId: number) => void
 };
 
@@ -14,9 +16,9 @@ interface Props extends WithStyles<typeof styles> {
 class BabyDataRowComponent extends React.Component<Props, {}> {
 
 	render() {
-		const { baby, id: babyId, onReminderClick, classes } = this.props;
+		const { baby, id: babyId, onReminderClick, classes, reminders } = this.props;
 		const ageInMonths = util.getAgeInMonths(baby.birthdate);
-		const nextReminder = util.getBabyNextReminder(baby.seenReminders, util.getAllReminders());
+		const nextReminder = util.getBabyNextReminder(baby.seenReminders, reminders);
 		const isReminderUrgent = nextReminder && nextReminder.months <= ageInMonths;
 
 		return (

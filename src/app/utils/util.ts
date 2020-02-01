@@ -1,6 +1,5 @@
 import { Reminder } from "../interfaces";
 import _ from 'lodash';
-import store from '../store';
 
 export function getJsonFromUrl(url?: string) {
   if(!url) url = window.location.search;
@@ -35,11 +34,6 @@ export const getAgeInMonths = (birthday: Date) => {
 	return (ageInMonths);
 }
 
-// TODO: this shouldnt be here! state should get from container only!
-const getAllReminders = (): Reminder[] => {
-	return store.getState().reminder as Reminder[];
-}
-
 const getBabyNextReminder = (babySeenReminders: number[], reminders: Reminder[]) : Reminder => {
 	// Notice we count of reminders to be sorted from earliest to latest
 	// find returns first object who doesn't includes in babySeenReminders
@@ -62,7 +56,6 @@ export default {
 	getJsonFromUrl,
 	paramsObjToUrl,
 	getAgeInMonths,
-	getAllReminders,
 	stringToDate,
 	dateToStr,
 	getBabyNextReminder

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Baby } from '../../interfaces';
-import { BabyDataRow } from '../BabyDataRow';
+import BabyDataRowContainer from '../BabyDataRow';
 import EditBabyContainer from '../EditBaby';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles, WithStyles, createStyles, Button } from '@material-ui/core';
 import AddBabyModal from '../AddBabyModal';
@@ -50,7 +50,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 						</TableHead>
 						<TableBody>
 							{this.props.babies.map((baby, babyId) => (
-								<BabyDataRow key={`BabyRow_${babyId}`} baby={baby} id={babyId} onReminderClick={this.onReminderChoose} />
+								<BabyDataRowContainer key={`BabyRow_${babyId}`} baby={baby} id={babyId} onReminderClick={this.onReminderChoose} />
 							))}
 						</TableBody>
 					</Table>
