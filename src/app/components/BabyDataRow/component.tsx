@@ -9,11 +9,22 @@ interface Props extends WithStyles<typeof styles> {
 	baby: Baby;
 	id: number;
 	reminders: Reminder[];
-	onReminderClick: (reminderId: number, babyId: number) => void
+	onReminderClick: (reminderId: number, babyId: number) => void;
+	removeBaby: (id: number) => void;
 };
 
 
 class BabyDataRowComponent extends React.Component<Props, {}> {
+
+	onRemoveClick = () => {
+		// TODO: fix all ids to come from baby obj itself!
+		const { baby, removeBaby } = this.props;
+		const isToRemove = window.confirm(`האם את בטוחה שברצונך למחוק את התינוק ${baby.name}`);
+
+		if (!isToRemove) return;
+
+		removeBaby(baby.id)
+	}
 
 	render() {
 		const { baby, id: babyId, onReminderClick, classes, reminders } = this.props;
@@ -27,6 +38,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
 				<TableCell align="center">{baby.garden}</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} babyId={babyId} onClick={() => onReminderClick(nextReminder.id, babyId)} />
+				<TableCell align="center" onClick={this.onRemoveClick}>click</TableCell>
 			</TableRow>
 		);
 	}
