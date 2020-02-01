@@ -67,9 +67,9 @@ function initData() {
 
 	if (isDataExists) return;
 
-	try {
-		validateUser();
+	validateUser();
 
+	try {
 		const babiesWithReminders = babiesJSON.map(b => ({
 			name: b.name + ' ' + b.lastName,
 			birthdate: b.birthdate ? util.stringToDate(b.birthdate) : null,
