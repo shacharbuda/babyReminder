@@ -49,8 +49,8 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{this.props.babies.map((baby, babyId) => (
-								<BabyDataRowContainer key={`BabyRow_${babyId}`} baby={baby} id={babyId} onReminderClick={this.onReminderChoose} />
+							{this.props.babies.map((baby) => (
+								<BabyDataRowContainer key={`BabyRow_${baby.id}`} baby={baby} onReminderClick={this.onReminderChoose} />
 							))}
 						</TableBody>
 					</Table>

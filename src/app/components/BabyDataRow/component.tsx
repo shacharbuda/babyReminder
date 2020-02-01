@@ -7,7 +7,6 @@ import { Reminder } from '../../interfaces';
 
 interface Props extends WithStyles<typeof styles> {
 	baby: Baby;
-	id: number;
 	reminders: Reminder[];
 	onReminderClick: (reminderId: number, babyId: number) => void;
 	removeBaby: (id: number) => void;
@@ -17,7 +16,6 @@ interface Props extends WithStyles<typeof styles> {
 class BabyDataRowComponent extends React.Component<Props, {}> {
 
 	onRemoveClick = () => {
-		// TODO: fix all ids to come from baby obj itself!
 		const { baby, removeBaby } = this.props;
 		const isToRemove = window.confirm(`האם את בטוחה שברצונך למחוק את התינוק ${baby.name}`);
 
@@ -27,7 +25,8 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 	}
 
 	render() {
-		const { baby, id: babyId, onReminderClick, classes, reminders } = this.props;
+		const { baby, onReminderClick, classes, reminders } = this.props;
+		const { id: babyId } = baby;
 		const ageInMonths = util.getAgeInMonths(baby.birthdate);
 		const nextReminder = util.getBabyNextReminder(baby.seenReminders, reminders);
 		const isReminderUrgent = nextReminder && nextReminder.months <= ageInMonths;
@@ -37,7 +36,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 				<TableCell align="center" component="th" scope="row">{baby.name}</TableCell>
 				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
 				<TableCell align="center">{baby.garden}</TableCell>
-				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} babyId={babyId} onClick={() => onReminderClick(nextReminder.id, babyId)} />
+				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} onClick={() => onReminderClick(nextReminder.id, babyId)} />
 				<TableCell align="center" onClick={this.onRemoveClick}>click</TableCell>
 			</TableRow>
 		);

@@ -5,7 +5,6 @@ import { withStyles, WithStyles, TableCell, TableCellProps } from '@material-ui/
 interface Props extends WithStyles<typeof styles> {
 	reminder: Reminder;
 	isUrgent: boolean;
-	babyId: number;
 	onClick: (ev: any) => void
 };
 
