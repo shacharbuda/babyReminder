@@ -21,7 +21,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 
 		if (!isToRemove) return;
 
-		removeBaby(baby.id)
+		removeBaby(baby.id);
 	}
 
 	render() {
