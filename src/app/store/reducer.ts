@@ -1,10 +1,10 @@
 import { Action } from 'redux';
 import { ACTION_TYPES } from './actions';
-import { BabyDB, Baby } from '../interfaces';
+import { Baby, BabyNew } from '../interfaces';
 
-const DEFAULT_STATE: BabyDB[] = [];
+const DEFAULT_STATE: Baby[] = [];
 
-export default function babyReducer(state = DEFAULT_STATE, action: Action<string>): BabyDB[] {
+export default function babyReducer(state = DEFAULT_STATE, action: Action<string>): Baby[] {
 	const { payload } = action as any;
 
 	switch(action.type) {
@@ -34,7 +34,7 @@ export default function babyReducer(state = DEFAULT_STATE, action: Action<string
 
 		case (ACTION_TYPES.ADD_BABY): {
 			const newBabyId = state.length;
-			const newBaby  = payload.newBaby as Baby;
+			const newBaby  = payload.newBaby as BabyNew;
 
 			const newBabyWithId = {
 				...newBaby,

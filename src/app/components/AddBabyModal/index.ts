@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AddBabyModal } from './component';
-import { Baby } from '../../interfaces';
+import { BabyNew } from '../../interfaces';
 import { addBaby } from '../../store/actions';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 
 const mapDispatchToProps = (dispatch, ownProps: Props) => ({
-	addNewBaby: (newBaby: Baby) => {
+	addNewBaby: (newBaby: BabyNew) => {
 		dispatch(addBaby(newBaby));
 		if (ownProps.onClose) ownProps.onClose();
 	}

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Baby } from '../../interfaces';
+import { BabyNew } from '../../interfaces';
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from '@material-ui/core'
 import { DatePicker } from '@material-ui/pickers';
 
 interface Props {
 	// From container
-	addNewBaby: (newBaby: Baby) => void;
+	addNewBaby: (newBaby: BabyNew) => void;
 	// ownProps
 	onClose: () => void;
 	isOpen: boolean;
 };
 
-interface State extends Baby {
+interface State extends BabyNew {
 }
 
 export class AddBabyModal extends React.Component<Props, State> {	

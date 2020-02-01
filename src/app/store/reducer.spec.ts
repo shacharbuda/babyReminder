@@ -1,15 +1,15 @@
 import babyReducer from './reducer';
-import { Baby, BabyDB } from '../interfaces';
+import { Baby, BabyNew } from '../interfaces';
 import babiesJSON from '../resources/babies.json'
 import util from '../utils/util';
 import { addReminder, removeReminder, addBaby, removeBaby } from './actions';
 import _ from 'lodash';
 
 describe('reducer.ts', () => {
-	let babiesWithReminders: BabyDB[];
+	let babiesWithReminders: Baby[];
 	const PRE_SEEN_REMIDNER = 2;
 	const EXIST_BABY = 0;
-	const getBabyById = (babies: BabyDB[], id: number): BabyDB => _.find(babies, b => b.id === id);
+	const getBabyById = (babies: Baby[], id: number): Baby => _.find(babies, b => b.id === id);
 
 	beforeEach(() => {
 		babiesWithReminders = (babiesJSON as Baby[]).map((b, index) => ({
@@ -55,7 +55,7 @@ describe('reducer.ts', () => {
 	it('should add new baby', () => {
 		const newId = babiesWithReminders.length;
 
-		const newBaby: Baby = {
+		const newBaby: BabyNew = {
 			name: 'new-baby-name',
 			birthdate: new Date(),
 			comments: 'comment',
@@ -63,7 +63,7 @@ describe('reducer.ts', () => {
 			seenReminders: []
 		};
 
-		const EXPECTED_NEW_BABY: BabyDB = {
+		const EXPECTED_NEW_BABY: Baby = {
 			...newBaby,
 			id: newId
 		};

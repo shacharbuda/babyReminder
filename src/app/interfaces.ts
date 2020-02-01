@@ -4,14 +4,14 @@ export interface Reminder {
 	id: number;
 };
 
-export interface Baby {
+
+export interface BabyNew {
 	name: string;
 	birthdate: Date;
 	garden: string;
 	seenReminders: number[];
 	comments: string;
-};
-
-export interface BabyDB extends Baby {
-	id: number;
 }
+export interface Baby extends BabyNew {
+	id: number;
+};
