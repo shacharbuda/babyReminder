@@ -2,8 +2,9 @@ import React from 'react';
 import { Baby } from '../../interfaces';
 import util from '../../utils/util';
 import { ReminderCol } from '../ReminderCol';
-import { TableRow, TableCell, withStyles, Theme, WithStyles } from '@material-ui/core';
+import { TableRow, TableCell, withStyles, Theme, WithStyles, Fab } from '@material-ui/core';
 import { Reminder } from '../../interfaces';
+import { Delete as RemoveIcon } from '@material-ui/icons';
 
 interface Props extends WithStyles<typeof styles> {
 	baby: Baby;
@@ -37,7 +38,11 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
 				<TableCell align="center">{baby.garden}</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} onClick={() => onReminderClick(nextReminder.id, babyId)} />
-				<TableCell align="center" onClick={this.onRemoveClick}>click</TableCell>
+				<TableCell align="center">
+					<Fab color="secondary" variant="extended" size="small" onClick={this.onRemoveClick}>
+						<RemoveIcon />
+					</Fab>
+				</TableCell>
 			</TableRow>
 		);
 	}

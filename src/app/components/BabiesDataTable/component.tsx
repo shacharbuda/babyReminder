@@ -46,6 +46,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 								<TableCell align="center" className={classes.head}>תאריך לידה</TableCell>
 								<TableCell align="center" className={classes.head}>גן ילדים</TableCell>
 								<TableCell align="center" className={classes.head}>תזכורת הבאה</TableCell>
+								<TableCell align="center" className={classes.head}></TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
