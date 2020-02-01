@@ -39,7 +39,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 		return (
 			<div className="h-100 w-100">
 				<TableContainer className={classes.tblContainer}>
-					<Table stickyHeader aria-label="simple table">
+					<Table padding="checkbox" stickyHeader aria-label="simple table">
 						<TableHead>
 							<TableRow>
 								<TableCell align="center" className={classes.head}>שם</TableCell>

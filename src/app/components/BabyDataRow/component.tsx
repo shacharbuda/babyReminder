@@ -57,6 +57,10 @@ const styles = (theme: Theme) => ({
 			},
 			'& .reminder_col': {
 				transition: 'transform 0.3s'
+			},
+			// Take care of table cell padding
+			'& .MuiTableCell-root': {
+				padding: '7px 4px 7px 0'
 			}
 		}
 });
