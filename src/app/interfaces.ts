@@ -5,15 +5,10 @@ export interface Reminder {
 };
 
 export interface Baby {
+	// id: number;
 	name: string;
 	birthdate: Date;
 	garden: string;
 	seenReminders: number[];
 	comments: string;
 };
-
-export interface BabyWithRemindersObj {
-	name: string;
-	birthdate: Date;
-	seenReminders: Reminder[];
-}

@@ -1,6 +1,5 @@
-import { Reminder, Baby, BabyWithRemindersObj } from "../interfaces";
+import { Reminder } from "../interfaces";
 import _ from 'lodash';
-import persistence from "./persistence";
 import store from '../store';
 
 export function getJsonFromUrl(url?: string) {
@@ -46,20 +45,6 @@ const getBabyNextReminder = (babySeenReminders: number[], reminders: Reminder[])
 	return _.find(reminders, r => !babySeenReminders.includes(r.id));
 }
 
-export function getBabiesWithRemindersObj(): BabyWithRemindersObj[] {
-	const babies: Baby[] = persistence.getBabies();
-	const reminders: Reminder[] = persistence.getReminders();
-
-	if (!babies || !babies.length) {
-		return [];
-	}
-
-	return babies.map(baby => ({
-		...baby,
-		seenReminders: baby.seenReminders.map(reminderId => reminders[reminderId])
-	}));
-}
-
 const stringToDate = (str: string, sep: string = '.'): Date => {
 	const parts = str.split(sep);
 	const day = parseInt(parts[1]).toFixed(2);
@@ -77,7 +62,6 @@ export default {
 	paramsObjToUrl,
 	getAgeInMonths,
 	getAllReminders,
-	getBabiesWithRemindersObj,
 	stringToDate,
 	dateToStr,
 	getBabyNextReminder
