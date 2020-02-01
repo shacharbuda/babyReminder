@@ -1,4 +1,4 @@
-import { Baby, Reminder } from "../interfaces"
+import { Baby, Reminder, BabyDB } from "../interfaces"
 import util from './util';
 import babiesJSON from '../resources/babies.json'
 import remindersJSON from '../resources/reminders.json'
@@ -93,7 +93,7 @@ function getReminders(): Reminder[] {
 	return reminders.map((r, id) => ({...r, id}))
 }
 
-function getBabies(): Baby[] {
+function getBabies(): BabyDB[] {
 	const babies: any[] = localStorage.getObj(PERSISTENCE_CODES.BABIES);
 	
 	if (!babies || !babies.length) return [];

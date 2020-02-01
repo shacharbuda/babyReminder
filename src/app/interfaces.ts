@@ -5,10 +5,13 @@ export interface Reminder {
 };
 
 export interface Baby {
-	// id: number;
 	name: string;
 	birthdate: Date;
 	garden: string;
 	seenReminders: number[];
 	comments: string;
 };
+
+export interface BabyDB extends Baby {
+	id: number;
+}

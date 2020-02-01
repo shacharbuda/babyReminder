@@ -1,7 +1,14 @@
-import logger from 'redux-logger';
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import babyReducer from "./reducer";
 import persistence from "../utils/persistence";
+
+const middlewares = [];
+
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`);
+
+  middlewares.push(logger);
+}
 
 const reducer = combineReducers({
 	baby: babyReducer,
@@ -18,8 +25,20 @@ const persistedState = {
 	reminder: persistence.getReminders()
 };
 
-const store = createStore(reducer, persistedState, applyMiddleware(logger));
+// TODO: remove this on v0.2 !
+// Patch for v0.1.2 - add id to each baby
+if (!persistedState.baby[0].id) {
+	persistedState.baby = persistedState.baby.map((b, index) => {
+		const newBaby = {...b};
+		newBaby.id = index;
 
+		return newBaby;
+	});
+}
+
+const store = createStore(reducer, persistedState, applyMiddleware(...middlewares));
+
+// Persist baby changes for local device.
 store.subscribe(() => {
 	persistence.saveBabies(store.getState().baby);
 })
