@@ -35,6 +35,7 @@ export const getAgeInMonths = (birthday: Date) => {
 	return (ageInMonths);
 }
 
+// TODO: this shouldnt be here! state should get from container only!
 const getAllReminders = (): Reminder[] => {
 	return store.getState().reminder as Reminder[];
 }
