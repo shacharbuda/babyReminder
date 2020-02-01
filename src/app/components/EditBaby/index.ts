@@ -12,8 +12,8 @@ interface Props {
 };
 
 const mapStateToProps = (state, ownProps: Props) => ({
-	baby: state.baby[ownProps.pickedBabyReminder.babyId],
-	reminder: state.reminder[ownProps.pickedBabyReminder.reminderId]
+	baby: state.baby.find(b => b.id === ownProps.pickedBabyReminder.babyId),
+	reminder: state.reminder.find(r => r.id === ownProps.pickedBabyReminder.reminderId)
 });
 
 const mapDispatchToProps = (dispatch, ownProps: Props) => ({
