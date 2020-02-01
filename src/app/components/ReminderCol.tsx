@@ -31,7 +31,6 @@ const styles = {
 		color: '#007bff',
 		textDecoration: 'underline',
 		cursor: 'pointer',
-		fontWeight: 600
 	},
 	unclickable: {
 		cursor: 'not-allowed'

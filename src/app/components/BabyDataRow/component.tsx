@@ -47,7 +47,7 @@ const styles = (theme: Theme) => ({
 	tableRow: {
 			'&:hover': {
 				'& .reminder_col': {
-					transform: 'scale(1.5)'
+					fontWeight: 'bold'
 				}
 			},
 			'& .reminder_col': {
