@@ -4,6 +4,7 @@ import BabyDataRowContainer from '../BabyDataRow';
 import EditBabyContainer from '../EditBaby';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles, WithStyles, createStyles, Button } from '@material-ui/core';
 import AddBabyModal from '../AddBabyModal';
+import _ from 'lodash';
 
 interface Props extends WithStyles<typeof styles> {
 	babies: Baby[];
@@ -26,12 +27,26 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 			addBabyClick: false
 		};
 	}
+	// TODO: del
+	dupsIds;
 
 	componentDidMount() {
 		const { sortBabies } = this.props;
 
 		sortBabies();
+
+	// TODO: del
+
+		const {babies} = this.props;
+		const dups = _.filter(babies, (val, i, iteratee) => _.find(iteratee, b => b.id === val.id, i + 1));
+		const dupsIds = _.map(dups as Baby[], b => b.id);
+		this.dupsIds = dupsIds;
+		const messedUpBabies = _.filter(babies, baby => _.includes(dupsIds, baby.id));
+		const messedUpNames = _.map(messedUpBabies, baby => `${baby.name} שבגן ${baby.garden}`);
+		alert(messedUpNames.join('\n') + '\nסה"כ ' + messedUpBabies.length + ' שצריך למחוק');
 	}
+
+	isMess = (id) =>_.includes(this.dupsIds, id);
 
 	onReminderChoose = (reminderId: number, babyId: number) => {
 		this.setState({pickedBabyReminder: {
@@ -58,7 +73,9 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 						</TableHead>
 						<TableBody>
 							{this.props.babies.map((baby) => (
-								<BabyDataRowContainer key={`BabyRow_${baby.id}`} baby={baby} onReminderClick={this.onReminderChoose} />
+	// TODO: del
+
+								<BabyDataRowContainer key={`BabyRow_${baby.id}`} isMess={this.isMess(baby.id)} baby={baby} onReminderClick={this.onReminderChoose} />
 							))}
 						</TableBody>
 					</Table>
