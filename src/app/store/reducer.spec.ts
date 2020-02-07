@@ -2,7 +2,7 @@ import babyReducer from './reducer';
 import { Baby, BabyNew } from '../interfaces';
 import babiesJSON from '../resources/babies.json'
 import util from '../utils/util';
-import { addReminder, removeReminder, addBaby, removeBaby } from './actions';
+import { addReminder, removeReminder, addBaby, removeBaby, sortBabies } from './actions';
 import _ from 'lodash';
 
 describe('reducer.ts', () => {
@@ -79,6 +79,32 @@ describe('reducer.ts', () => {
 		const actual = babyReducer(babiesWithReminders, removeBaby(babyIdToRemove));
 		const EXPECTED = babiesWithReminders.filter((baby) => baby.id !== babyIdToRemove);
 
+		expect(actual).toEqual(EXPECTED);
+	});
+
+	it('should sort babies', () => {
+		const first = {
+			name: 'b',
+			garden: 'a'
+		};
+		const sec = {
+			name: 'c',
+			garden: 'a'
+		};
+		const third = {
+			name: 'b',
+			garden: 'b'
+		};
+ 
+		const unsorted = [
+			sec,
+			third,
+			first
+		] as any[];
+
+		const actual = babyReducer(unsorted, sortBabies());
+		const EXPECTED = [first, sec, third];
+		
 		expect(actual).toEqual(EXPECTED);
 	});
 })

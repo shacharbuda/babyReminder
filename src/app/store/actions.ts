@@ -6,7 +6,8 @@ export const ACTION_TYPES = {
 	ADD_REMINDER: 'ADD_REMINDER',
 	REMOVE_REMINDER: 'REMOVE_REMIDNER',
 	ADD_BABY: 'ADD_BABY',
-	REMOVE_BABY: 'REMOVE_BABY'
+	REMOVE_BABY: 'REMOVE_BABY',
+	SORT_BABIES: 'SORT_BABIES'
 };
 
 export const initBabies: ActionCreator<Action> = () => ({
@@ -25,6 +26,10 @@ export const removeBaby: ActionCreator<Action> = (babyId: number) => ({
 	payload: {
 		babyId
 	}
+});
+
+export const sortBabies: ActionCreator<Action> = () => ({
+	type: ACTION_TYPES.SORT_BABIES
 });
 
 interface BabyReminder {
