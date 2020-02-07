@@ -1,8 +1,13 @@
 import { connect } from 'react-redux';
 import { BabiesDataTableComponent } from './component';
+import { sortBabies } from '../../store/actions';
 
 const mapStateToProps = (state) => ({
 	babies: state.baby
 });
 
-export default connect(mapStateToProps)(BabiesDataTableComponent)
+const mapDispatchToProps = (dispatch) => ({
+	sortBabies: () => dispatch(sortBabies())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BabiesDataTableComponent)
