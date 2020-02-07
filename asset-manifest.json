@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/babyReminder/static/css/main.9f295ffb.chunk.css",
-    "main.js": "/babyReminder/static/js/main.906087b6.chunk.js",
-    "main.js.map": "/babyReminder/static/js/main.906087b6.chunk.js.map",
+    "main.js": "/babyReminder/static/js/main.b7637e4a.chunk.js",
+    "main.js.map": "/babyReminder/static/js/main.b7637e4a.chunk.js.map",
     "runtime-main.js": "/babyReminder/static/js/runtime-main.0000cbfb.js",
     "runtime-main.js.map": "/babyReminder/static/js/runtime-main.0000cbfb.js.map",
     "static/js/2.609f684d.chunk.js": "/babyReminder/static/js/2.609f684d.chunk.js",
     "static/js/2.609f684d.chunk.js.map": "/babyReminder/static/js/2.609f684d.chunk.js.map",
     "index.html": "/babyReminder/index.html",
-    "precache-manifest.947484a00984a55397bba160b7b74ef0.js": "/babyReminder/precache-manifest.947484a00984a55397bba160b7b74ef0.js",
+    "precache-manifest.29e4b5b9e744c17296d2d68d26346600.js": "/babyReminder/precache-manifest.29e4b5b9e744c17296d2d68d26346600.js",
     "service-worker.js": "/babyReminder/service-worker.js",
     "static/css/main.9f295ffb.chunk.css.map": "/babyReminder/static/css/main.9f295ffb.chunk.css.map",
     "static/js/2.609f684d.chunk.js.LICENSE": "/babyReminder/static/js/2.609f684d.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0000cbfb.js",
     "static/js/2.609f684d.chunk.js",
     "static/css/main.9f295ffb.chunk.css",
-    "static/js/main.906087b6.chunk.js"
+    "static/js/main.b7637e4a.chunk.js"
   ]
 }
