@@ -42,7 +42,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 		const dupsIds = _.map(dups as Baby[], b => b.id);
 		this.dupsIds = dupsIds;
 		const messedUpBabies = _.filter(babies, baby => _.includes(dupsIds, baby.id));
-		const messedUpNames = _.map(messedUpBabies, baby => `${baby.name} שבגן ${baby.garden}`);
+		const messedUpNames = _.map(messedUpBabies, baby => `${baby.name} שבגן ${baby.garden ? baby.garden : 'לא ידוע'}`);
 		alert(messedUpNames.join('\n') + '\nסה"כ ' + messedUpBabies.length + ' שצריך למחוק');
 	}
 
