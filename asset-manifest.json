@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/babyReminder/static/css/main.9f295ffb.chunk.css",
-    "main.js": "/babyReminder/static/js/main.8c2343d5.chunk.js",
-    "main.js.map": "/babyReminder/static/js/main.8c2343d5.chunk.js.map",
+    "main.js": "/babyReminder/static/js/main.314c6d96.chunk.js",
+    "main.js.map": "/babyReminder/static/js/main.314c6d96.chunk.js.map",
     "runtime-main.js": "/babyReminder/static/js/runtime-main.0000cbfb.js",
     "runtime-main.js.map": "/babyReminder/static/js/runtime-main.0000cbfb.js.map",
-    "static/js/2.77325202.chunk.js": "/babyReminder/static/js/2.77325202.chunk.js",
-    "static/js/2.77325202.chunk.js.map": "/babyReminder/static/js/2.77325202.chunk.js.map",
+    "static/js/2.609f684d.chunk.js": "/babyReminder/static/js/2.609f684d.chunk.js",
+    "static/js/2.609f684d.chunk.js.map": "/babyReminder/static/js/2.609f684d.chunk.js.map",
     "index.html": "/babyReminder/index.html",
-    "precache-manifest.52258905849a2464dbbc4eeb9bbbcd5b.js": "/babyReminder/precache-manifest.52258905849a2464dbbc4eeb9bbbcd5b.js",
+    "precache-manifest.43be84059261d7d96fd7e56b0c9ab69a.js": "/babyReminder/precache-manifest.43be84059261d7d96fd7e56b0c9ab69a.js",
     "service-worker.js": "/babyReminder/service-worker.js",
     "static/css/main.9f295ffb.chunk.css.map": "/babyReminder/static/css/main.9f295ffb.chunk.css.map",
-    "static/js/2.77325202.chunk.js.LICENSE": "/babyReminder/static/js/2.77325202.chunk.js.LICENSE"
+    "static/js/2.609f684d.chunk.js.LICENSE": "/babyReminder/static/js/2.609f684d.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.0000cbfb.js",
-    "static/js/2.77325202.chunk.js",
+    "static/js/2.609f684d.chunk.js",
     "static/css/main.9f295ffb.chunk.css",
-    "static/js/main.8c2343d5.chunk.js"
+    "static/js/main.314c6d96.chunk.js"
   ]
 }
