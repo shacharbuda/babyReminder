@@ -11,6 +11,8 @@ interface Props extends WithStyles<typeof styles> {
 	reminders: Reminder[];
 	onReminderClick: (reminderId: number, babyId: number) => void;
 	removeBaby: (id: number) => void;
+	// TODO: del
+	isMess: boolean;
 };
 
 
@@ -26,14 +28,15 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 	}
 
 	render() {
-		const { baby, onReminderClick, classes, reminders } = this.props;
+			// TODO: del
+		const { baby, onReminderClick, classes, reminders, isMess } = this.props;
 		const { id: babyId } = baby;
 		const ageInMonths = util.getAgeInMonths(baby.birthdate);
 		const nextReminder = util.getBabyNextReminder(baby.seenReminders, reminders);
 		const isReminderUrgent = nextReminder && nextReminder.months <= ageInMonths;
 
 		return (
-			<TableRow className={classes.tableRow} hover key={babyId}>
+			<TableRow style={isMess ? {backgroundColor: 'red'} : {}} className={classes.tableRow} hover key={babyId}>
 				<TableCell align="center" component="th" scope="row">{baby.name}</TableCell>
 				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
 				<TableCell align="center">{baby.garden}</TableCell>
