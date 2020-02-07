@@ -49,7 +49,8 @@ export class AddBabyModal extends React.Component<Props, State> {
 
 	handleSubmit = () => {
 		const newBaby = {
-			...this.state
+			...this.state,
+			name: this.state.name.trim()
 		}
 
 		if (!newBaby.name) {

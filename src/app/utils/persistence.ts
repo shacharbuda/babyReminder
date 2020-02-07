@@ -104,7 +104,7 @@ function getBabies(): Baby[] {
 	
 	if (!babies || !babies.length) return [];
 	
-	return babies.map((b) => ({...b, birthdate: new Date(b.birthdate)}));
+	return babies.map((b) => ({...b, name: b.name.trim(), birthdate: new Date(b.birthdate)}));
 }
 
 function saveBabies(babies: Baby[]) {
