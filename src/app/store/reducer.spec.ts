@@ -53,7 +53,7 @@ describe('reducer.ts', () => {
 	});
 
 	it('should add new baby', () => {
-		const newId = babiesWithReminders.length;
+		const newId = _.maxBy(babiesWithReminders, b => b.id).id + 1;
 
 		const newBaby: BabyNew = {
 			name: 'new-baby-name',
@@ -71,6 +71,39 @@ describe('reducer.ts', () => {
 		const actual = babyReducer(babiesWithReminders, addBaby(newBaby));
 
 		expect(actual).toEqual([...babiesWithReminders, EXPECTED_NEW_BABY]);
+	});
+
+	it('should remove then add new baby', () => {
+		const sortedById = _.orderBy(babiesWithReminders, b => b.id, 'desc');
+		const almostBiggestId = sortedById[1].id;
+
+		const babyIdToRemove = almostBiggestId;
+
+		const actualRemoved = babyReducer(babiesWithReminders, removeBaby(babyIdToRemove));
+		const expectedAfterRemove = babiesWithReminders.filter((baby) => baby.id !== babyIdToRemove);
+
+		expect(actualRemoved).toEqual(expectedAfterRemove);
+
+		const newId = _.maxBy(expectedAfterRemove, b => b.id).id + 1;
+
+		const newBaby: BabyNew = {
+			name: 'new-baby-name',
+			birthdate: new Date(),
+			comments: 'comment',
+			garden: 'my-garden',
+			seenReminders: []
+		};
+
+		const EXPECTED_NEW_BABY: Baby = {
+			...newBaby,
+			id: newId
+		};
+
+		const actualAfterAdd = babyReducer(expectedAfterRemove, addBaby(newBaby));
+		const uniqedActualAfterAdd = _.uniqBy(actualAfterAdd, b => b.id);
+
+		expect(actualAfterAdd).toEqual([...expectedAfterRemove, EXPECTED_NEW_BABY]);
+		expect(actualAfterAdd).toEqual(uniqedActualAfterAdd);
 	});
 
 	it('should remove baby', () => {

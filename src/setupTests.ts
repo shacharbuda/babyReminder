@@ -4,9 +4,9 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
-global.console = {
-	error: () => {}
-};
+// global.console = {
+// 	error: () => {}
+// };
 global.alert = () => {};
 global.prompt = () => {};
 global.matchMedia = () => ({});
