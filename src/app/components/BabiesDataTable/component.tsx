@@ -4,7 +4,6 @@ import BabyDataRowContainer from '../BabyDataRow';
 import EditBabyContainer from '../EditBaby';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles, WithStyles, createStyles, Button } from '@material-ui/core';
 import AddBabyModal from '../AddBabyModal';
-import _ from 'lodash';
 
 interface Props extends WithStyles<typeof styles> {
 	babies: Baby[];
