@@ -34,7 +34,8 @@ export default function babyReducer(state = DEFAULT_STATE, action: Action<string
 		}
 
 		case (ACTION_TYPES.ADD_BABY): {
-			const newBabyId = state.length;
+			// Gets new id, biggest of all exists + 1
+			const newBabyId = _.maxBy(state, b => b.id).id + 1;
 			const newBaby  = payload.newBaby as BabyNew;
 
 			const newBabyWithId = {
