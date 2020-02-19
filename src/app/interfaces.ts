@@ -6,7 +6,8 @@ export interface Reminder {
 
 
 export interface BabyNew {
-	name: string;
+	firstName: string;
+	lastName: string;
 	birthdate: Date;
 	garden: string;
 	seenReminders: number[];

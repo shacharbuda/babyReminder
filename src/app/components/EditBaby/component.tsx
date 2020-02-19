@@ -29,7 +29,7 @@ export class EditBabyComponent extends React.Component<Props, State> {
 			"גיל הופעת התזכורת (חודשים)",
 			"שם תזכורת"
 		];
-		const values = [baby.name, baby.birthdate.toDate().toISOString().slice(0,10), reminder.months, reminder.name];
+		const values = [`${baby.firstName}${baby.lastName ? ` ${baby.lastName}` : ''}`, baby.birthdate.toDate().toISOString().slice(0,10), reminder.months, reminder.name];
 
 		this.fields = values.map((value, i) => ({label: labels[i], value}))
 
@@ -61,7 +61,7 @@ export class EditBabyComponent extends React.Component<Props, State> {
 				onClose={this.closeModal}
 				onSubmit={this.handleSubmit}
 				 >
-        <DialogTitle id="form-dialog-title">תינוק {baby.name} - תזכורת {reminder.name}</DialogTitle>
+        <DialogTitle id="form-dialog-title">תינוק {baby.firstName} - תזכורת {reminder.name}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             כאן ניתן לערוך פרטי התזכורת. כרגע הכוונה היא רק ל'סיימתי עם התזכורת'.

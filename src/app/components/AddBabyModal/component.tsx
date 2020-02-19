@@ -12,6 +12,7 @@ interface Props {
 };
 
 interface State extends BabyNew {
+	nameInput: string;
 }
 
 export class AddBabyModal extends React.Component<Props, State> {	
@@ -33,14 +34,25 @@ export class AddBabyModal extends React.Component<Props, State> {
 		this.state = {
 			birthdate: new Date(),
 			seenReminders: [],
-			name: '',
+			firstName: '',
+			lastName: '',
 			garden: '',
-			comments: ''
+			comments: '',
+			nameInput: ''
 		}
 	}
 
 	handleTextChange = (handler: string) => ({target}) => {
-		(this.setState as any)({[handler]: target.value});
+		// (this.setState as any)({[handler]: target.value});
+		// Notice: we assume only name change happens here..
+		const splitted = target.value.split(' ');
+		const firstName = splitted[0];
+		const lastName = splitted.length > 2 ? splitted.slice(1).join(' ') : '';
+		this.setState({
+			nameInput: target.value,
+			firstName,
+			lastName
+		})
 	}
 
 	handleBirthdayChange = (date) => {
@@ -49,11 +61,12 @@ export class AddBabyModal extends React.Component<Props, State> {
 
 	handleSubmit = () => {
 		const newBaby = {
-			...this.state,
-			name: this.state.name.trim()
+			...this.state
 		}
+		// TODO: find something nicer..
+		delete newBaby.nameInput;
 
-		if (!newBaby.name) {
+		if (!newBaby.firstName) {
 			return alert('חובה להזין שם תינוק!');
 		}
 
@@ -74,7 +87,7 @@ export class AddBabyModal extends React.Component<Props, State> {
 				onClose={this.closeModal}
 				onSubmit={this.handleSubmit}
 				 >
-        <DialogTitle id="form-dialog-title">הוספת תינוק {this.state.name}</DialogTitle>
+        <DialogTitle id="form-dialog-title">הוספת תינוק {this.state.nameInput}</DialogTitle>
         <DialogContent>
 					{
 						this.fields.map(f => (

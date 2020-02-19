@@ -18,7 +18,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 
 	onRemoveClick = () => {
 		const { baby, removeBaby } = this.props;
-		const isToRemove = window.confirm(`האם את בטוחה שברצונך למחוק את התינוק ${baby.name}`);
+		const isToRemove = window.confirm(`האם את בטוחה שברצונך למחוק את התינוק ${baby.firstName}`);
 
 		if (!isToRemove) return;
 
@@ -35,7 +35,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 
 		return (
 			<TableRow className={classes.tableRow} hover key={babyId}>
-				<TableCell align="center" component="th" scope="row">{baby.name}</TableCell>
+				<TableCell align="center" component="th" scope="row">{baby.firstName} {baby.lastName}</TableCell>
 				<TableCell align="center">{util.dateToStr(birthdate)} - {ageInMonths} חודשים</TableCell>
 				<TableCell align="center">{baby.garden}</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} onClick={() => onReminderClick(nextReminder.id, babyId)} />
