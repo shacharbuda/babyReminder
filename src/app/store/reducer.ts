@@ -1,7 +1,6 @@
 import { Action } from 'redux';
 import { ACTION_TYPES } from './actions';
-import { Baby, BabyNew } from '../interfaces';
-import _ from 'lodash';
+import { Baby } from '../interfaces';
 
 const DEFAULT_STATE: Baby[] = [];
 
@@ -33,26 +32,27 @@ export default function babyReducer(state = DEFAULT_STATE, action: Action<string
 			});
 		}
 
-		case (ACTION_TYPES.ADD_BABY): {
-			// Gets new id, biggest of all exists + 1
-			const newBabyId = _.maxBy(state, b => b.id).id + 1;
-			const newBaby  = payload.newBaby as BabyNew;
+		// DEPRECATED!
+		// case (ACTION_TYPES.ADD_BABY): {
+		// 	// Gets new id, biggest of all exists + 1
+		// 	const newBabyId = _.maxBy(state, b => b.id).id + 1;
+		// 	const newBaby  = payload.newBaby as BabyNew;
 
-			const newBabyWithId = {
-				...newBaby,
-				id: newBabyId
-			}
+		// 	const newBabyWithId = {
+		// 		...newBaby,
+		// 		id: newBabyId
+		// 	}
 
-			// Payload is new baby object
-			return [...state, newBabyWithId];
-		}
-		case (ACTION_TYPES.REMOVE_BABY): {
-			// Payload is baby id
-			return state.filter((baby) => baby.id !== payload.babyId);
-		}
-		case (ACTION_TYPES.SORT_BABIES): {
-			return _.orderBy(state, ['garden', 'name']);
-		}
+		// 	// Payload is new baby object
+		// 	return [...state, newBabyWithId];
+		// }
+	// 	case (ACTION_TYPES.REMOVE_BABY): {
+	// 		// Payload is baby id
+	// 		return state.filter((baby) => baby.id !== payload.babyId);
+	// 	}
+	// 	case (ACTION_TYPES.SORT_BABIES): {
+	// 		return _.orderBy(state, ['garden', 'name']);
+	// 	}
 		default:
 			return state;
 	}	

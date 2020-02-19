@@ -28,14 +28,15 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 	render() {
 		const { baby, onReminderClick, classes, reminders } = this.props;
 		const { id: babyId } = baby;
-		const ageInMonths = util.getAgeInMonths(baby.birthdate);
+		const birthdate = baby.birthdate.toDate();
+		const ageInMonths = util.getAgeInMonths(birthdate);
 		const nextReminder = util.getBabyNextReminder(baby.seenReminders, reminders);
 		const isReminderUrgent = nextReminder && nextReminder.months <= ageInMonths;
 
 		return (
 			<TableRow className={classes.tableRow} hover key={babyId}>
 				<TableCell align="center" component="th" scope="row">{baby.name}</TableCell>
-				<TableCell align="center">{util.dateToStr(baby.birthdate)} - {ageInMonths} חודשים</TableCell>
+				<TableCell align="center">{util.dateToStr(birthdate)} - {ageInMonths} חודשים</TableCell>
 				<TableCell align="center">{baby.garden}</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} onClick={() => onReminderClick(nextReminder.id, babyId)} />
 				<TableCell align="center">

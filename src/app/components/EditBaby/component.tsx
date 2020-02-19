@@ -29,7 +29,7 @@ export class EditBabyComponent extends React.Component<Props, State> {
 			"גיל הופעת התזכורת (חודשים)",
 			"שם תזכורת"
 		];
-		const values = [baby.name, baby.birthdate.toISOString().slice(0,10), reminder.months, reminder.name];
+		const values = [baby.name, baby.birthdate.toDate().toISOString().slice(0,10), reminder.months, reminder.name];
 
 		this.fields = values.map((value, i) => ({label: labels[i], value}))
 

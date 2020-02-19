@@ -12,6 +12,7 @@ export interface BabyNew {
 	seenReminders: number[];
 	comments: string;
 }
-export interface Baby extends BabyNew {
+export interface Baby extends Omit<BabyNew, 'birthdate'> {
 	id: number;
+	birthdate: firebase.firestore.Timestamp
 };
