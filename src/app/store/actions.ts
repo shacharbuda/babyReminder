@@ -14,22 +14,23 @@ export const initBabies: ActionCreator<Action> = () => ({
   type: ACTION_TYPES.INIT_BABIES
 });
 
-export const addBaby = (newBaby: BabyNew) => async (dispatch) => {
-	// asyc can happen here
-	const p = new Promise((res) => {
-		setTimeout(() => {
-			res();
-		}, 1000);
-	});
-	console.log('before');
-	await p;
-	console.log('after');
-	dispatch({	
-		type: ACTION_TYPES.ADD_BABY,
-		payload: {
-			newBaby
-		}
-	});
+export const addBaby = (newBaby: BabyNew) => async (dispatch, getState, { getFirebase, getFirestore }) => {
+	try {
+
+		const firestore = getFirestore();
+		await firestore.collection('babies').add({
+			...newBaby
+		});
+		console.log('success!');
+		// dispatch({	
+		// 	type: ACTION_TYPES.ADD_BABY,
+		// 	payload: {
+		// 		newBaby
+		// 	}
+		// });
+	} catch(e) {
+		console.error('e ? ', e);
+	}
 }
 
 export const removeBaby = (babyId: number) => async (dispatch) => {

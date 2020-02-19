@@ -1,36 +1,35 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import babyReducer from "./reducer";
 import persistence from "../utils/persistence";
 import thunk from 'redux-thunk';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { getFirebase } from 'react-redux-firebase';
+import firebase from '../../config/fbConfig';
 
-const middlewares = [thunk];
+const middlewares = [
+	// Thunk brings getFirestore and getFirebase to each thunk action creator
+	thunk.withExtraArgument({ getFirestore, getFirebase })
+];
 
 if (process.env.NODE_ENV === `development`) {
-  const { logger } = require(`redux-logger`);
+	const { logger } = require(`redux-logger`);
 
-  middlewares.push(logger);
+	middlewares.push(logger);
 }
 
 const reducer = combineReducers({
 	baby: babyReducer,
 	// boilerplate for real reminder reducer
-	reminder: (state = []) => state 
+	reminder: (state = []) => state
 })
 
 persistence.handleVersion();
-// Init data from temp mock files to persistance which will be stored in store later just below.
-persistence.initData();
 
-const persistedState = {
-	baby: persistence.getBabies(),
-	reminder: persistence.getReminders()
-};
+const storeEnhancers = compose(
+	applyMiddleware(...middlewares),
+	reduxFirestore(firebase),
+)
 
-const store = createStore(reducer, persistedState, applyMiddleware(...middlewares));
-
-// Persist baby changes for local device.
-store.subscribe(() => {
-	persistence.saveBabies(store.getState().baby);
-})
+const store = createStore(reducer, {}, storeEnhancers);
 
 export default store;
