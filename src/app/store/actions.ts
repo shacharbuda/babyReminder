@@ -21,12 +21,23 @@ export const addBaby: ActionCreator<Action> = (newBaby: Baby) => ({
 	}
 });
 
-export const removeBaby: ActionCreator<Action> = (babyId: number) => ({
-	type: ACTION_TYPES.REMOVE_BABY,
-	payload: {
-		babyId
-	}
-});
+export const removeBaby = (babyId: number) => async (dispatch) => {
+	// asyc can happen here
+	const p = new Promise((res) => {
+		setTimeout(() => {
+			res();
+		}, 1000);
+	});
+	console.log('before');
+	await p;
+	console.log('after');
+	dispatch({
+		type: ACTION_TYPES.REMOVE_BABY,
+		payload: {
+			babyId
+		}
+	});
+}
 
 export const sortBabies: ActionCreator<Action> = () => ({
 	type: ACTION_TYPES.SORT_BABIES

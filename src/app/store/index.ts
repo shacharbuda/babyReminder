@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import babyReducer from "./reducer";
 import persistence from "../utils/persistence";
+import thunk from 'redux-thunk';
 
-const middlewares = [];
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV === `development`) {
   const { logger } = require(`redux-logger`);
