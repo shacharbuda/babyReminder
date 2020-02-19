@@ -4,9 +4,13 @@ import { sortBabies } from '../../store/actions';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
-const mapStateToProps = (state) => ({
-	babies: state.firestore.ordered.babies || []
-});
+const mapStateToProps = (state) => {
+	const babies = state.firestore.ordered.babies || []
+	const onlyDateableBabies = babies.filter(b => b.birthdate)
+	return {
+		babies: onlyDateableBabies
+	}
+};
 
 // TODO: delete irrelevent.
 const mapDispatchToProps = (dispatch) => ({
@@ -15,5 +19,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
-	firestoreConnect(() => ['babies'])
+	firestoreConnect(() => [
+		{
+			collection: 'babies',
+			orderBy: [['garden', 'asc'], ['firstName', 'asc']]
+		}
+	])
 )(BabiesDataTableComponent)
