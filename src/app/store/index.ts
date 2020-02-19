@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import babyReducer from "./reducer";
 import persistence from "../utils/persistence";
 import thunk from 'redux-thunk';
-import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reduxFirestore, getFirestore, firestoreReducer } from 'redux-firestore';
 import { getFirebase } from 'react-redux-firebase';
 import firebase from '../../config/fbConfig';
 
@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === `development`) {
 
 const reducer = combineReducers({
 	baby: babyReducer,
+	firestore: firestoreReducer,
 	// boilerplate for real reminder reducer
 	reminder: (state = []) => state
 })
