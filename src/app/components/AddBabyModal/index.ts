@@ -10,10 +10,10 @@ interface Props {
 
 
 const mapDispatchToProps = (dispatch, ownProps: Props) => ({
-	addNewBaby: (newBaby: BabyNew) => {
-		dispatch(addBaby(newBaby));
+	addNewBaby: async (newBaby: BabyNew) => {
+		await dispatch(addBaby(newBaby));
 		// Sort for new baby..
-		dispatch(sortBabies());
+		await dispatch(sortBabies());
 		if (ownProps.onClose) ownProps.onClose();
 	}
 })
