@@ -33,13 +33,21 @@ export const addBaby = (newBaby: BabyNew) => async (dispatch, getState, { getFir
 	}
 }
 
-export const removeBaby = (babyId: number) => async (dispatch) => {
-	dispatch({
-		type: ACTION_TYPES.REMOVE_BABY,
-		payload: {
-			babyId
-		}
-	});
+export const removeBaby = (babyId: number) => async (dispatch, getState, { getFirebase, getFirestore }) => {
+	try {
+		console.log('babyId ?', babyId);
+		const firestore = getFirestore();
+		await firestore.collection('babies').doc(babyId).delete();
+		console.log('success!');
+		// dispatch({
+		// 	type: ACTION_TYPES.REMOVE_BABY,
+		// 	payload: {
+		// 		babyId
+		// 	}
+		// });
+	} catch(e) {
+		console.error('e ? ', e);
+	}
 }
 
 export const sortBabies: ActionCreator<Action> = () => ({
