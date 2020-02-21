@@ -17,3 +17,8 @@ export interface Baby extends Omit<BabyNew, 'birthdate'> {
 	id: number;
 	birthdate: firebase.firestore.Timestamp
 };
+
+export interface BabyReminder {
+	babyId: number;
+	reminderId: number;
+}
