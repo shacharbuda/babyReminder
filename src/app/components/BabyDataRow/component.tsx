@@ -9,8 +9,8 @@ import { Delete as RemoveIcon } from '@material-ui/icons';
 interface Props extends WithStyles<typeof styles> {
 	baby: Baby;
 	reminders: Reminder[];
-	onReminderClick: (reminderId: number, babyId: number) => void;
-	removeBaby: (id: number) => void;
+	onReminderClick: (reminderId: string, babyId: string) => void;
+	removeBaby: (id: string) => void;
 };
 
 
