@@ -1,4 +1,4 @@
-import { Reminder } from "../interfaces";
+import { Reminder, ReminderRef } from "../interfaces";
 import _ from 'lodash';
 
 export function getJsonFromUrl(url?: string) {
@@ -34,10 +34,11 @@ export const getAgeInMonths = (birthday: Date) => {
 	return (ageInMonths);
 }
 
-const getBabyNextReminder = (babySeenReminders: number[], reminders: Reminder[]) : Reminder => {
+const getBabyNextReminder = (babySeenReminders: ReminderRef[], reminders: Reminder[]) : Reminder => {
 	// Notice we count of reminders to be sorted from earliest to latest
 	// find returns first object who doesn't includes in babySeenReminders
-	return _.find(reminders, r => !babySeenReminders.includes(r.id));
+	const babySeenRemindersIds = babySeenReminders.map(r => r.id);
+	return _.find(reminders, r => !babySeenRemindersIds.includes(r.id));
 }
 
 const stringToDate = (str: string, sep: string = '.'): Date => {

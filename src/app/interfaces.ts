@@ -1,20 +1,21 @@
 export interface Reminder {
 	name: string;
 	months: number;
-	id: number;
+	id: string;
 };
 
+export type ReminderRef = firebase.firestore.DocumentReference<Reminder>;
 
 export interface BabyNew {
 	firstName: string;
 	lastName: string;
 	birthdate: Date;
 	garden: string;
-	seenReminders: number[];
+	seenReminders: ReminderRef[];
 	comments: string;
 }
 export interface Baby extends Omit<BabyNew, 'birthdate'> {
-	id: number;
+	id: string;
 	birthdate: firebase.firestore.Timestamp
 };
 

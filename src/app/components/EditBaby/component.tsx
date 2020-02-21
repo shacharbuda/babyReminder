@@ -34,7 +34,7 @@ export class EditBabyComponent extends React.Component<Props, State> {
 		this.fields = values.map((value, i) => ({label: labels[i], value}))
 
 		this.state = {
-			isSeen: baby.seenReminders.includes(reminder.id)
+			isSeen: baby.seenReminders.map(r => r.id).includes(reminder.id)
 		}
 	}
 
