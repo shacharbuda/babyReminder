@@ -7,7 +7,6 @@ import AddBabyModal from '../AddBabyModal';
 
 interface Props extends WithStyles<typeof styles> {
 	babies: Baby[];
-	sortBabies: () => void;
 };
 
 interface State {
@@ -25,12 +24,6 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 			pickedBabyReminder: null,
 			addBabyClick: false
 		};
-	}
-
-	componentDidMount() {
-		const { sortBabies } = this.props;
-
-		sortBabies();
 	}
 
 	onReminderChoose = (reminderId: number, babyId: number) => {
