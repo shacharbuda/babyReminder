@@ -1,58 +1,37 @@
 import { Action } from 'redux';
 import { ACTION_TYPES } from './actions';
-import { Baby } from '../interfaces';
 
-const DEFAULT_STATE: Baby[] = [];
+interface state {
+	isLoading: boolean;
+	isGlobal: boolean;
+}
 
-export default function babyReducer(state = DEFAULT_STATE, action: Action<string>): Baby[] {
+const DEFAULT_STATE: state = {isLoading: false, isGlobal: false};
+
+export default function babyReducer(state = DEFAULT_STATE, action: Action<string>): state {
 	const { payload } = action as any;
 
 	switch(action.type) {
-		case (ACTION_TYPES.ADD_REMINDER): {
-			// Only add if not exist yet
-			if (state[payload.babyId].seenReminders.includes(payload.reminderId)) return state;
-			return state.map((baby, i) => {
-				if (baby.id !== payload.babyId) return baby;
-
-				return {
-					...baby,
-					seenReminders: [...baby.seenReminders, payload.reminderId]
-				};
-			});
-		}
-
-		case (ACTION_TYPES.REMOVE_REMINDER): {
-			return state.map((baby, i) => {
-				if (baby.id !== payload.babyId) return baby;
-
-				return {
-					...baby,
-					seenReminders: baby.seenReminders.filter((elm) => elm !== payload.reminderId)
-				};
-			});
-		}
-
-		// DEPRECATED!
-		// case (ACTION_TYPES.ADD_BABY): {
-		// 	// Gets new id, biggest of all exists + 1
-		// 	const newBabyId = _.maxBy(state, b => b.id).id + 1;
-		// 	const newBaby  = payload.newBaby as BabyNew;
-
-		// 	const newBabyWithId = {
-		// 		...newBaby,
-		// 		id: newBabyId
-		// 	}
-
-		// 	// Payload is new baby object
-		// 	return [...state, newBabyWithId];
-		// }
-	// 	case (ACTION_TYPES.REMOVE_BABY): {
-	// 		// Payload is baby id
-	// 		return state.filter((baby) => baby.id !== payload.babyId);
-	// 	}
-	// 	case (ACTION_TYPES.SORT_BABIES): {
-	// 		return _.orderBy(state, ['garden', 'name']);
-	// 	}
+		case (ACTION_TYPES.SET_LOADING):
+			console.log('loading...');
+			return {
+				isLoading: true,
+				isGlobal: payload.isGlobal
+			}
+		case (ACTION_TYPES.SET_SUCCESS):
+			console.log('success!')
+			if (payload.msg) {
+				console.log(payload.msg);
+			}
+			// For both success and error
+			return DEFAULT_STATE;
+		case (ACTION_TYPES.SET_ERROR):
+			console.error('error!')
+			if (payload.msg) {
+				console.error(payload.msg);
+			}
+			// For both success and error
+			return DEFAULT_STATE;
 		default:
 			return state;
 	}	
