@@ -43,7 +43,7 @@ export class AddBabyModal extends React.Component<Props, State> {
 	}
 
 	handleTextChange = (handler: string) => ({target}) => {
-		if (handler == 'name') {
+		if (handler === 'name') {
 			// Notice: we assume only name change happens here..
 			const splitted = target.value.split(' ');
 			const firstName = splitted[0];
