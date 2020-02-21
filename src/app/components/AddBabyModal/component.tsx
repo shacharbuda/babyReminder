@@ -43,16 +43,20 @@ export class AddBabyModal extends React.Component<Props, State> {
 	}
 
 	handleTextChange = (handler: string) => ({target}) => {
-		// (this.setState as any)({[handler]: target.value});
-		// Notice: we assume only name change happens here..
-		const splitted = target.value.split(' ');
-		const firstName = splitted[0];
-		const lastName = splitted.length > 2 ? splitted.slice(1).join(' ') : '';
-		this.setState({
-			nameInput: target.value,
-			firstName,
-			lastName
-		})
+		if (handler == 'name') {
+			// Notice: we assume only name change happens here..
+			const splitted = target.value.split(' ');
+			const firstName = splitted[0];
+			const lastName = splitted.length > 2 ? splitted.slice(1).join(' ') : '';
+			this.setState({
+				nameInput: target.value,
+				firstName,
+				lastName
+			})
+		} else {
+			(this.setState as any)({[handler]: target.value});
+		}
+		
 	}
 
 	handleBirthdayChange = (date) => {
