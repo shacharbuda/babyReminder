@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { reduxFirestore, getFirestore, firestoreReducer } from 'redux-firestore';
 import { getFirebase } from 'react-redux-firebase';
 import firebase from '../../config/fbConfig';
+import getReduxLogger from "./logger";
 
 const middlewares = [
 	// Thunk brings getFirestore and getFirebase to each thunk action creator
@@ -12,14 +13,7 @@ const middlewares = [
 ];
 
 if (process.env.NODE_ENV === `development`) {
-	const { createLogger } = require(`redux-logger`);
-
-	// Make sure reduxFirestore updates remain collpased as it contains many unused data..
-	const logger = createLogger({
-		collapsed: (getState, action) => action.type.startsWith('@@reduxFirestore')
-	});
-
-	middlewares.push(logger);
+	middlewares.push(getReduxLogger());
 }
 
 const reducer = combineReducers({
