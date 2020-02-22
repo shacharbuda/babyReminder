@@ -1,6 +1,6 @@
 import React from 'react';
 import { Baby, Reminder } from '../../interfaces';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, Checkbox, FormControlLabel } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, Checkbox, FormControlLabel, CircularProgress } from '@material-ui/core'
 
 interface Props {
 	// From container
@@ -14,27 +14,42 @@ interface Props {
 
 interface State {
 	isSeen: boolean;
+	fields: {label: string, value: string | number}[];
 }
 
 export class EditBabyComponent extends React.Component<Props, State> {	
-	fields: {label: string, value: string | number}[];
-	
 	constructor(props: Props) {
 		super(props);
-		const { baby, reminder } = props;
-
-		const labels = [
-			"שם תינוק",
-			"תאריך לידה",
-			"גיל הופעת התזכורת (חודשים)",
-			"שם תזכורת"
-		];
-		const values = [`${baby.firstName}${baby.lastName ? ` ${baby.lastName}` : ''}`, baby.birthdate.toDate().toISOString().slice(0,10), reminder.months, reminder.name];
-
-		this.fields = values.map((value, i) => ({label: labels[i], value}))
-
 		this.state = {
-			isSeen: baby.seenReminders.map(r => r.id).includes(reminder.id)
+			isSeen: undefined,
+			fields: undefined
+		}
+	}
+
+	componentDidUpdate(prevProps: Props, prevState: State) {
+		const { baby: prevBaby, reminder: prevReminder } = prevProps;
+		const { baby: currBaby, reminder: currReminder } = this.props;
+		const isStateInitialized = !!prevState.fields;
+
+		// We use this function here to initalize state for upcoming data only.
+		if (isStateInitialized) return;
+
+
+		if (currBaby && currReminder) {
+			const labels = [
+				"שם תינוק",
+				"תאריך לידה",
+				"גיל הופעת התזכורת (חודשים)",
+				"שם תזכורת"
+			];
+			const values = [`${currBaby.firstName}${currBaby.lastName ? ` ${currBaby.lastName}` : ''}`, currBaby.birthdate.toDate().toISOString().slice(0,10), currReminder.months, currReminder.name];
+	
+			const fields = values.map((value, i) => ({label: labels[i], value}))
+	
+			this.setState({
+				fields, 
+				isSeen: currBaby.seenReminders.map(r => r.id).includes(currReminder.id)
+			});
 		}
 	}
 
@@ -52,7 +67,23 @@ export class EditBabyComponent extends React.Component<Props, State> {
 
 	render() {
 		const { isOpen, baby, reminder } = this.props;
-		const { isSeen } = this.state;
+		const { isSeen, fields } = this.state;
+		const isLoaded = !!fields;
+
+		if (!isLoaded) {
+			return (
+				<Dialog
+				aria-labelledby="form-dialog-title"
+				open={isOpen}
+				onClose={this.closeModal}
+				 >
+	        <DialogTitle id="form-dialog-title">טוען...</DialogTitle>
+					<DialogContent>
+					 <CircularProgress />
+					</DialogContent>
+				 </Dialog>
+			)
+		}
 
 		return (
 			<Dialog
@@ -67,7 +98,7 @@ export class EditBabyComponent extends React.Component<Props, State> {
             כאן ניתן לערוך פרטי התזכורת. כרגע הכוונה היא רק ל'סיימתי עם התזכורת'.
           </DialogContentText>
 					{
-						this.fields.map(f => (
+						fields.map(f => (
 							<TextField
 								key={`field_${f.label}`}
 								margin="normal"
