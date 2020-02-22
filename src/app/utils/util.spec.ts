@@ -1,22 +1,22 @@
 import util from './util';
-import { Reminder } from '../interfaces';
+import { Reminder, ReminderRef } from '../interfaces';
 import _ from 'lodash';
 window.alert =  jest.fn();
 
 describe('getBabyNextReminder', () => {
 	const reminders: Reminder[] = [
 		{
-			id: 1,
+			id: '1',
 			name: "זחילה",
 			months: 3
 		},
 		{
-			id: 2,
+			id: '2',
 			name: "הליכה",
 			months: 6
 		},
 		{
-			id: 3,
+			id: '3',
 			name: "ריצה",
 			months: 12
 		}
@@ -35,14 +35,15 @@ describe('getBabyNextReminder', () => {
 	it('should return second reminder as first reminder seen', () => {
 		const EXPECTED = getReminderById(2);
 
-		const seenReminders = [1];
-		const actual = util.getBabyNextReminder(seenReminders, reminders);
+		const seenReminders = [{id: '1'}];
+		const actual = util.getBabyNextReminder(seenReminders as ReminderRef[], reminders);
 		expect(actual).toEqual<Reminder>(EXPECTED);
 	});
 
 	it('should return no reminder as all reminders seen', () => {
 		const seenReminders = [1, 2, 3];
-		const actual = util.getBabyNextReminder(seenReminders, reminders);
+		const seenRemindersRef = seenReminders.map(r => ({id: r.toString()}));
+		const actual = util.getBabyNextReminder(seenRemindersRef as ReminderRef[], reminders);
 		expect(actual).toBeUndefined();
 	});
 })
