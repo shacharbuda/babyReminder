@@ -12,7 +12,12 @@ const middlewares = [
 ];
 
 if (process.env.NODE_ENV === `development`) {
-	const { logger } = require(`redux-logger`);
+	const { createLogger } = require(`redux-logger`);
+
+	// Make sure reduxFirestore updates remain collpased as it contains many unused data..
+	const logger = createLogger({
+		collapsed: (getState, action) => action.type.startsWith('@@reduxFirestore')
+	});
 
 	middlewares.push(logger);
 }
