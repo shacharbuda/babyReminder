@@ -20,6 +20,6 @@ export interface Baby extends Omit<BabyNew, 'birthdate'> {
 };
 
 export interface BabyReminder {
-	babyId: number;
-	reminderId: number;
+	babyId: string;
+	reminderId: string;
 }
