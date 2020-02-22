@@ -22,10 +22,10 @@ describe('getBabyNextReminder', () => {
 		}
 	];
 
-	const getReminderById = (id) => _.find(reminders, r => r.id === id);
+	const getReminderById = (id: string) => _.find(reminders, r => r.id === id);
 
 	it('should return first reminder as no reminders seen', () => {
-		const EXPECTED = getReminderById(1);
+		const EXPECTED = getReminderById('1');
 
 		const seenReminders = [];
 		const actual = util.getBabyNextReminder(seenReminders, reminders);
@@ -33,7 +33,7 @@ describe('getBabyNextReminder', () => {
 	});
 
 	it('should return second reminder as first reminder seen', () => {
-		const EXPECTED = getReminderById(2);
+		const EXPECTED = getReminderById('2');
 
 		const seenReminders = [{id: '1'}];
 		const actual = util.getBabyNextReminder(seenReminders as ReminderRef[], reminders);
