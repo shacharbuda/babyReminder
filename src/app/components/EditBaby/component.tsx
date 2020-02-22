@@ -27,7 +27,6 @@ export class EditBabyComponent extends React.Component<Props, State> {
 	}
 
 	componentDidUpdate(prevProps: Props, prevState: State) {
-		const { baby: prevBaby, reminder: prevReminder } = prevProps;
 		const { baby: currBaby, reminder: currReminder } = this.props;
 		const isStateInitialized = !!prevState.fields;
 
