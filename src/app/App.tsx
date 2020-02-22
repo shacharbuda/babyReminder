@@ -5,8 +5,13 @@ import RTL from './RTL';
 import consts from './utils/constants';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { analytics } from '../config/fbConfig';
 
 class App extends React.Component<{}, {}> {
+	componentDidMount() {
+		analytics('APP_MOUNTED');
+	}
+
   render() {
 		return (
 			<RTL>
@@ -21,7 +26,7 @@ class App extends React.Component<{}, {}> {
 								<BabiesDataTableContainer />
 							}
 						</div>
-						<footer className="ltr text-center blockquote-footer">
+						<footer onClick={() => analytics('CLICK_ON_FOOTER')} className="ltr text-center blockquote-footer">
 							Made by Waffle (v{consts.APP_VERSION})
 						</footer>
 					</div>
