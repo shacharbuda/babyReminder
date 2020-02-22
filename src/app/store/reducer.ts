@@ -26,7 +26,7 @@ export default function babyReducer(state = DEFAULT_STATE, action: Action<string
 			// For both success and error
 			return DEFAULT_STATE;
 		case (ACTION_TYPES.SET_ERROR):
-			console.error('error!')
+			console.error('error!', payload.err)
 			if (payload.msg) {
 				console.error(payload.msg);
 			}

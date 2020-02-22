@@ -1,7 +1,8 @@
 import { BabyNew, BabyReminder } from '../interfaces';
 import { FirebaseFirestore } from '@firebase/firestore-types'
+import { FirebaseApp } from '@firebase/app-types'
 
-type DBFunction = (firestore: FirebaseFirestore) => {};
+type DBFunction = (firestore: FirebaseFirestore, firebase: FirebaseApp) => {};
 
 export const ACTION_TYPES = {
 	SET_LOADING: 'SET_LOADING',
@@ -20,18 +21,18 @@ const setSuccess = (msg = null) => ({
 	payload: { msg }
 })
 
-const setError = (msg = null) => ({
+const setError = (err: string, msg = null) => ({
 	type: ACTION_TYPES.SET_ERROR,
-	payload: { msg }
+	payload: { err, msg }
 })
 
 const dbOperation = (dbFunction: DBFunction, successMsg?: string, errMsg?: string, isGlobal?: boolean) => async (dispatch, getState, { getFirebase, getFirestore }) => {
 	try {
 		dispatch(setLoading(isGlobal));
-		await dbFunction(getFirestore())
+		await dbFunction(getFirestore(), getFirebase())
 		dispatch(setSuccess(successMsg));
 	} catch(e) {
-		dispatch(setError(errMsg));
+		dispatch(setError(e, errMsg))
 	}
 }
 
@@ -56,12 +57,24 @@ export const removeBaby = (babyId: string) => {
 }
 
 export const addReminder = (payload: BabyReminder) => {
-	console.log(`this should add reminder ${payload.reminderId} to baby ${payload.babyId}`);
-	// type: ACTION_TYPES.ADD_REMINDER,
-	// payload
+	const dbFunction: DBFunction = async (firestore, firebase) => {
+		const babyRef = firestore.collection('babies').doc(payload.babyId);
+		// TODO: just get ref as prop, not id... for both baby and reminder	
+		const newReminderRef = firestore.doc(`reminders/${payload.reminderId}`);
+		await babyRef.update({
+			// @ts-ignore
+			seenReminders: firebase.firestore.FieldValue.arrayUnion(newReminderRef)
+		});
+	}
+	const successMsg = "Added reminder successfuly!";
+	const errMsg = "Error adding reminder...";
+	const isGlobal = true;
+
+	return dbOperation(dbFunction, successMsg, errMsg, isGlobal);
 };
 
 export const removeReminder = (payload: BabyReminder) => {
+	// TODO: implement
 	console.log(`this should remove reminder ${payload.reminderId} from baby ${payload.babyId}`);
 	// type: ACTION_TYPES.REMOVE_REMINDER,
 	// payload
