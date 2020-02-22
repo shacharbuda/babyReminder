@@ -6,13 +6,14 @@ import { reduxFirestore, getFirestore, firestoreReducer } from 'redux-firestore'
 import { getFirebase } from 'react-redux-firebase';
 import firebase from '../../config/fbConfig';
 import getReduxLogger from "./logger";
+import constants from "../utils/constants";
 
 const middlewares = [
 	// Thunk brings getFirestore and getFirebase to each thunk action creator
 	thunk.withExtraArgument({ getFirestore, getFirebase })
 ];
 
-if (process.env.NODE_ENV === `development`) {
+if (constants.IS_DEV) {
 	middlewares.push(getReduxLogger());
 }
 
