@@ -1,8 +1,23 @@
+import * as _ from 'lodash';
+
 export const EDIT_FORM_URL = 'editBabyReminder.html';
 export const HOME_URL = 'index.html';
+export const IS_DEV = process.env.NODE_ENV !== `production`;
+
+let collectionsVar = {
+	BABIES: 'babies',
+	REMINDERS: 'reminders'
+};
+
+if (IS_DEV) {
+	collectionsVar = _.mapValues(collectionsVar, c => `TEST_${c}`);
+}
+
+export const COLLECTIONS = collectionsVar
 
 export  default {
 	APP_VERSION: process.env.REACT_APP_VERSION,
 	VALID_USERNAME: 'אורי',
-	IS_DEV: process.env.NODE_ENV !== `production`
+	IS_DEV,
+	COLLECTIONS
 }
