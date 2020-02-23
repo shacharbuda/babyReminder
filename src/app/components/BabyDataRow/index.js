@@ -3,9 +3,10 @@ import { BabyDataRow as BabyDataRowComponent } from './component';
 import { removeBaby } from '../../store/actions';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import { COLLECTIONS } from '../../utils/constants';
 
 const mapStateToProps = (state) => ({
-	reminders: state.firestore.ordered.reminders
+	reminders: state.firestore.ordered[COLLECTIONS.reminders]
 });
 
 const mapDistpatchToProps = (dispatch) => ({
@@ -16,7 +17,7 @@ export default compose(
 	connect(mapStateToProps, mapDistpatchToProps),
 	firestoreConnect(() => [
 		{
-			collection: 'reminders',
+			collection: COLLECTIONS.REMINDERS,
 			orderBy: ['months', 'asc']
 		}
 	])

@@ -1,6 +1,7 @@
 import { BabyNew, BabyReminder } from '../interfaces';
 import { FirebaseFirestore } from '@firebase/firestore-types'
 import { FirebaseApp } from '@firebase/app-types'
+import { COLLECTIONS } from '../utils/constants';
 
 type DBFunction = (firestore: FirebaseFirestore, firebase: FirebaseApp) => {};
 
@@ -38,7 +39,7 @@ const dbOperation = (dbFunction: DBFunction, successMsg?: string, errMsg?: strin
 
 export const addBaby = (newBaby: BabyNew) => {
 	const dbFunction: DBFunction = async (firestore) => {
-		await firestore.collection('babies').add({
+		await firestore.collection(COLLECTIONS.BABIES).add({
 			...newBaby
 		});
 	}
@@ -51,16 +52,16 @@ export const addBaby = (newBaby: BabyNew) => {
 
 export const removeBaby = (babyId: string) => {
 	const dbFunction: DBFunction = async (firestore) => {
-		await firestore.collection('babies').doc(babyId).delete();
+		await firestore.collection(COLLECTIONS.BABIES).doc(babyId).delete();
 	}
 	return dbOperation(dbFunction);
 }
 
 export const addReminder = (payload: BabyReminder) => {
 	const dbFunction: DBFunction = async (firestore, firebase) => {
-		const babyRef = firestore.collection('babies').doc(payload.babyId);
+		const babyRef = firestore.collection(COLLECTIONS.BABIES).doc(payload.babyId);
 		// TODO: just get ref as prop, not id... for both baby and reminder	
-		const newReminderRef = firestore.doc(`reminders/${payload.reminderId}`);
+		const newReminderRef = firestore.doc(`${COLLECTIONS.REMINDERS}/${payload.reminderId}`);
 		await babyRef.update({
 			// @ts-ignore
 			seenReminders: firebase.firestore.FieldValue.arrayUnion(newReminderRef)

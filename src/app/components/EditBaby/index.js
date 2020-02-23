@@ -3,6 +3,7 @@ import { addReminder, removeReminder } from '../../store/actions';
 import { EditBabyComponent } from './component';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { COLLECTIONS } from '../../utils/constants';
 
 const babyPath = 'currentBaby';
 const reminderPath = 'currentReminder';
@@ -32,12 +33,12 @@ export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
 	firestoreConnect((ownProps) => [
 		{
-			collection: 'babies',
+			collection: COLLECTIONS.BABIES,
 			doc: ownProps.pickedBabyReminder.babyId,
 			storeAs: babyPath
 		},
 		{
-			collection: 'reminders',
+			collection: COLLECTIONS.REMINDERS,
 			doc: ownProps.pickedBabyReminder.reminderId,
 			storeAs: reminderPath
 		},
