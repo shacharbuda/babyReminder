@@ -6,7 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { COLLECTIONS } from '../../utils/constants';
 
 const mapStateToProps = (state) => ({
-	reminders: state.firestore.ordered[COLLECTIONS.reminders]
+	reminders: state.firestore.ordered[COLLECTIONS.REMINDERS]
 });
 
 const mapDistpatchToProps = (dispatch) => ({
