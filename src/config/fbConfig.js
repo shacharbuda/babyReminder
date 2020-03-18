@@ -1,10 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/firebase-analytics'
+import 'firebase/auth'
 import constants from '../app/utils/constants';
 import createFbAnalytics from './fbAnalytics';
-// TODO: implement auth
-// import 'firebase/auth'
 
 // No problem making it public, apiKey is just an id, not a secret key
 let firebaseConfig;
@@ -35,5 +34,11 @@ if (constants.IS_DEV) {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+const authProvider = new firebase.auth.GoogleAuthProvider();
+authProvider.setCustomParameters({
+  prompt: 'select_account'
+});
+
+export const authUser = () => firebase.auth().signInWithRedirect(authProvider);
 export const analytics = createFbAnalytics(firebase);
 export default firebase;
