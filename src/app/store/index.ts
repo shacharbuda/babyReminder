@@ -3,7 +3,7 @@ import loadingReducer from "./reducer";
 import persistence from "../utils/persistence";
 import thunk from 'redux-thunk';
 import { reduxFirestore, getFirestore, firestoreReducer } from 'redux-firestore';
-import { getFirebase } from 'react-redux-firebase';
+import { getFirebase, firebaseReducer } from 'react-redux-firebase';
 import firebase from '../../config/fbConfig';
 import getReduxLogger from "./logger";
 import constants from "../utils/constants";
@@ -20,6 +20,7 @@ if (constants.IS_DEV) {
 const reducer = combineReducers({
 	loading: loadingReducer,
 	firestore: firestoreReducer,
+	firebase: firebaseReducer
 })
 
 persistence.handleVersion();
