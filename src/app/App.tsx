@@ -49,15 +49,18 @@ class App extends React.Component<Props, {}> {
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<div className="App">
 						<header className="container d-flex justify-content-between">
-							<h1 className="d-flex align-items-end">תינוק תזכורת</h1>
-							<h5 className="d-flex align-items-end">{util.getTimeInDayGreet()} {displayName}!</h5>
+							<h1 className="m-auto text-center">תינוק תזכורת</h1>
+							<h5 className="m-auto text-center">{util.getTimeInDayGreet()}<br />{displayName}!</h5>
 						</header>
 						<div className="container d-flex align-items-center body-content">
 								{
 									isLoggedIn ?
 									<BabiesDataTableContainer />
 									:
-									<p>משתמש לא מחובר למערכת...</p>
+									<p>
+										משתמש לא מחובר למערכת...
+										אתה מופנה להתחברות.
+									</p>
 								}
 						</div>
 						<footer onClick={() => analytics('CLICK_ON_FOOTER')} className="ltr text-center blockquote-footer">
