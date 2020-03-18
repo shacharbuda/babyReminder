@@ -52,6 +52,22 @@ const stringToDate = (str: string, sep: string = '.'): Date => {
 
 const dateToStr = (date: Date): string => `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
 
+const getTimeInDayGreet = (currentTime = new Date()) => {
+  const currentHour = currentTime.getHours()
+  const splitAfternoon = 12; // 24hr time to split the afternoon
+  const splitEvening = 17; // 24hr time to split the evening
+
+  if (currentHour >= splitAfternoon && currentHour <= splitEvening) {
+    // Between 12 PM and 5PM
+    return 'צהריים טובים';
+  } else if (currentHour >= splitEvening) {
+    // Between 5PM and Midnight
+    return 'ערב טוב';
+  }
+  // Between dawn and noon
+  return 'בוקר טוב';
+}
+
 
 export default {
 	getJsonFromUrl,
@@ -59,5 +75,6 @@ export default {
 	getAgeInMonths,
 	stringToDate,
 	dateToStr,
-	getBabyNextReminder
+	getBabyNextReminder,
+	getTimeInDayGreet
 }
