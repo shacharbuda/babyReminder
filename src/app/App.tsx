@@ -5,30 +5,74 @@ import RTL from './RTL';
 import consts from './utils/constants';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { analytics } from '../config/fbConfig';
+import firebase, { analytics, authUser } from '../config/fbConfig';
+import LoginComponent from './components/LoginComponent';
+import { ExitToApp as LogoutIcon } from '@material-ui/icons';
+import { connect } from 'react-redux';
+import { Fab } from '@material-ui/core';
+import util from './utils/util';
 
-class App extends React.Component<{}, {}> {
+interface Props {
+	isLoggedIn: boolean;
+	isLoading: boolean;
+	displayName: string;
+}
+
+class App extends React.Component<Props, {}> {
 	componentDidMount() {
 		analytics('APP_MOUNTED');
 	}
 
+	componentDidUpdate(prevProps: Props) {
+		const { isLoggedIn, isLoading } = this.props; 
+		
+		// Nothing to do here if still loading..
+		if (isLoading) return;
+
+		// If login changed to logged out - log in!
+		if (!isLoggedIn) {
+			authUser();
+		}
+	}
+
   render() {
+		const { isLoading, isLoggedIn, displayName } = this.props;
+
+		if (isLoading) {
+			return (		
+					<LoginComponent/>
+			)
+		}
+
 		return (
 			<RTL>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<div className="App">
-						<header>
-							<h1 className="h1 text-center pt-5">תינוק תזכורת</h1>
+						<header className="container d-flex justify-content-between">
+							<h1 className="d-flex align-items-end">תינוק תזכורת</h1>
+							<h5 className="d-flex align-items-end">{util.getTimeInDayGreet()} {displayName}!</h5>
 						</header>
 						<div className="container d-flex align-items-center body-content">
-							{
-								// Placeholder for router...
-								<BabiesDataTableContainer />
-							}
+								{
+									isLoggedIn ?
+									<BabiesDataTableContainer />
+									:
+									<p>משתמש לא מחובר למערכת...</p>
+								}
 						</div>
 						<footer onClick={() => analytics('CLICK_ON_FOOTER')} className="ltr text-center blockquote-footer">
 							Made by Waffle (v{consts.APP_VERSION})
 						</footer>
+						{
+							isLoggedIn &&
+							<div
+								style={{ position: 'fixed', bottom: '1em', right: '1em'}}
+							>
+								<Fab onClick={() => firebase.auth().signOut()} color="secondary" aria-label="edit">
+									<LogoutIcon />
+								</Fab>
+							</div>
+						}
 					</div>
 				</MuiPickersUtilsProvider>
 			</RTL>
@@ -36,4 +80,10 @@ class App extends React.Component<{}, {}> {
 	}
 }
 
-export default App;
+const mapStateToProps = (state: any) => ({
+	isLoading: !state.firebase.auth.isLoaded,
+	isLoggedIn: !state.firebase.auth.isEmpty,
+	displayName: state.firebase.auth.displayName
+})
+
+export default connect(mapStateToProps)(App);
