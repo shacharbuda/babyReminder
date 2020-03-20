@@ -6,6 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { COLLECTIONS } from '../../utils/constants';
 
 const mapStateToProps = (state) => ({
+	uid: state.firebase.auth.uid,
 	reminders: state.firestore.ordered[COLLECTIONS.REMINDERS]
 });
 
@@ -15,10 +16,11 @@ const mapDistpatchToProps = (dispatch) => ({
 
 export default compose(
 	connect(mapStateToProps, mapDistpatchToProps),
-	firestoreConnect(() => [
+	firestoreConnect((props) => [
 		{
 			collection: COLLECTIONS.REMINDERS,
-			orderBy: ['months', 'asc']
+			orderBy: ['months', 'asc'],
+			where: [["uid", "==", props.uid]]
 		}
 	])
 )(BabyDataRowComponent)

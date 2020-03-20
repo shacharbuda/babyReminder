@@ -38,9 +38,11 @@ const dbOperation = (dbFunction: DBFunction, successMsg?: string, errMsg?: strin
 }
 
 export const addBaby = (newBaby: BabyNew) => {
-	const dbFunction: DBFunction = async (firestore) => {
+	const dbFunction: DBFunction = async (firestore, firebase) => {
+		const { uid } = firebase.auth().currentUser;
 		await firestore.collection(COLLECTIONS.BABIES).add({
-			...newBaby
+			...newBaby,
+			uid
 		});
 	}
 	const successMsg = "Added baby successfuly!";
