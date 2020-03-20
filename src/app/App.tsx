@@ -11,6 +11,7 @@ import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { Fab } from '@material-ui/core';
 import util from './utils/util';
+import { isLoaded } from 'react-redux-firebase';
 
 interface Props {
 	isLoggedIn: boolean;
@@ -38,7 +39,7 @@ class App extends React.Component<Props, {}> {
   render() {
 		const { isLoading, isLoggedIn, displayName } = this.props;
 
-		if (isLoading) {
+		if (isLoading || !isLoggedIn) {
 			return (		
 					<LoginComponent/>
 			)
@@ -53,15 +54,7 @@ class App extends React.Component<Props, {}> {
 							<h5 className="m-auto text-center">{util.getTimeInDayGreet()}<br />{displayName}!</h5>
 						</header>
 						<div className="container d-flex align-items-center body-content">
-								{
-									isLoggedIn ?
-									<BabiesDataTableContainer />
-									:
-									<p>
-										משתמש לא מחובר למערכת...
-										אתה מופנה להתחברות.
-									</p>
-								}
+								<BabiesDataTableContainer />
 						</div>
 						<footer onClick={() => analytics('CLICK_ON_FOOTER')} className="ltr text-center blockquote-footer">
 							Made by Waffle (v{consts.APP_VERSION})
@@ -84,7 +77,7 @@ class App extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: any) => ({
-	isLoading: !state.firebase.auth.isLoaded,
+	isLoading: !isLoaded(state.firebase.auth),
 	isLoggedIn: !state.firebase.auth.isEmpty,
 	displayName: state.firebase.auth.displayName
 })
