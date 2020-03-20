@@ -2,11 +2,12 @@ import React from 'react';
 import { Baby } from '../../interfaces';
 import BabyDataRowContainer from '../BabyDataRow';
 import EditBabyContainer from '../EditBaby';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles, WithStyles, createStyles, Button } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles, WithStyles, createStyles, Button, CircularProgress } from '@material-ui/core';
 import AddBabyModal from '../AddBabyModal';
 
 interface Props extends WithStyles<typeof styles> {
 	babies: Baby[];
+	isLoading: boolean;
 };
 
 interface State {
@@ -34,7 +35,11 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 	}
 	
 	render() {
-		const { classes } = this.props;
+		const { classes, babies, isLoading } = this.props;
+
+		if (isLoading) {
+			return <CircularProgress className="m-auto" />
+		}
 
 		return (
 			<div className="h-100 w-100">
@@ -50,7 +55,7 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{this.props.babies.map((baby) => (
+							{babies.map((baby) => (
 								<BabyDataRowContainer key={`BabyRow_${baby.id}`} baby={baby} onReminderClick={this.onReminderChoose} />
 							))}
 						</TableBody>
