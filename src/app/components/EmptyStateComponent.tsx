@@ -1,5 +1,6 @@
 import React from 'react';
 import { Theme } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -15,9 +16,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 			textAlign: 'center'
 		}
 	},
-	img: {
+	imgBig: {
 		maxWidth: '100%',
-		maxHeight: '100%'
+		height: 'auto'
+	},
+	imgSmall: {
+		maxWidth: '50%',
+		height: 'auto'
 	}
 }));
 
@@ -25,11 +30,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 function EmptyStateComponent(props: React.ComponentProps<"div">) {
 	// @ts-ignore-nextline
 	const classes: any = useStyles();
+	const isDesktop = useMediaQuery((theme: Theme) => theme.breakpoints.between('sm', 'xl'));
+	const imgClass = isDesktop ? classes.imgSmall : classes.imgBig;
 
 	return (
 		<div className={`${classes.textCenter} ${classes.verticalCenter}`}>
 			<div className={classes.textCenter}>
-				<img className={classes.img} src="empty-state.jpg" alt="no-data"></img>
+				<img className={imgClass} src="empty-state.jpg" alt="no-data"></img>
 			</div>
 			{props.children}
 			<span className="small">Photos designed by <a href="http://www.freepik.com">slidesgo / Freepik</a></span>
