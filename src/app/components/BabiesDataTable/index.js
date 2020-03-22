@@ -1,17 +1,21 @@
 import { connect } from 'react-redux';
 import { BabiesDataTableComponent } from './component';
 import { compose } from 'redux';
-import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { COLLECTIONS } from '../../utils/constants';
 
 const mapStateToProps = (state) => {
-	const { uid } = state.firebase.auth;
-	const babies = state.firestore.ordered[COLLECTIONS.BABIES] || []
+	const { firebase, firestore } = state;
+	const { BABIES: babiesCollection } = COLLECTIONS;
+
+	const { uid } = firebase.auth;
+	const babies = firestore.ordered[babiesCollection] || []
 	const onlyDateableBabies = babies.filter(b => b.birthdate)
 	return {
 		uid,
 		babies: onlyDateableBabies,
-		isLoading: !isLoaded(state.firestore.data[COLLECTIONS.BABIES])
+		isLoading: !isLoaded(firestore.data[babiesCollection]),
+		isEmpty: isEmpty(firestore.data[babiesCollection])
 	}
 };
 
