@@ -2,6 +2,7 @@ import { BabyNew, BabyReminder } from '../interfaces';
 import { FirebaseFirestore } from '@firebase/firestore-types'
 import { FirebaseApp } from '@firebase/app-types'
 import { COLLECTIONS } from '../utils/constants';
+import initMessaging from '../../config/fbMessaging';
 
 type DBFunction = (firestore: FirebaseFirestore, firebase: FirebaseApp) => {};
 
@@ -75,6 +76,13 @@ export const addReminder = (payload: BabyReminder) => {
 
 	return dbOperation(dbFunction, successMsg, errMsg, isGlobal);
 };
+
+export const initNotifications = () => {
+  const func: DBFunction = async (firestore, firebase) => {
+    await initMessaging(firebase);
+  }
+  return dbOperation(func);
+}
 
 export const removeReminder = (payload: BabyReminder) => {
 	// TODO: implement
