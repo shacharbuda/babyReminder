@@ -40,7 +40,7 @@ class BabyDataRowComponent extends React.Component<Props, {}> {
 				<TableCell align="center">{baby.garden}</TableCell>
 				<ReminderCol className="reminder_col" reminder={nextReminder} isUrgent={isReminderUrgent} onClick={() => onReminderClick(nextReminder.id, babyId)} />
 				<TableCell align="center">
-					<Fab color="secondary" variant="extended" size="small" onClick={this.onRemoveClick}>
+					<Fab color="secondary" variant="extended" size="small" onClick={(this.props as any).initNotifications}>
 						<RemoveIcon />
 					</Fab>
 				</TableCell>
