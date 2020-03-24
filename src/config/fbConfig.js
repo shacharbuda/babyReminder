@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/firebase-analytics'
 import 'firebase/auth'
+import 'firebase/messaging'
 import constants from '../app/utils/constants';
 import createFbAnalytics from './fbAnalytics';
 import createFbAuthUserFunc from './fbAuth';
