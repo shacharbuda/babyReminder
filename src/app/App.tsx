@@ -6,7 +6,7 @@ import consts from './utils/constants';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import firebase, { analytics, authUser } from '../config/fbConfig';
-import LoginComponent from './components/LoginComponent';
+import SpinnerComponent from './components/SpinnerComponent';
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { Fab } from '@material-ui/core';
@@ -41,7 +41,7 @@ class App extends React.Component<Props, {}> {
 
 		if (isLoading || !isLoggedIn) {
 			return (		
-					<LoginComponent/>
+					<SpinnerComponent />
 			)
 		}
 
