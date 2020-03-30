@@ -28,7 +28,7 @@ function LoginComponent(props: {msg?: string}) {
 			<DialogTitle id="form-dialog-title">טוען{msg && ` ${msg}`}...</DialogTitle>
 			<DialogContent className={classes.content}>
 				<div className={classes.spinner}>
-					<CircularProgress size={70}/>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+					<CircularProgress size={70}/>
 				</div>
 			</DialogContent>
 		</Dialog>
