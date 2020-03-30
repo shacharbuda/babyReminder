@@ -7,6 +7,7 @@ async function initMessaging(firebase) {
     await Notification.requestPermission();
     const token = await messaging.getToken();
     console.log('token ?', token);
+    alert(token)
 
     messaging.onMessage(function(payload) {
       console.log("Message received. ", payload);
@@ -16,6 +17,7 @@ async function initMessaging(firebase) {
     }, err => console.log('err ?', err));
   } catch(e) {
     console.log('No Permission ?', e);
+    alert(e)
   }
 
 }

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { BabyDataRow as BabyDataRowComponent } from './component';
-import { removeBaby } from '../../store/actions';
+import { removeBaby, initNotifications } from '../../store/actions';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { COLLECTIONS } from '../../utils/constants';
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDistpatchToProps = (dispatch) => ({
-	removeBaby: (id) => dispatch(removeBaby(id))
+  removeBaby: (id) => dispatch(removeBaby(id)),
+  initNotifications: () => dispatch(initNotifications())
 })
 
 export default compose(
