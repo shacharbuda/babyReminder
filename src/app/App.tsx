@@ -41,7 +41,7 @@ class App extends React.Component<Props, {}> {
 
 		if (isLoading || !isLoggedIn) {
 			return (		
-					<SpinnerComponent />
+					<SpinnerComponent msg="פרטי משתמש"/>
 			)
 		}
 
