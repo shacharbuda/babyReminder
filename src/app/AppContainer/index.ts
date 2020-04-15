@@ -16,8 +16,8 @@ const propsToPass = () => ({
   authUser,
   signOut,
   analytics: {
-    mount: analytics('APP_MOUNTED'),
-    fotterClick: analytics('CLICK_ON_FOOTER')
+    mount: () => analytics('APP_MOUNTED'),
+    fotterClick: () => analytics('CLICK_ON_FOOTER')
   },
   handleVersion: persistence.handleVersion
 });
