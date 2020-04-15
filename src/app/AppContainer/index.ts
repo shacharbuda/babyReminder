@@ -6,8 +6,7 @@ import persistence from '../utils/persistence'
 
 const mapStateToProps = (state: any) => ({
   isLoading: !isLoaded(state.firebase.auth),
-  isLoggedIn: !state.firebase.auth.isEmpty,
-  displayName: state.firebase.auth.displayName
+  isLoggedIn: !state.firebase.auth.isEmpty
 });
 
 // Those aren't related to store but still passed as I really wanted to use

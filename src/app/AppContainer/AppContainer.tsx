@@ -5,20 +5,7 @@ import BabiesDataTableContainer from '../components/BabiesDataTable';
 import LoginComponent from '../components/LoginComponent';
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { Fab } from '@material-ui/core';
-import util from '../utils/util';
-
-interface Props {
-  isLoggedIn: boolean;
-  isLoading: boolean;
-  displayName: string;
-  authUser: () => void;
-  signOut: () => void;
-  analytics: {
-    mount: () => void,
-    fotterClick: () => void
-  };
-  handleVersion: () => void;
-}
+import AppHeader from '../components/AppHeader';
 
 class AppContainer extends React.Component<Props, {}> {
   componentDidMount() {
@@ -40,7 +27,7 @@ class AppContainer extends React.Component<Props, {}> {
   }
 
   render() {
-    const { isLoading, isLoggedIn, displayName, analytics, signOut } = this.props;
+    const { isLoading, isLoggedIn, analytics, signOut } = this.props;
 
     if (isLoading || !isLoggedIn) {
       return (		
@@ -50,11 +37,7 @@ class AppContainer extends React.Component<Props, {}> {
 
     return (      
           <div className="App">
-            {/* TODO: component */}
-            <header className="container d-flex justify-content-between">
-              <h1 className="m-auto text-center">תינוק תזכורת</h1>
-              <h5 className="m-auto text-center">{util.getTimeInDayGreet()}<br />{displayName}!</h5>
-            </header>
+            <AppHeader />
             {/* TODO: component */}
             <div className="container d-flex align-items-center body-content">
                 <BabiesDataTableContainer />
@@ -80,3 +63,15 @@ class AppContainer extends React.Component<Props, {}> {
 }
 
 export default AppContainer;
+
+interface Props {
+  isLoggedIn: boolean;
+  isLoading: boolean;
+  authUser: () => void;
+  signOut: () => void;
+  analytics: {
+    mount: () => void,
+    fotterClick: () => void
+  };
+  handleVersion: () => void;
+}
