@@ -67,7 +67,11 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 						</TableHead>
 						<TableBody>
 							{babies.map((baby) => (
-								<BabyDataRowContainer key={`BabyRow_${baby.id}`} baby={baby} onReminderClick={this.onReminderChoose} />
+                <BabyDataRowContainer
+                  key={`BabyRow_${baby.id}`}
+                  baby={baby}
+                  onReminderClick={this.onReminderChoose} 
+                />
 							))}
 						</TableBody>
 					</Table>
@@ -77,11 +81,19 @@ class BabiesDataTableComponentA extends React.Component<Props, State> {
 				<div className={classes.controllers}>
 					<Button onClick={this.addBabyClick} variant="outlined">הוסף תינוק</Button>
 				</div>
-				{this.state.pickedBabyReminder &&
-				<EditBabyContainer isOpen={!!this.state.pickedBabyReminder} onClose={() => this.setState({pickedBabyReminder: null})} pickedBabyReminder={this.state.pickedBabyReminder} />}
+        {
+          this.state.pickedBabyReminder &&
+          <EditBabyContainer
+            isOpen={!!this.state.pickedBabyReminder}
+            onClose={() => this.setState({pickedBabyReminder: null})}
+            pickedBabyReminder={this.state.pickedBabyReminder} 
+          />}
 				{
 					this.state.addBabyClick &&
-					<AddBabyModal isOpen={this.state.addBabyClick} onClose={() => this.setState({addBabyClick: false})} />
+          <AddBabyModal
+            isOpen={this.state.addBabyClick}
+            onClose={() => this.setState({addBabyClick: false})} 
+          />
 				}
 			</div>
 		);
