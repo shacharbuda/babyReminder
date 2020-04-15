@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Basic Redux Store
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 import store from '../store';
 
 // Firestore/Firebase - Redux Enhancer
@@ -18,19 +18,19 @@ import RTL from './RTL';
 const rrfProps = {
   firebase,
   config: {},
-	dispatch: store.dispatch,
-	createFirestoreInstance
+  dispatch: store.dispatch,
+  createFirestoreInstance
 }
 
 
 export default function AppProviders({ children } : React.ComponentProps<any>) {
-  return (<Provider store={store}>
-		<ReactReduxFirebaseProvider {...rrfProps}>
+  return (<StoreProvider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
       <RTL>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           {children}
         </MuiPickersUtilsProvider>
       </RTL>
-		</ReactReduxFirebaseProvider>
-  </Provider>)
+    </ReactReduxFirebaseProvider>
+  </StoreProvider>)
 }
