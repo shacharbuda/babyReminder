@@ -1,11 +1,10 @@
 import React from 'react';
 import './AppContainer.css';
 import LoginComponent from '../components/LoginComponent';
-import { ExitToApp as LogoutIcon } from '@material-ui/icons';
-import { Fab } from '@material-ui/core';
 import AppHeader from '../components/AppHeader';
 import AppBody from '../components/AppBody';
 import AppFooter from '../components/AppFooter';
+import LogOutComponent from '../components/LogOut';
 
 class AppContainer extends React.Component<Props, {}> {
   componentDidMount() {
@@ -27,7 +26,7 @@ class AppContainer extends React.Component<Props, {}> {
   }
 
   render() {
-    const { isLoading, isLoggedIn, analytics, signOut } = this.props;
+    const { isLoading, isLoggedIn, analytics } = this.props;
 
     if (isLoading || !isLoggedIn) {
       return (		
@@ -42,14 +41,7 @@ class AppContainer extends React.Component<Props, {}> {
             <AppFooter onClick={analytics.fotterClick} />
             {
               isLoggedIn &&
-              <div
-                style={{ position: 'fixed', bottom: '1em', right: '1em'}}
-              >
-                {/* TODO: component */}
-                <Fab onClick={signOut} color="secondary" aria-label="edit">
-                  <LogoutIcon />
-                </Fab>
-              </div>
+              <LogOutComponent />
             }
         </div>
     );
@@ -62,7 +54,6 @@ interface Props {
   isLoggedIn: boolean;
   isLoading: boolean;
   authUser: () => void;
-  signOut: () => void;
   analytics: {
     mount: () => void,
     fotterClick: () => void

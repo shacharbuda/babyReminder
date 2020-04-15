@@ -1,4 +1,4 @@
-import { analytics, authUser, signOut } from '../../config/fbConfig';
+import { analytics, authUser } from '../../config/fbConfig';
 import { connect } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 import AppComponent from './AppContainer';
@@ -13,7 +13,6 @@ const mapStateToProps = (state: any) => ({
 // the container structure like this. If you don't like it, well.. That's a bummer.
 const propsToPass = () => ({
   authUser,
-  signOut,
   analytics: {
     mount: () => analytics('APP_MOUNTED'),
     fotterClick: () => analytics('CLICK_ON_FOOTER')
