@@ -1,27 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
 import './index.css';
-import App from './app/App';
+import AppContainer from './app/AppContainer';
+import AppProviders from './app/AppContainer/AppProviders';
 import * as serviceWorker from './serviceWorker';
-import store from './app/store';
-import { createFirestoreInstance } from 'redux-firestore'
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import firebase from './config/fbConfig'
 
-const rrfProps = {
-  firebase,
-  config: {},
-	dispatch: store.dispatch,
-	createFirestoreInstance
-}
 
 ReactDOM.render(
-	<Provider store={store}>
-		<ReactReduxFirebaseProvider {...rrfProps}>
-			<App />
-		</ReactReduxFirebaseProvider>
-	</Provider>,
+	<AppProviders>
+    <AppContainer />
+  </AppProviders>,
 	document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
