@@ -10,11 +10,11 @@ const rtlTheme = createMuiTheme({
 	direction: 'rtl',
 });
 
-export default function RTL(props) {
+export default function RTL({ children } : React.ComponentProps<any>) {
   return (
     <StylesProvider jss={jss}>
 			<ThemeProvider theme={rtlTheme}>
-      	{props.children}
+      	{children}
 			</ThemeProvider>
     </StylesProvider>
   );

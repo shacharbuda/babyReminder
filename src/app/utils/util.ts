@@ -1,28 +1,6 @@
 import { Reminder, ReminderRef } from "../interfaces";
 import _ from 'lodash';
 
-export function getJsonFromUrl(url?: string) {
-  if(!url) url = window.location.search;
-  var query = url.substr(1);
-  var result: any = {};
-  query.split("&").forEach(function(part: string) {
-		var item = part.split("=");
-		const nextURIComponent = decodeURIComponent(item[1]);
-		// Try to parse to int.
-		try {
-			result[item[0]] = parseInt(nextURIComponent);
-			if (isNaN(result[item[0]])) throw new TypeError('NaN');
-		} catch(e) {
-			result[item[0]] = nextURIComponent;
-		}
-  });
-  return result;
-}
-
-export function paramsObjToUrl(params: any) {
-	return (Object.keys(params).map((paramKey) => `${paramKey}=${params[paramKey]}`).join('&'));
-}
-
 export const getAgeInMonths = (birthday: Date) => {
 	const today = new Date();
 
@@ -70,8 +48,6 @@ const getTimeInDayGreet = (currentTime = new Date()) => {
 
 
 export default {
-	getJsonFromUrl,
-	paramsObjToUrl,
 	getAgeInMonths,
 	stringToDate,
 	dateToStr,

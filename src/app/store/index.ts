@@ -1,6 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import loadingReducer from "./reducer";
-import persistence from "../utils/persistence";
 import thunk from 'redux-thunk';
 import { reduxFirestore, getFirestore, firestoreReducer } from 'redux-firestore';
 import { getFirebase, firebaseReducer } from 'react-redux-firebase';
@@ -22,8 +21,6 @@ const reducer = combineReducers({
 	firestore: firestoreReducer,
 	firebase: firebaseReducer
 })
-
-persistence.handleVersion();
 
 const storeEnhancers = compose(
 	applyMiddleware(...middlewares),

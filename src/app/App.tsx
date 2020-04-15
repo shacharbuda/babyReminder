@@ -12,74 +12,76 @@ import { connect } from 'react-redux';
 import { Fab } from '@material-ui/core';
 import util from './utils/util';
 import { isLoaded } from 'react-redux-firebase';
+import persistence from './utils/persistence';
 
 interface Props {
-	isLoggedIn: boolean;
-	isLoading: boolean;
-	displayName: string;
+  isLoggedIn: boolean;
+  isLoading: boolean;
+  displayName: string;
 }
 
 class App extends React.Component<Props, {}> {
-	componentDidMount() {
-		analytics('APP_MOUNTED');
-	}
+  componentDidMount() {
+    analytics('APP_MOUNTED');
+    persistence.handleVersion();
+  }
 
-	componentDidUpdate(prevProps: Props) {
-		const { isLoggedIn, isLoading } = this.props; 
-		
-		// Nothing to do here if still loading..
-		if (isLoading) return;
+  componentDidUpdate(prevProps: Props) {
+    const { isLoggedIn, isLoading } = this.props; 
+    
+    // Nothing to do here if still loading..
+    if (isLoading) return;
 
-		// If login changed to logged out - log in!
-		if (!isLoggedIn) {
-			authUser();
-		}
-	}
+    // If login changed to logged out - log in!
+    if (!isLoggedIn) {
+      authUser();
+    }
+  }
 
   render() {
-		const { isLoading, isLoggedIn, displayName } = this.props;
+    const { isLoading, isLoggedIn, displayName } = this.props;
 
-		if (isLoading || !isLoggedIn) {
-			return (		
-					<LoginComponent/>
-			)
-		}
+    if (isLoading || !isLoggedIn) {
+      return (		
+          <LoginComponent/>
+      )
+    }
 
-		return (
-			<RTL>
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
-					<div className="App">
-						<header className="container d-flex justify-content-between">
-							<h1 className="m-auto text-center">תינוק תזכורת</h1>
-							<h5 className="m-auto text-center">{util.getTimeInDayGreet()}<br />{displayName}!</h5>
-						</header>
-						<div className="container d-flex align-items-center body-content">
-								<BabiesDataTableContainer />
-						</div>
-						<footer onClick={() => analytics('CLICK_ON_FOOTER')} className="ltr text-center blockquote-footer">
-							Made by Waffle (v{consts.APP_VERSION})
-						</footer>
-						{
-							isLoggedIn &&
-							<div
-								style={{ position: 'fixed', bottom: '1em', right: '1em'}}
-							>
-								<Fab onClick={() => firebase.auth().signOut()} color="secondary" aria-label="edit">
-									<LogoutIcon />
-								</Fab>
-							</div>
-						}
-					</div>
-				</MuiPickersUtilsProvider>
-			</RTL>
-  	);
-	}
+    return (
+      <RTL>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <div className="App">
+            <header className="container d-flex justify-content-between">
+              <h1 className="m-auto text-center">תינוק תזכורת</h1>
+              <h5 className="m-auto text-center">{util.getTimeInDayGreet()}<br />{displayName}!</h5>
+            </header>
+            <div className="container d-flex align-items-center body-content">
+                <BabiesDataTableContainer />
+            </div>
+            <footer onClick={() => analytics('CLICK_ON_FOOTER')} className="ltr text-center blockquote-footer">
+              Made by Waffle (v{consts.APP_VERSION})
+            </footer>
+            {
+              isLoggedIn &&
+              <div
+                style={{ position: 'fixed', bottom: '1em', right: '1em'}}
+              >
+                <Fab onClick={() => firebase.auth().signOut()} color="secondary" aria-label="edit">
+                  <LogoutIcon />
+                </Fab>
+              </div>
+            }
+          </div>
+        </MuiPickersUtilsProvider>
+      </RTL>
+    );
+  }
 }
 
 const mapStateToProps = (state: any) => ({
-	isLoading: !isLoaded(state.firebase.auth),
-	isLoggedIn: !state.firebase.auth.isEmpty,
-	displayName: state.firebase.auth.displayName
+  isLoading: !isLoaded(state.firebase.auth),
+  isLoggedIn: !state.firebase.auth.isEmpty,
+  displayName: state.firebase.auth.displayName
 })
 
 export default connect(mapStateToProps)(App);
