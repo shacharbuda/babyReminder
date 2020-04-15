@@ -1,11 +1,11 @@
 import React from 'react';
 import './AppContainer.css';
 import consts from '../utils/constants';
-import BabiesDataTableContainer from '../components/BabiesDataTable';
 import LoginComponent from '../components/LoginComponent';
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { Fab } from '@material-ui/core';
 import AppHeader from '../components/AppHeader';
+import AppBody from '../components/AppBody';
 
 class AppContainer extends React.Component<Props, {}> {
   componentDidMount() {
@@ -38,10 +38,7 @@ class AppContainer extends React.Component<Props, {}> {
     return (      
           <div className="App">
             <AppHeader />
-            {/* TODO: component */}
-            <div className="container d-flex align-items-center body-content">
-                <BabiesDataTableContainer />
-            </div>
+            <AppBody />
             {/* TODO: component */}
             <footer onClick={analytics.fotterClick} className="ltr text-center blockquote-footer">
               Made by Waffle (v{consts.APP_VERSION})
