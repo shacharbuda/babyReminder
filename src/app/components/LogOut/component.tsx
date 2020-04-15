@@ -23,7 +23,7 @@ const styles = {
 	root: {
     position: 'fixed' as 'fixed',
     bottom: '1em',
-    right: '1em'
+    left: '1em'
   }
 };
 
