@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { Fab } from '@material-ui/core';
 import util from './utils/util';
 import { isLoaded } from 'react-redux-firebase';
+import persistence from './utils/persistence';
 
 interface Props {
 	isLoggedIn: boolean;
@@ -21,7 +22,8 @@ interface Props {
 
 class App extends React.Component<Props, {}> {
 	componentDidMount() {
-		analytics('APP_MOUNTED');
+    analytics('APP_MOUNTED');
+    persistence.handleVersion();
 	}
 
 	componentDidUpdate(prevProps: Props) {
