@@ -1,11 +1,11 @@
 import React from 'react';
 import './AppContainer.css';
-import consts from '../utils/constants';
 import LoginComponent from '../components/LoginComponent';
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { Fab } from '@material-ui/core';
 import AppHeader from '../components/AppHeader';
 import AppBody from '../components/AppBody';
+import AppFooter from '../components/AppFooter';
 
 class AppContainer extends React.Component<Props, {}> {
   componentDidMount() {
@@ -39,10 +39,7 @@ class AppContainer extends React.Component<Props, {}> {
           <div className="App">
             <AppHeader />
             <AppBody />
-            {/* TODO: component */}
-            <footer onClick={analytics.fotterClick} className="ltr text-center blockquote-footer">
-              Made by Waffle (v{consts.APP_VERSION})
-            </footer>
+            <AppFooter onClick={analytics.fotterClick} />
             {
               isLoggedIn &&
               <div
