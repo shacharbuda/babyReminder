@@ -40,5 +40,6 @@ authProvider.setCustomParameters({
 });
 
 export const authUser = () => firebase.auth().signInWithRedirect(authProvider);
+export const signOut = () => firebase.auth().signOut();
 export const analytics = createFbAnalytics(firebase);
 export default firebase;
