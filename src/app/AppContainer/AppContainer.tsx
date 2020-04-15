@@ -1,9 +1,7 @@
 import React from 'react';
-import './App.css';
+import './AppContainer.css';
 import consts from '../utils/constants';
-// import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import BabiesDataTableContainer from '../components/BabiesDataTable';
-// import DateFnsUtils from '@date-io/date-fns';
 import LoginComponent from '../components/LoginComponent';
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { Fab } from '@material-ui/core';
