@@ -14,7 +14,7 @@ class AppContainer extends React.Component<Props, {}> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { isLoggedIn, isLoading, authUser } = this.props; 
+    const { isLoggedIn, isLoading, authUser, onLoggedIn } = this.props; 
     
     // Nothing to do here if still loading..
     if (isLoading) return;
@@ -22,6 +22,9 @@ class AppContainer extends React.Component<Props, {}> {
     // If login changed to logged out - log in!
     if (!isLoggedIn) {
       authUser();
+    } else if (prevProps.isLoggedIn !== isLoggedIn) {
+      // Invoke onLoggedIn when first recognized as logged in
+      onLoggedIn();
     }
   }
 
@@ -59,4 +62,5 @@ interface Props {
     fotterClick: () => void
   };
   handleVersion: () => void;
+  onLoggedIn: () => void;
 }
