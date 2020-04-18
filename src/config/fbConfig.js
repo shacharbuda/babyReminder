@@ -1,7 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/firebase-analytics'
+import 'firebase/firebase-messaging'
 import 'firebase/auth'
+
 import constants from '../app/utils/constants';
 import createFbAnalytics from './fbAnalytics';
 
@@ -39,7 +41,14 @@ authProvider.setCustomParameters({
   prompt: 'select_account'
 });
 
-export const authUser = () => firebase.auth().signInWithRedirect(authProvider);
-export const signOut = () => firebase.auth().signOut();
+export const authUser = async () => firebase.auth().signInWithRedirect(authProvider);
+export const signOut = async () => firebase.auth().signOut();
+export const initMessaging = async () => {
+  const messaging = firebase.messaging();
+  await messaging.requestPermission();
+  // TODO: handle rejection
+  const token = await messaging.getToken();
+  return token;
+}
 export const analytics = createFbAnalytics(firebase);
 export default firebase;
