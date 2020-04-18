@@ -23,3 +23,11 @@ export interface BabyReminder {
 	babyId: string;
 	reminderId: string;
 }
+
+import { FirebaseFirestore } from '@firebase/firestore-types'
+import { FirebaseApp } from '@firebase/app-types'
+
+export interface Firebase extends FirebaseApp {};
+export interface FireStore extends FirebaseFirestore {};
+
+export type DBFunction = (firestore: FireStore, firebase: Firebase) => Promise<void>;
