@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "adibaby-0",
+    "staging": "adibaby-dev"
+  }
+}
