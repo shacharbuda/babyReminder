@@ -1,14 +1,13 @@
-import { BabyNew, BabyReminder } from '../interfaces';
-import { FirebaseFirestore } from '@firebase/firestore-types'
-import { FirebaseApp } from '@firebase/app-types'
+import { BabyNew, BabyReminder, DBFunction } from '../interfaces';
 import { COLLECTIONS } from '../utils/constants';
+import { initMessaging } from '../../config/fbConfig';
 
-type DBFunction = (firestore: FirebaseFirestore, firebase: FirebaseApp) => {};
 
 export const ACTION_TYPES = {
 	SET_LOADING: 'SET_LOADING',
 	SET_ERROR: 'SET_ERROR',
-	SET_SUCCESS: 'SET_SUCCESS'
+  SET_SUCCESS: 'SET_SUCCESS',
+  SEND_USER_DATA: 'SEND_USER_DATA'
 };
 
 // isGlobal can be used for spinner on root app.
@@ -30,7 +29,7 @@ const setError = (err: string, msg = null) => ({
 const dbOperation = (dbFunction: DBFunction, successMsg?: string, errMsg?: string, isGlobal?: boolean) => async (dispatch, getState, { getFirebase, getFirestore }) => {
 	try {
 		dispatch(setLoading(isGlobal));
-		await dbFunction(getFirestore(), getFirebase())
+		await dbFunction(getFirestore(), getFirebase());
 		dispatch(setSuccess(successMsg));
 	} catch(e) {
 		dispatch(setError(e, errMsg))
@@ -82,3 +81,18 @@ export const removeReminder = (payload: BabyReminder) => {
 	// type: ACTION_TYPES.REMOVE_REMINDER,
 	// payload
 };
+
+export const sendUserData = () => {
+  // TODO: find out when to send it and how to add/update by uid only.
+  // TODO: update token on tokenRefresh
+  console.log('sendUserData()');
+  const dbFunction: DBFunction = async (firestore, firebase) => {
+    const { uid } = firebase.auth().currentUser;
+    const token = await initMessaging();
+		await firestore.collection(COLLECTIONS.USERS).add({
+      uid,
+      token
+		});
+	}
+	return dbOperation(dbFunction);
+}
