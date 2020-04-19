@@ -47,13 +47,21 @@ export const initMessaging = async () => {
   const messaging = firebase.messaging();
   // TODO: handle rejection better
   try {
-    await messaging.requestPermission();
+    const granted = await Notification.requestPermission();
+    if (granted == 'granted') {
+      console.log('granted');
+    } else if (granted == 'default') {
+      throw new Error('no permission..');
+    } else {
+      throw new Error('blocked permission');
+    }
   } catch(e) {
-    console.error('User declined permission. ++++ ', e);
+    console.error(e);
     return null;
   }
   const token = await messaging.getToken();
   return token;
 }
+export const messagingOnTokenRefresh = firebase.messaging().onTokenRefresh;
 export const analytics = createFbAnalytics(firebase);
 export default firebase;
