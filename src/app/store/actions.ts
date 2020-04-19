@@ -1,6 +1,6 @@
 import { BabyNew, BabyReminder, DBFunction } from '../interfaces';
 import { COLLECTIONS } from '../utils/constants';
-import { initMessaging } from '../../config/fbConfig';
+import { messaging } from '../../config/fbConfig';
 
 
 export const ACTION_TYPES = {
@@ -86,7 +86,7 @@ export const removeReminder = (payload: BabyReminder) => {
 export const sendUserData = () => {
   const dbFunction: DBFunction = async (firestore, firebase) => {
     const { uid, displayName, email } = firebase.auth().currentUser;
-    const token = await initMessaging();
+    const token = await messaging.initMessaging();
 
     // if (!token) throw new Error('No messaging token!');
     

@@ -6,6 +6,7 @@ import 'firebase/auth'
 
 import constants from '../app/utils/constants';
 import createFbAnalytics from './fbAnalytics';
+import createFbMessaging from './fbMessaging'
 
 // No problem making it public, apiKey is just an id, not a secret key
 let firebaseConfig;
@@ -43,25 +44,6 @@ authProvider.setCustomParameters({
 
 export const authUser = async () => firebase.auth().signInWithRedirect(authProvider);
 export const signOut = async () => firebase.auth().signOut();
-export const initMessaging = async () => {
-  const messaging = firebase.messaging();
-  // TODO: handle rejection better
-  try {
-    const granted = await Notification.requestPermission();
-    if (granted == 'granted') {
-      console.log('granted');
-    } else if (granted == 'default') {
-      throw new Error('no permission..');
-    } else {
-      throw new Error('blocked permission');
-    }
-  } catch(e) {
-    console.error(e);
-    return null;
-  }
-  const token = await messaging.getToken();
-  return token;
-}
-export const messagingOnTokenRefresh = firebase.messaging().onTokenRefresh;
+export const messaging = createFbMessaging(firebase);
 export const analytics = createFbAnalytics(firebase);
 export default firebase;

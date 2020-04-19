@@ -5,7 +5,7 @@ import AppHeader from '../components/AppHeader';
 import AppBody from '../components/AppBody';
 import AppFooter from '../components/AppFooter';
 import LogOutComponent from '../components/LogOut';
-import { messagingOnTokenRefresh } from '../../config/fbConfig';
+import { messaging } from '../../config/fbConfig';
 
 class AppContainer extends React.Component<Props, {}> {
   messagingTokenSubscribe;
@@ -43,7 +43,7 @@ class AppContainer extends React.Component<Props, {}> {
 
     await onRecieveUserData();
 
-    this.messagingTokenSubscribe = messagingOnTokenRefresh(() => {
+    this.messagingTokenSubscribe = messaging.onTokenRefresh(() => {
       onRecieveUserData();
     })
   }
