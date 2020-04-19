@@ -83,16 +83,28 @@ export const removeReminder = (payload: BabyReminder) => {
 };
 
 export const sendUserData = () => {
-  // TODO: find out when to send it and how to add/update by uid only.
   // TODO: update token on tokenRefresh
-  console.log('sendUserData()');
   const dbFunction: DBFunction = async (firestore, firebase) => {
-    const { uid } = firebase.auth().currentUser;
+    const { uid, displayName, email } = firebase.auth().currentUser;
     const token = await initMessaging();
-		await firestore.collection(COLLECTIONS.USERS).add({
+
+    if (!token) throw new Error('No messaging token!');
+    
+    const userDataVal = {
       uid,
-      token
-		});
-	}
+      token,
+      displayName,
+      email
+    };
+
+    // Update doc with value. make sure to update (create/set) for both cases (created or not).
+    // Use uid as id
+    await firestore.collection(COLLECTIONS.USERS).doc(uid).set(
+      userDataVal,
+    {
+      merge: true
+    });
+  };
+  
 	return dbOperation(dbFunction);
 }
