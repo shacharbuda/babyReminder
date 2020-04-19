@@ -45,8 +45,13 @@ export const authUser = async () => firebase.auth().signInWithRedirect(authProvi
 export const signOut = async () => firebase.auth().signOut();
 export const initMessaging = async () => {
   const messaging = firebase.messaging();
-  await messaging.requestPermission();
-  // TODO: handle rejection
+  // TODO: handle rejection better
+  try {
+    await messaging.requestPermission();
+  } catch(e) {
+    console.error('User declined permission. ++++ ', e);
+    return null;
+  }
   const token = await messaging.getToken();
   return token;
 }
