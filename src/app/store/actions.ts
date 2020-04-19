@@ -82,13 +82,13 @@ export const removeReminder = (payload: BabyReminder) => {
 	// payload
 };
 
+// Called on userSignIn and onRefreshToken of FCM.
 export const sendUserData = () => {
-  // TODO: update token on tokenRefresh
   const dbFunction: DBFunction = async (firestore, firebase) => {
     const { uid, displayName, email } = firebase.auth().currentUser;
     const token = await initMessaging();
 
-    if (!token) throw new Error('No messaging token!');
+    // if (!token) throw new Error('No messaging token!');
     
     const userDataVal = {
       uid,

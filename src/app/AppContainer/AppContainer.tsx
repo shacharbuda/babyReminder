@@ -5,16 +5,26 @@ import AppHeader from '../components/AppHeader';
 import AppBody from '../components/AppBody';
 import AppFooter from '../components/AppFooter';
 import LogOutComponent from '../components/LogOut';
+import { messagingOnTokenRefresh } from '../../config/fbConfig';
 
 class AppContainer extends React.Component<Props, {}> {
+  messagingTokenSubscribe;
+
   componentDidMount() {
     const { analytics, handleVersion } = this.props;
     analytics.mount();
     handleVersion();
   }
 
+  componentWillUnmount() {
+    if (this.messagingTokenSubscribe) {
+      console.log('in unsubsribe');
+      this.messagingTokenSubscribe();
+    }
+  }
+
   componentDidUpdate(prevProps: Props) {
-    const { isLoggedIn, isLoading, authUser, onLoggedIn } = this.props; 
+    const { isLoggedIn, isLoading, authUser } = this.props; 
     
     // Nothing to do here if still loading..
     if (isLoading) return;
@@ -24,8 +34,18 @@ class AppContainer extends React.Component<Props, {}> {
       authUser();
     } else if (prevProps.isLoggedIn !== isLoggedIn) {
       // Invoke onLoggedIn when first recognized as logged in
-      onLoggedIn();
+      this.onUserLoggedIn();
     }
+  }
+
+  onUserLoggedIn = async () => {
+    const { onRecieveUserData } = this.props; 
+
+    await onRecieveUserData();
+
+    this.messagingTokenSubscribe = messagingOnTokenRefresh(() => {
+      onRecieveUserData();
+    })
   }
 
   render() {
@@ -62,5 +82,5 @@ interface Props {
     fotterClick: () => void
   };
   handleVersion: () => void;
-  onLoggedIn: () => void;
+  onRecieveUserData: () => Promise<void>;
 }

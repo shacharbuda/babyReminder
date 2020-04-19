@@ -14,7 +14,7 @@ const mapStateToProps = (state: any) => ({
 // the container structure like this. If you don't like it, well.. That's a bummer.
 const mapDispatchToProps = (dispatch) => ({
   authUser,
-  onLoggedIn: () => dispatch(sendUserData()),
+  onRecieveUserData: async () => await dispatch(sendUserData()),
   analytics: {
     mount: () => analytics('APP_MOUNTED'),
     fotterClick: () => analytics('CLICK_ON_FOOTER')
