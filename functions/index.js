@@ -5,17 +5,20 @@ admin.initializeApp({
   // TODO: Man how do i get dev or prod?
   credential: admin.credential.cert(require('./keys/firebase-admin-dev.json'))
 });
-const db = admin.firestore();
+const dbAdmin = admin.firestore();
+const db = functions.firestore;
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.helloWorld = functions.https.onRequest(async (request, response) => {
+exports.helloWorld = db.document('users/{userId}')
+  .onWrite((async (change, context) => {
   console.log('helloWorld()');
+  console.log('context.after.data() ?', context.after.data());
   const message = 'Hi there this is a test';
 
   try {
-    const { docs } = await db.collection(`users`).get();
+    const { docs } = await dbAdmin.collection(`users`).get();
     const payload = {
       notification: {
           title: (new Date()).getDate().toString(),
@@ -32,14 +35,12 @@ exports.helloWorld = functions.https.onRequest(async (request, response) => {
       console.log(`Successfully sent message to user ${doc.get('displayName')}`);
     });
 
-    response.send("Hello from Firebase!");
-
+    console.log("Hello from Firebase!");
   } catch(err) {
     console.error('error ?', err);
-    response.status(500);
-    return response.send(err);
+    return;
   }
-});
+}));
 
 
 async function asyncForEach(array, callback) {
